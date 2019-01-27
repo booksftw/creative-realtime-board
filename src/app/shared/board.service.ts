@@ -5,7 +5,7 @@ import { BoardComponent } from './../board/board.component'
 @Injectable({
   providedIn: 'root'
 })
-export class BoardService{
+export class BoardService {
 
   constructor() { }
 
@@ -23,19 +23,27 @@ export class BoardService{
     return textComponent
   }
 
+  generateStickyNote(color) {
+    const stickyNoteComponent = `<textarea> Nick bazzaoah god of stamina </textarea>`
+    return stickyNoteComponent
+  }
+
   generateComponent(type, content) {
 
     switch (type) {
       case 'text':
         // console.log('is Text')
         return this.generateTextComponent(content)
-        break;
+        break
       case 'image':
         // console.log('is Image')
         return this.generateImageComponent(content)
-        break;
+        break
+      case 'sticky-note':
+        return this.generateStickyNote('yellow')
+        break
       default:
-        break;
+        break
     }
   }
 

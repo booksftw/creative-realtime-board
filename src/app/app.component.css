@@ -1,5 +1,8 @@
-* {
-    /* cursor: grab;  Use this to change cursor to custom pointer*/ 
+/* Use this to change cursor to custom pointer */
+/*
+* { */
+    /*
+    cursor: grab;  
 }
 
 #mydiv {
@@ -10,7 +13,7 @@
     text-align: center;
     cursor:grabbing;
     display: block; /* Neccessary to grab the entire block */
-}
+/*} /*
 
 .textBlock {
     font-size: 1vh;
@@ -42,3 +45,4 @@ body {
     height: 150vh;
 }
 
+*/

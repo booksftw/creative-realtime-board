@@ -1,11 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
-html{
-    /* background-color:yellowgreen; */
-}
-
- * { 
-    cursor: grab;  /* Use this to change cursor to custom pointer */
+*{
+    cursor: grab; /* Use this to change cursor to custom pointer*/  
 }
 
 #mydiv {
@@ -17,10 +13,10 @@ html{
     cursor:grabbing;
     display: block; /* Neccessary to grab the entire block */
 }
-    
+
 .textBlock {
     font-size: 1vh;
-}
+}  
 
 .anotherBlock{ 
     position: absolute;
@@ -46,4 +42,4 @@ html{
 
 body {
     height: 150vh;
-} 
+}  
