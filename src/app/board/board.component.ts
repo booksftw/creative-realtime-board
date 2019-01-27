@@ -41,6 +41,7 @@ export class BoardComponent {
     // Get all the blocks from the db and pass the intial coords to the generate component
     const draggableElement =
               `<div id=${blockId} class="draggable">
+                  <div id="mydivheader">Click here to move</div>
                   ${component}
               </div>`
 
@@ -64,9 +65,18 @@ export class BoardComponent {
 
   dragElement(elmnt) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0
+
+    console.log('elmnt child nodes', elmnt.childNodes[1])
+    elmnt.childNodes[1].addEventListener('mousedown', dragMouseDown)
+    // Start Experiementation
+      // Try adding the dragger to the header
+      // $('.draggable')[0].addEventListener('mousedown', dragMouseDown)
+
+    // End Experimentation
     // elmnt.onmousedown = dragMouseDown
-    elmnt.addEventListener('mousedown', dragMouseDown)
-    // Try adding the dragger to the header
+    // elmnt.addEventListener('mousedown', dragMouseDown)
+
+
 
     function dragMouseDown(e) {
       const blockId = elmnt.id
@@ -75,7 +85,6 @@ export class BoardComponent {
       e = e || window.event
       e.preventDefault()
 
-      // ? Does this seperate the dragger and receiver successfully
       if (elmnt.userDragging === userId) {
         // update node directly
         pos3 = e.clientX
@@ -118,8 +127,6 @@ export class BoardComponent {
 
         // Testing by selecting id1
         this.db.child('room').child('0').child('blocks').child(`id${elmntId}`).once('value', (snapshot) => {
-          //? Update firebase so that other users will get updated positions
-          console.log(snapshot.val(), 'snappy val')
           const posUpdates = {
             pos1: snapshot.val().pos3 - e.clientX,
             pos2: snapshot.val().pos4 - e.clientY,
@@ -143,7 +150,6 @@ export class BoardComponent {
           const block = $(`div#${blockId}`)[0]
 
           // just completely update it.
-          console.log('pos3', el.pos3, 'pos4', el.pos4)
           $(`div#${blockId}`).css('top', el.pos4)
           $(`div#${blockId}`).css('left', el.pos3)
         }
