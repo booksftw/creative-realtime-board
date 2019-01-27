@@ -1,1 +1,49 @@
 /* You can add global styles to this file, and also import other style files */
+
+html{
+    /* background-color:yellowgreen; */
+}
+
+ * { 
+    cursor: grab;  /* Use this to change cursor to custom pointer */
+}
+
+#mydiv {
+    position: absolute;
+    z-index: 9;
+    background-color: #f1f1f1;
+    border: 1px solid #d3d3d3;
+    text-align: center;
+    cursor:grabbing;
+    display: block; /* Neccessary to grab the entire block */
+}
+    
+.textBlock {
+    font-size: 1vh;
+}
+
+.anotherBlock{ 
+    position: absolute;
+    z-index: 8;
+    background-color: #f1f1f1;
+    border: 1px solid #d3d3d3;
+    text-align: center;
+    cursor: grab;
+    width: 127px;
+    height: 137px;
+}
+
+.draggable{ 
+    position: absolute;
+    z-index: 8;
+    background-color: yellowgreen;
+    border: 1px solid #d3d3d3;
+    text-align: center;
+    cursor: grab;
+    width: 127px;
+    height: 137px;
+}
+
+body {
+    height: 150vh;
+} 
