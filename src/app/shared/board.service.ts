@@ -10,8 +10,7 @@ export class BoardService {
   constructor() { }
 
   test() {
-    console.log('testing board service worksjhhjhjkhjhjghjghjghjgjgjhgjggj');
-    return 'testing board service works';
+    return 'testing board service works'
   }
 
   generateImageComponent(imgSrc) {
