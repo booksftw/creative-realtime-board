@@ -1,12 +1,9 @@
-import { BoardService } from './../shared/board.service';
-import { AngularFireDatabase } from '@angular/fire/database';
-import { Component, OnInit } from '@angular/core';
+import { BoardService } from './../shared/board.service'
+import { AngularFireDatabase } from '@angular/fire/database'
+import { Component } from '@angular/core'
 import * as $ from 'jquery'
 import * as _ from '../../assets/third_party/lodash'
 import * as firebase from '../../../node_modules/firebase'
-// import * as firebase from './src/assets/js/firebase_og.js'
-// import * as fbInit from './src/assets/js/firebase_intialize.js'
-
 
 @Component({
   selector: 'app-board',
@@ -22,7 +19,6 @@ export class BoardComponent {
   ) {
 
     this.db = firebase.database().ref()
-
     this.sessionId = this.boardUtil.randomId()
 
     this.db.child('room').child('0').child('blocks').once('value', (snapshot) => {
@@ -37,16 +33,14 @@ export class BoardComponent {
           this.renderToPage(block, blockId)
         }
       }
-
     })
   }
 
   // Render and make divs draggable
   renderToPage(component, blockId) {
-    console.log(this.db, ' this dbbb')
     // Get all the blocks from the db and pass the intial coords to the generate component
     const draggableElement =
-      `<div id=${blockId} class="draggable">
+              `<div id=${blockId} class="draggable">
                   ${component}
               </div>`
 
@@ -68,11 +62,11 @@ export class BoardComponent {
     this.dragElement(getEl)
   }
 
-
   dragElement(elmnt) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0
     // elmnt.onmousedown = dragMouseDown
     elmnt.addEventListener('mousedown', dragMouseDown)
+    // Try adding the dragger to the header
 
     function dragMouseDown(e) {
       const blockId = elmnt.id
@@ -100,7 +94,7 @@ export class BoardComponent {
         })
       }
 
-      document.onmouseup = closeDragElement;
+      document.onmouseup = closeDragElement
     }
 
     function elementDrag(e) {
@@ -137,21 +131,16 @@ export class BoardComponent {
         })
 
       }
-
     }
 
     // Listener for all receiving clients
     this.db.child('room').child('0').child('blocks').on('value', (snapshot) => {
-      const pos1 = snapshot.val().pos1
-      const pos2 = snapshot.val().pos2
-      const pos3 = snapshot.val().pos3
-      const pos4 = snapshot.val().pos4
 
-      for (let key in snapshot.val()) {
+      for (const key in snapshot.val()) {
         if (snapshot.val().hasOwnProperty(key)) {
-          let el = snapshot.val()[key]
+          const el = snapshot.val()[key]
           const blockId = el.id
-          let block = $(`div#${blockId}`)[0]
+          const block = $(`div#${blockId}`)[0]
 
           // just completely update it.
           console.log('pos3', el.pos3, 'pos4', el.pos4)
