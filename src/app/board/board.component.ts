@@ -29,7 +29,7 @@ export class BoardComponent {
           const blockId = el.id
           const blockType = el.type
           const blockContent = el.content
-          const block = this.boardUtil.generateComponent(blockType, blockContent);
+          const block = this.boardUtil.generateComponent(blockType, blockContent)
           this.renderToPage(block, blockId)
         }
       }
@@ -132,7 +132,7 @@ export class BoardComponent {
             pos3: e.clientX,
             pos4: e.clientY
           }
-          const elmntId = elmnt.id
+          // const elmntId = elmnt.id
           this.db.child('room').child('0').child('blocks').child(`id${elmntId}`).update(posUpdates)
         })
 
