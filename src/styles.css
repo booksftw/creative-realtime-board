@@ -4,7 +4,7 @@
     cursor: grab; /* Use this to change cursor to custom pointer*/  
 }
 
-#mydiv {
+/* #mydiv {
     position: absolute;
     z-index: 9;
     background-color: #f1f1f1;
@@ -12,13 +12,13 @@
     text-align: center;
     cursor:grabbing;
     display: block; /* Neccessary to grab the entire block */
-}
+/*} */
 
 .textBlock {
     font-size: 1vh;
 }  
 
-.anotherBlock{ 
+/* .anotherBlock{ 
     position: absolute;
     z-index: 8;
     background-color: #f1f1f1;
@@ -27,13 +27,13 @@
     cursor: grab;
     width: 127px;
     height: 137px;
-}
+} */
 
 .draggable{ 
     position: absolute;
     z-index: 8;
-    background-color: yellowgreen;
-    border: 1px solid #d3d3d3;
+    /* background-color: yellowgreen; */
+    /* border: 1px solid #d3d3d3; */
     text-align: center;
     cursor: grab;
     width: 127px;
@@ -43,3 +43,31 @@
 body {
     height: 150vh;
 }  
+.sticky-note {
+    float: left;
+    padding: 25px 25px 40px;
+    /* margin: 0 20px 20px 20px; */
+    width: 120px;
+    height: 120px;
+    font: 20px 'Shadows Into Light', monospace;
+    line-height: 1.5;
+    border: 0;
+    border-radius: 3px;
+    background: linear-gradient(#F9EFAF, #F7E98D);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: box-shadow 0.5s ease;
+    font-smoothing: subpixel-antialiased;
+    resize: none;
+    /*  max-width:250px;
+    max-height:250px;*/
+}
+
+.sticky-note:hover {
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.15);
+}
+
+.sticky-note:focus {
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+    outline: none;
+}

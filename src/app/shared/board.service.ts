@@ -24,7 +24,7 @@ export class BoardService {
   }
 
   generateStickyNote(color) {
-    const stickyNoteComponent = `<textarea> Nick bazzaoah god of stamina </textarea>`
+    const stickyNoteComponent = `<textarea class="sticky-note"> Nick bazzaoah god of stamina </textarea>`
     return stickyNoteComponent
   }
 
