@@ -1,8 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
-*{
-    cursor: grab; /* Use this to change cursor to custom pointer*/  
-}
+/* *{
+    cursor: grab; 
+} */
 
 .textBlock {
     font-size: 1vh;
@@ -51,9 +51,10 @@ body {
     outline: none;
 }
 
-#mydivheader {
-    padding: 10px;
-    cursor: move;
+#dragHeader {
+    padding: 5px;
+    width:100%;
+    cursor: grab;
     z-index: 10;
     background-color: #2196F3;
     color: #fff;
