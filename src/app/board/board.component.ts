@@ -55,7 +55,8 @@ export class BoardComponent implements OnInit {
     // ~ The new renderer instead of jquery append
     const stickyNoteFactory = this.resolver.resolveComponentFactory(StickyNoteComponent)
     const component = this.entry.createComponent(stickyNoteFactory)
-    const component2 = this.entry.createComponent(stickyNoteFactory)
+    // const component2 = this.entry.createComponent(stickyNoteFactory)
+    console.log(component.instance)
   }
 
   // renderEnviormentComponentToPage(component) {
