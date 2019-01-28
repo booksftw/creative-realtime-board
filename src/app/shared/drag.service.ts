@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core'
 import * as firebase from '../../../node_modules/firebase'
+import * as _ from '../../assets/third_party/lodash'
+
 
 @Injectable({
   providedIn: 'root'
