@@ -1,6 +1,8 @@
-import { BoardService } from './../shared/board.service'
+import { Component, Renderer2, ElementRef, ViewChild, ViewContainerRef, ComponentFactoryResolver, OnInit } from '@angular/core'
+import { StickyNoteComponent } from './sticky-note/sticky-note.component'
 import { AngularFireDatabase } from '@angular/fire/database'
-import { Component } from '@angular/core'
+import { BoardService } from './../shared/board.service'
+import { DragService } from './../shared/drag.service'
 import * as $ from 'jquery'
 import * as _ from '../../assets/third_party/lodash'
 import * as firebase from '../../../node_modules/firebase'
@@ -10,17 +12,29 @@ import * as firebase from '../../../node_modules/firebase'
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css']
 })
-export class BoardComponent {
+export class BoardComponent implements OnInit {
   db
   sessionId
-  constructor(
-    dbAf: AngularFireDatabase,
-    private boardUtil: BoardService,
-  ) {
 
+  @ViewChild('entry', {read: ViewContainerRef}) entry: ViewContainerRef
+
+
+  constructor(
+    private dbAf: AngularFireDatabase,
+    private boardUtil: BoardService,
+    private renderer: Renderer2,
+    private el: ElementRef,
+    private resolver: ComponentFactoryResolver,
+    private drag: DragService
+  ) {
     this.db = firebase.database().ref()
     this.sessionId = this.boardUtil.randomId()
 
+    // Set up the board enviorment components
+    // const toolbar = this.boardUtil.generateToolBar
+    // this.renderEnviormentComponentToPage(toolbar)
+
+    // Get objects and their state from db for this room
     this.db.child('room').child('0').child('blocks').once('value', (snapshot) => {
       const blocksSet = snapshot.val()
       for (const key in blocksSet) {
@@ -30,143 +44,158 @@ export class BoardComponent {
           const blockType = el.type
           const blockContent = el.content
           const block = this.boardUtil.generateComponent(blockType, blockContent)
-          this.renderToPage(block, blockId)
+          // this.renderDraggableToPage(block, blockId)
         }
       }
     })
   }
 
-  // Render and make divs draggable
-  renderToPage(component, blockId) {
-    // Get all the blocks from the db and pass the intial coords to the generate component
-    const draggableElement =
-              `<div id=${blockId} class="draggable">
-                  <div id="dragHeader">Click here to move</div>
-                  ${component}
-              </div>`
+  ngOnInit() {
 
-    if (component) {
-      $('.board_container').append(
-        `${draggableElement}`
-      )
-    }
-
-    // $(document).ready(function () {
-    const getEl = $(`div#${blockId}`)[0]
-
-    this.db.child('room').child('0').child('blocks').child(`id${blockId}`).once('value', (snapshot) => {
-      $(`div#${blockId}`).css('left', snapshot.val().pos3)
-      $(`div#${blockId}`).css('top', snapshot.val().pos4)
-    })
-    // })
-    // Enable drag
-    this.dragElement(getEl)
+    // ~ The new renderer instead of jquery append
+    const stickyNoteFactory = this.resolver.resolveComponentFactory(StickyNoteComponent)
+    const component = this.entry.createComponent(stickyNoteFactory)
+    const component2 = this.entry.createComponent(stickyNoteFactory)
   }
 
-  dragElement(elmnt) {
-    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0
+  // renderEnviormentComponentToPage(component) {
 
-    console.log('elmnt child nodes', elmnt.childNodes[1])
+  //   if (typeof component === 'function') {
+  //     $(document).ready(function() {
+  //       $('.board_container').append(
+  //         `${component()}`
+  //       )
+  //     })
+  //   } else {
+  //     console.log('not a func')
+  //     $(document).ready(function() {
+  //       $('.board_container').append(
+  //         `${component}`
+  //       )
+  //     })
+  //   }
 
-    const dragHeader = elmnt.childNodes[1]
-    dragHeader.addEventListener('mousedown', dragMouseDown)
+  // }
 
-    // End Experimentation
-    // elmnt.onmousedown = dragMouseDown
-    // elmnt.addEventListener('mousedown', dragMouseDown)
+  // // Render and make divs draggable
+  // renderDraggableToPage(component, blockId) {
+  //   // Get all the blocks from the db and pass the intial coords to the generate component
+  //   const draggableElement =
+  //             `<div id=${blockId} class="draggable">
+  //                 <div id="dragHeader">Click here to move</div>
+  //                 ${component}
+  //             </div>`
 
+  //   if (component) {
+  //     $('.board_container').append(
+  //       `${draggableElement}`
+  //     )
+  //   }
 
+  //   const getEl = $(`div#${blockId}`)[0]
+  //   this.db.child('room').child('0').child('blocks').child(`id${blockId}`).once('value', (snapshot) => {
+  //     $(`div#${blockId}`).css('left', snapshot.val().pos3)
+  //     $(`div#${blockId}`).css('top', snapshot.val().pos4)
+  //   })
+  //   // Enable drag
+  //   this.drag.dragElement(getEl)
+  // }
 
-    function dragMouseDown(e) {
-      const blockId = elmnt.id
-      const userId = this.sessionId
-      elmnt.userDragging = userId
-      e = e || window.event
-      e.preventDefault()
+  // dragElement(elmnt) {
+  //   let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0
+  //   const dragHeader = elmnt.childNodes[1]
+  //   dragHeader.addEventListener('mousedown', dragMouseDown)
+  //   // elmnt.addEventListener('mousedown', dragMouseDown)
 
-      if (elmnt.userDragging === userId) {
-        // update node directly
-        pos3 = e.clientX
-        pos4 = e.clientY
-        // call a function whenever the cursor moves:
-        document.onmousemove = elementDrag
-      } else {
-        // else update it through throttled firebase
-        const posUpdate = {
-          pos3: e.clientX,
-          pos4: e.clientY
-        }
-        this.db.child('room').child('0').child('blocks').child(`id${blockId}`).update(posUpdate).then(() => {
-          const throttleElementDrag = _.throttle(elementDrag, 150)
-          document.onmousemove = throttleElementDrag// elementDrag
-        })
-      }
+  //   function dragMouseDown(e) {
+  //     const blockId = elmnt.id
+  //     const userId = this.sessionId
+  //     elmnt.userDragging = userId
+  //     e = e || window.event
+  //     e.preventDefault()
 
-      document.onmouseup = closeDragElement
-    }
+  //     if (elmnt.userDragging === userId) {
+  //       // update node directly
+  //       pos3 = e.clientX
+  //       pos4 = e.clientY
+  //       // call a function whenever the cursor moves:
+  //       document.onmousemove = elementDrag
+  //     } else {
+  //       // else update it through throttled firebase
+  //       const posUpdate = {
+  //         pos3: e.clientX,
+  //         pos4: e.clientY
+  //       }
+  //       this.db.child('room').child('0').child('blocks').child(`id${blockId}`).update(posUpdate).then(() => {
+  //         const throttleElementDrag = _.throttle(elementDrag, 150)
+  //         document.onmousemove = throttleElementDrag// elementDrag
+  //       })
+  //     }
 
-    function elementDrag(e) {
+  //     document.onmouseup = closeDragElement
+  //   }
 
-      this.db = firebase.database().ref()
+  //   function elementDrag(e) {
 
-      e = e || window.event
-      e.preventDefault()
-      const userId = this.sessionId // replace this with cookies
-      if (elmnt.userDragging === userId) {
-        pos1 = pos3 - e.clientX // Old Mouse X Location - New Mouse X Location
-        pos2 = pos4 - e.clientY // Old Mouse Y Location - New Mouse Y Location
-        pos3 = e.clientX // Update coords X
-        pos4 = e.clientY // Update coords Y
+  //     this.db = firebase.database().ref()
 
-        // Move the block
-        elmnt.style.top = (elmnt.offsetTop - pos2) + 'px' // Y update the object directly
-        elmnt.style.left = (elmnt.offsetLeft - pos1) + 'px'// X
+  //     e = e || window.event
+  //     e.preventDefault()
+  //     const userId = this.sessionId // replace this with cookies
+  //     if (elmnt.userDragging === userId) {
+  //       pos1 = pos3 - e.clientX // Old Mouse X Location - New Mouse X Location
+  //       pos2 = pos4 - e.clientY // Old Mouse Y Location - New Mouse Y Location
+  //       pos3 = e.clientX // Update coords X
+  //       pos4 = e.clientY // Update coords Y
 
-        const elmntId = elmnt.id
+  //       // Move the block
+  //       elmnt.style.top = (elmnt.offsetTop - pos2) + 'px' // Y update the object directly
+  //       elmnt.style.left = (elmnt.offsetLeft - pos1) + 'px'// X
 
-        // Testing by selecting id1
-        this.db.child('room').child('0').child('blocks').child(`id${elmntId}`).once('value', (snapshot) => {
-          const posUpdates = {
-            pos1: snapshot.val().pos3 - e.clientX,
-            pos2: snapshot.val().pos4 - e.clientY,
-            pos3: e.clientX,
-            pos4: e.clientY
-          }
-          // const elmntId = elmnt.id
-          this.db.child('room').child('0').child('blocks').child(`id${elmntId}`).update(posUpdates)
-        })
+  //       const elmntId = elmnt.id
 
-      }
-    }
+  //       // Testing by selecting id1
+  //       this.db.child('room').child('0').child('blocks').child(`id${elmntId}`).once('value', (snapshot) => {
+  //         const posUpdates = {
+  //           pos1: snapshot.val().pos3 - e.clientX,
+  //           pos2: snapshot.val().pos4 - e.clientY,
+  //           pos3: e.clientX,
+  //           pos4: e.clientY
+  //         }
+  //         // const elmntId = elmnt.id
+  //         this.db.child('room').child('0').child('blocks').child(`id${elmntId}`).update(posUpdates)
+  //       })
 
-    // Listener for all receiving clients
-    this.db.child('room').child('0').child('blocks').on('value', (snapshot) => {
+  //     }
+  //   }
 
-      for (const key in snapshot.val()) {
-        if (snapshot.val().hasOwnProperty(key)) {
-          const el = snapshot.val()[key]
-          const blockId = el.id
-          const block = $(`div#${blockId}`)[0]
+  //   // Listener for all receiving clients
+  //   this.db.child('room').child('0').child('blocks').on('value', (snapshot) => {
 
-          // just completely update it.
-          $(`div#${blockId}`).css('top', el.pos4)
-          $(`div#${blockId}`).css('left', el.pos3)
-        }
-      }
-    })
+  //     for (const key in snapshot.val()) {
+  //       if (snapshot.val().hasOwnProperty(key)) {
+  //         const el = snapshot.val()[key]
+  //         const blockId = el.id
+  //         const block = $(`div#${blockId}`)[0]
 
-    // Close event updates
-    function closeDragElement(e) {
-      //! Cut the firebase listeners when client lets go
-      console.log('client let go')
-      // Release the user lock
-      elmnt.userDragging = null
+  //         // just completely update it.
+  //         $(`div#${blockId}`).css('top', el.pos4)
+  //         $(`div#${blockId}`).css('left', el.pos3)
+  //       }
+  //     }
+  //   })
 
-      // stop moving when mouse button is released:
-      document.onmouseup = null;
-      document.onmousemove = null;
-    }
+  //   // Close event updates
+  //   function closeDragElement(e) {
+  //     // ! Cut the firebase listeners when client lets go
+  //     console.log('client let go')
+  //     // Release the user lock
+  //     elmnt.userDragging = null
 
+  //     // stop moving when mouse button is released:
+  //     document.onmouseup = null
+  //     document.onmousemove = null
+  //   }
+  // }
 
-  }
 }

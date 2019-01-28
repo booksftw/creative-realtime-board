@@ -2,6 +2,8 @@ import { Injectable, OnInit } from '@angular/core'
 import * as $ from 'jquery'
 import { BoardComponent } from './../board/board.component'
 
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,8 +15,22 @@ export class BoardService {
     return 'testing board service works'
   }
 
+  generateToolBar() {
+    const toolBar = `<div class="toolbarContainer">
+                      <ul class="toolbar">
+                        <li><i class="far fa-square"></i></li>
+                        <li><i class="fas fa-text-width"></i></li>
+                        <li><i class="far fa-sticky-note"></i></li>
+                        <li><i class="fas fa-eraser"></i></li>
+                        <li><i class="far fa-image"></i></li>
+                      </ul>
+                    </div>
+                  `
+  return toolBar
+  }
+
   generateImageComponent(imgSrc) {
-    const imgComponent = `<img style="width: 100%" src=${imgSrc} />` // Replace the inline styling later
+    const imgComponent = `<img style="width: 100%" src=${imgSrc} />`
     return imgComponent
   }
   generateTextComponent(text) {
