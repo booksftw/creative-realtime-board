@@ -1,7 +1,6 @@
 import { Component, AfterContentInit, ElementRef, Renderer2 } from '@angular/core'
 import { DragService } from './../../shared/drag.service'
 import * as $ from 'jquery'
-import * as uuid from 'uuid/v1'
 
 @Component({
   selector: 'app-sticky-note',
@@ -11,6 +10,7 @@ import * as uuid from 'uuid/v1'
 export class StickyNoteComponent implements AfterContentInit {
 
   test = 'some test yolo HI'
+  stickyId = 1
 
   constructor(
     private drag: DragService,
@@ -18,27 +18,10 @@ export class StickyNoteComponent implements AfterContentInit {
     private renderer: Renderer2
   ) { }
 
-  getUniqueId() {
-    return uuid()
-  }
-
-  onHeaderClick(e) {
-    console.log(e.target, ' header clicked')
-  }
-
-  testFunc(e) {
-    console.log(e.target.value)
-  }
-
-
   ngAfterContentInit(): void {
     const stickyNote = this.el.nativeElement.querySelector('div')
-    this.renderer.setAttribute(stickyNote, 'id', this.getUniqueId())
-
-    
-    console.log(this.el.nativeElement.querySelector('div'), ' hi')
-    // ! cannot get pos 3 of null error coming from firebase because the id is not found.
-    // ! You need to set up the id in the database by some sort of intial rendering or something.
+    console.log('@@@@@@@@sticky note', stickyNote)
     this.drag.dragElement(stickyNote)
+    // this.resizable(stickyNote)
   }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import * as firebase from '../../../node_modules/firebase'
 import * as _ from '../../assets/third_party/lodash'
-
+import * as $ from 'jquery'
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +14,11 @@ export class DragService {
 
   dragElement(elmnt) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0
-    console.log('shared elmnt', elmnt)
     const dragHeader = elmnt.childNodes[0]
     dragHeader.addEventListener('mousedown', dragMouseDown)
     // elmnt.addEventListener('mousedown', dragMouseDown)
 
     function dragMouseDown(e) {
-      console.log('shared', e)
       const blockId = elmnt.id
       const userId = this.sessionId
       elmnt.userDragging = userId
@@ -66,9 +64,11 @@ export class DragService {
         elmnt.style.left = (elmnt.offsetLeft - pos1) + 'px'// X
 
         const elmntId = elmnt.id
+        console.log('elmntID', elmnt.id)
 
         // Testing by selecting id1
-        this.db.child('room').child('0').child('blocks').child(`id${elmntId}`).once('value', (snapshot) => {
+        this.db.child('room').child('0').child(`blocks/${elmntId}`).once('value', (snapshot) => {
+          // console.log('snapshot', snapshot.val(), snapshot)
           const posUpdates = {
             pos1: snapshot.val().pos3 - e.clientX,
             pos2: snapshot.val().pos4 - e.clientY,
@@ -76,7 +76,7 @@ export class DragService {
             pos4: e.clientY
           }
           // const elmntId = elmnt.id
-          this.db.child('room').child('0').child('blocks').child(`id${elmntId}`).update(posUpdates)
+          this.db.child('room').child('0').child(`blocks/${elmntId}`).update(posUpdates)
         })
 
       }
@@ -101,7 +101,6 @@ export class DragService {
     // Close event updates
     function closeDragElement(e) {
       // ! Cut the firebase listeners when client lets go
-      console.log('client let go')
       // Release the user lock
       elmnt.userDragging = null
 

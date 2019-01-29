@@ -1,6 +1,7 @@
 import { Injectable, OnInit } from '@angular/core'
 import * as $ from 'jquery'
 import { BoardComponent } from './../board/board.component'
+import * as uuid from 'uuid/v1'
 
 
 
@@ -62,7 +63,8 @@ export class BoardService {
     }
   }
 
-  randomId() {
-    return Math.floor(Math.random() * 1000) // Update this to be actually random
+  getRandomId() {
+      return Math.floor(Math.random() * 1000) //uuid()
   }
+
 }
