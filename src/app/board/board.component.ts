@@ -15,6 +15,7 @@ import * as firebase from '../../../node_modules/firebase'
 export class BoardComponent implements OnInit {
   db
   all_ids_in_view = {}
+  registeredIds = {}
 
   @ViewChild('entry', {read: ViewContainerRef}) entry: ViewContainerRef
 
@@ -34,32 +35,36 @@ export class BoardComponent implements OnInit {
 
   testGenerateStickyNote(componentId) {
     console.log('generate sticky note', 'id', componentId)
-      // Create
-    if (!componentId) {
-      componentId = this.boardUtil.getRandomId()
-    }
 
-      // ! Problem: when this is called it generates a new random id so that it's never matching
+    // ! IF THIS ID IS ALREADY USED ONCE DON'T CREATE A SECOND COMPONENT WITH THE SAME ID
+    // ! and this function is getting called many times
+
+    if (!componentId) {
+      // Create new block
+      componentId = this.boardUtil.getRandomId()
+
       const stickyNoteFactory = this.resolver.resolveComponentFactory(StickyNoteComponent)
       const component = this.entry.createComponent(stickyNoteFactory)
-
-      if (!componentId) {
-        console.log('id NOT PROVIDED GENERATING RANDOM')
-        // componentId = this.boardUtil.getRandomId()
-      }
       component.instance.test = 'Howdy'
-      console.log(component.instance, 'component instance')
-      component.instance.stickyId = componentId //componentId
+      component.instance.stickyId = componentId
+    } else {
+      // Render Existing block
+      const stickyNoteFactory = this.resolver.resolveComponentFactory(StickyNoteComponent)
+      const component = this.entry.createComponent(stickyNoteFactory)
+      component.instance.test = 'Howdy'
+      component.instance.stickyId = componentId
 
-      this.all_ids_in_view[componentId] = true
+    }
+
+
 
       this.db = firebase.database().ref()
-      // set position
+      // set intial position
       this.db.child('room').child('0').child(`blocks/${componentId}`).set({
         id: componentId,
         content: 'generated test',
-        pos1: 200,
-        pos2: 200,
+        pos1: 0,
+        pos2: 0,
         pos3: 0,
         pos4: 0,
         type: 'sticky-note'
@@ -71,6 +76,10 @@ export class BoardComponent implements OnInit {
         type: 'sticky-note'
       })
 
+    // ~
+    this.all_ids_in_view[componentId] = true
+
+
 
     }
 
@@ -80,20 +89,6 @@ export class BoardComponent implements OnInit {
     // ~ Render the blocks and their state from firebase
     this.db = firebase.database().ref()
 
-
-    // this.db.child('room').child('0').child('registered_blocks').once('value', (snapshot) => {
-    //   const blockObj = snapshot.val()
-    //   console.log(blockObj)
-
-    //   for (const key in blockObj) {
-    //     if (blockObj.hasOwnProperty(key)) {
-    //       const element = blockObj[key]
-    //       this.testGenerateStickyNote(element.id)
-          
-    //     }
-    //   }
-    // })
-
     this.db.child('room').child('0').child('blocks').once('value', (snapshot) => {
       const blocksSet = snapshot.val()
       for (const key in blocksSet) {
@@ -102,14 +97,47 @@ export class BoardComponent implements OnInit {
           const blockId = el.id
           const blockType = el.type
           const blockContent = el.content
-          const block = this.boardUtil.generateComponent(blockType, blockContent)
+          this.testGenerateStickyNote(blockId)
+          // const block = this.boardUtil.generateComponent(blockType, blockContent)
           // this.renderDraggableToPage(block, blockId)
         }
       }
     })
 
       this.db.child('room').child('0').child('registered_blocks').on('value', (snapshot) => {
-        const blockObj = snapshot.val()
+        const blocksSet = snapshot.val()
+        for (const key in blocksSet) {
+          if (blocksSet.hasOwnProperty(key)) {
+            const el = blocksSet[key]
+            const blockId = el.id
+            const blockType = el.type
+            const blockContent = el.content
+
+
+            this.db.child('room').child('0').child('registered_blocks').once('value', (snapshot) => {
+              // console.log('registered snap', snapshot.val() )
+              const allRegistered = snapshot.val()
+              for (const key in allRegistered) {
+                if (allRegistered.hasOwnProperty(key)) {
+                  this.registeredIds[key] = true
+                }
+              }
+            })
+
+            const all_view_ids = Object.keys(this.all_ids_in_view)
+            const all_registered_ids = Object.keys(this.registeredIds)
+            console.log('all', all_view_ids, all_registered_ids)
+
+            // ! If they're already on the board don't call them
+            // ! Only call the new ones
+            console.log('all in views', this.all_ids_in_view)
+            console.log('registered fb', this.registeredIds)
+            console.log('lodash difference', _.difference(all_view_ids, all_registered_ids))
+            // this.testGenerateStickyNote(blockId)
+            // const block = this.boardUtil.generateComponent(blockType, blockContent)
+            // this.renderDraggableToPage(block, blockId)
+          }
+        }
       })
 
 
