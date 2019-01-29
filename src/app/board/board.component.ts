@@ -58,12 +58,11 @@ export class BoardComponent implements OnInit {
       this.db.child('room').child('0').child(`blocks/${componentId}`).set({
         id: componentId,
         content: 'generated test',
-        pos1: 0,
-        pos2: 0,
+        pos1: 200,
+        pos2: 200,
         pos3: 0,
         pos4: 0,
         type: 'sticky-note'
-      }).then( () => {
       })
 
       this.db.child('room').child('0').child(`registered_blocks`).child(`${componentId}`).update({
@@ -82,15 +81,29 @@ export class BoardComponent implements OnInit {
     this.db = firebase.database().ref()
 
 
-    this.db.child('room').child('0').child('registered_blocks').once('value', (snapshot) => {
-      const blockObj = snapshot.val()
-      console.log(blockObj)
+    // this.db.child('room').child('0').child('registered_blocks').once('value', (snapshot) => {
+    //   const blockObj = snapshot.val()
+    //   console.log(blockObj)
 
-      for (const key in blockObj) {
-        if (blockObj.hasOwnProperty(key)) {
-          const element = blockObj[key]
-          this.testGenerateStickyNote(element.id)
+    //   for (const key in blockObj) {
+    //     if (blockObj.hasOwnProperty(key)) {
+    //       const element = blockObj[key]
+    //       this.testGenerateStickyNote(element.id)
           
+    //     }
+    //   }
+    // })
+
+    this.db.child('room').child('0').child('blocks').once('value', (snapshot) => {
+      const blocksSet = snapshot.val()
+      for (const key in blocksSet) {
+        if (blocksSet.hasOwnProperty(key)) {
+          const el = blocksSet[key]
+          const blockId = el.id
+          const blockType = el.type
+          const blockContent = el.content
+          const block = this.boardUtil.generateComponent(blockType, blockContent)
+          // this.renderDraggableToPage(block, blockId)
         }
       }
     })
