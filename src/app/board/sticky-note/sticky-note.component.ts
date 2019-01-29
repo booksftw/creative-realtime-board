@@ -20,7 +20,6 @@ export class StickyNoteComponent implements AfterContentInit {
 
   ngAfterContentInit(): void {
     const stickyNote = this.el.nativeElement.querySelector('div')
-    console.log('@@@@@@@@sticky note', stickyNote)
     this.drag.dragElement(stickyNote)
     // this.resizable(stickyNote)
   }

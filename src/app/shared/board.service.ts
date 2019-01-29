@@ -70,9 +70,16 @@ export class BoardService {
 
   // ~ The built-in api functions don't work for me so I built my own
   getDifferenceBetweenArrays(arry1, arry2) {
-    // Returns an array of items that don't match
-    let longArray = []
-    let shortArray = []
+    // Returns an array of numbers that don't match
+    console.log('all view ids', arry1, 'all register ids', arry2)
+
+    let longArray //= []
+    let shortArray //= []
+    // ! Convert shortArray and LongArray to numbers
+    // arry1 = this.convertArrayOfStringsToNumber(arry1)
+    // arry2 = this.convertArrayOfStringsToNumber(arry2)
+
+
     if (arry1.length > arry2.length) {
       longArray = arry1
       shortArray = arry2
@@ -80,27 +87,50 @@ export class BoardService {
       longArray = arry2
       shortArray = arry1
     }
-    const result = longArray
+    // const result = longArray
+    const notInShortArray = longArray.filter(function (value) {
+      return !shortArray.includes(value)
+    })
+    const notInLongArray = shortArray.filter(function (value) {
+      return !longArray.includes(value)
+    })
 
-    longArray.forEach( (item1, i) => {
-      shortArray.forEach( item2 => {
-        // Match item1 against item2
-        if (item1 === item2) {
-          result.splice(i, 1)
-        }
-      })
+    return notInShortArray.concat(notInLongArray);
+    // longArray.forEach( (item1, i) => {
+    //   shortArray.forEach( item2 => {
+    //     // Match item1 against item2
+    //     if (item1 === item2) {
+    //       result.splice(i, 1)
+    //     }
+    //   })
+    // })
+    // const isEqual = this.checkArraysAreEqual(arry1, arry2)
+    // console.log('get diff result:', result, 'isEqual?', isEqual)
+    // return result
+  }
+
+  checkArraysAreEqual(arry1, arry2) {
+    // Works with simple arrays only
+    return arry1.length === arry2.length && arry1.every( (value, index) => arry2[index] === value )
+  }
+
+  convertArrayOfStringsToNumber(arry) {
+    // Takes an array of strings and returns an array of numbers
+    const result = []
+    arry.forEach(el => {
+      result.push( Number(el) )
     })
     return result
   }
 
   convertObjectKeysIntoArray(obj) {
     const result = []
-    console.log('the obj from service', obj)
     for (const key in obj) {
       if (obj.hasOwnProperty(key)) {
         result.push(key)
       }
     }
+
     return result
   }
 
