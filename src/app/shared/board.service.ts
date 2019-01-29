@@ -2,6 +2,7 @@ import { Injectable, OnInit } from '@angular/core'
 import * as $ from 'jquery'
 import { BoardComponent } from './../board/board.component'
 import * as uuid from 'uuid/v1'
+import * as _ from '../../../node_modules/lodash'
 
 
 
@@ -64,7 +65,43 @@ export class BoardService {
   }
 
   getRandomId() {
-      return Math.floor(Math.random() * 1000) //uuid()
+      return Math.floor(Math.random() * 1000) // uuid()
+  }
+
+  // ~ The built-in api functions don't work for me so I built my own
+  getDifferenceBetweenArrays(arry1, arry2) {
+    // Returns an array of items that don't match
+    let longArray = []
+    let shortArray = []
+    if (arry1.length > arry2.length) {
+      longArray = arry1
+      shortArray = arry2
+    } else {
+      longArray = arry2
+      shortArray = arry1
+    }
+    const result = longArray
+
+    longArray.forEach( (item1, i) => {
+      shortArray.forEach( item2 => {
+        // Match item1 against item2
+        if (item1 === item2) {
+          result.splice(i, 1)
+        }
+      })
+    })
+    return result
+  }
+
+  convertObjectKeysIntoArray(obj) {
+    const result = []
+    console.log('the obj from service', obj)
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        result.push(key)
+      }
+    }
+    return result
   }
 
 }
