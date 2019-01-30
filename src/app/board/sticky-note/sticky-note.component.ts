@@ -31,7 +31,6 @@ export class StickyNoteComponent implements OnInit{
 
   ngOnInit() {
     const stickyNote = this.el.nativeElement.querySelectorAll('div')[0]
-    const jQStickyNote = $(stickyNote).css('left', 300).css('top', 1000)
     this.drag.dragElement(stickyNote)
   }
 

@@ -1,4 +1,4 @@
-import { Component, Renderer2, ElementRef, ViewChild, ViewContainerRef, ComponentFactoryResolver, OnInit, AfterContentInit, ComponentRef } from '@angular/core'
+import { Component, Renderer2, ElementRef, ViewChild, ViewContainerRef, ComponentFactoryResolver, OnInit } from '@angular/core'
 import { StickyNoteComponent } from './sticky-note/sticky-note.component'
 import { AngularFireDatabase } from '@angular/fire/database'
 import { BoardService } from './../shared/board.service'
@@ -15,7 +15,7 @@ import { throttle } from 'rxjs/operators'
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css']
 })
-export class BoardComponent implements OnInit, AfterContentInit {
+export class BoardComponent implements OnInit {
   db
   itemsRef
   @ViewChild('entry', {read: ViewContainerRef}) entry: ViewContainerRef
@@ -50,7 +50,6 @@ export class BoardComponent implements OnInit, AfterContentInit {
 
     this.db.child('room').child('0').child('blocks').on('child_added', (snapshot) => {
       // Render Exisiting Components
-      console.log('render exisiting components', snapshot.val())
       const id = snapshot.val().id
       const componentType = snapshot.val().type
       const leftPos = snapshot.val().pos3
@@ -73,5 +72,4 @@ export class BoardComponent implements OnInit, AfterContentInit {
 
   }
 
-  ngAfterContentInit(): void { }
 }
