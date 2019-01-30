@@ -68,18 +68,11 @@ export class BoardService {
       return Math.floor(Math.random() * 1000) // uuid()
   }
 
-  // ~ The built-in api functions don't work for me so I built my own
   getDifferenceBetweenArrays(arry1, arry2) {
     // Returns an array of numbers that don't match
-    console.log('all view ids', arry1, 'all register ids', arry2)
 
-    let longArray //= []
-    let shortArray //= []
-    // ! Convert shortArray and LongArray to numbers
-    // arry1 = this.convertArrayOfStringsToNumber(arry1)
-    // arry2 = this.convertArrayOfStringsToNumber(arry2)
-
-
+    let longArray
+    let shortArray
     if (arry1.length > arry2.length) {
       longArray = arry1
       shortArray = arry2
@@ -95,18 +88,7 @@ export class BoardService {
       return !longArray.includes(value)
     })
 
-    return notInShortArray.concat(notInLongArray);
-    // longArray.forEach( (item1, i) => {
-    //   shortArray.forEach( item2 => {
-    //     // Match item1 against item2
-    //     if (item1 === item2) {
-    //       result.splice(i, 1)
-    //     }
-    //   })
-    // })
-    // const isEqual = this.checkArraysAreEqual(arry1, arry2)
-    // console.log('get diff result:', result, 'isEqual?', isEqual)
-    // return result
+    return notInShortArray.concat(notInLongArray)
   }
 
   checkArraysAreEqual(arry1, arry2) {

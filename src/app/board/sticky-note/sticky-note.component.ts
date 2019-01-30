@@ -9,7 +9,7 @@ import * as $ from 'jquery'
 })
 export class StickyNoteComponent implements AfterContentInit {
 
-  test = 'some test yolo HI'
+  test = 'Default sticky text'
   stickyId = 1
 
   constructor(
@@ -21,6 +21,7 @@ export class StickyNoteComponent implements AfterContentInit {
   ngAfterContentInit(): void {
     const stickyNote = this.el.nativeElement.querySelector('div')
     this.drag.dragElement(stickyNote)
+
     // this.resizable(stickyNote)
   }
 }

@@ -17,7 +17,6 @@ export class BoardComponent implements OnInit, AfterContentInit {
   db
   all_ids_in_view = {}
   registeredIds = {}
-
   @ViewChild('entry', {read: ViewContainerRef}) entry: ViewContainerRef
 
   constructor(
@@ -32,43 +31,49 @@ export class BoardComponent implements OnInit, AfterContentInit {
 
   testGenerateComponent(id) {
     console.log('test generating componenet')
+
+    // const stickyNoteFactory = this.resolver.resolveComponentFactory(StickyNoteComponent)
+    // const component = this.entry.createComponent(stickyNoteFactory)
+    // component.instance.stickyId = 2132132132
   }
 
-  testGenerateStickyNote(componentId) {
-    // console.log('generate sticky note', 'id', componentId)
-
+  testGenerateStickyNote(componentId?) {
     if (!componentId) {
       // Create new block
+      //
       componentId = this.boardUtil.getRandomId()
-          // ~
-    this.all_ids_in_view[componentId] = true
+      this.all_ids_in_view[componentId] = true
 
-    this.db.child('room').child('0').child(`registered_blocks`).child(`${componentId}`).update({
-      id: componentId,
-      content: 'generated test',
-      type: 'sticky-note'
-    })
+      // Register the updated view state online
+      this.db.child('room').child('0').child(`registered_blocks`).child(`${componentId}`).update({
+        id: componentId,
+        content: 'generated test',
+        type: 'sticky-note'
+      })
 
+      // Create the component and pass data down
       const stickyNoteFactory = this.resolver.resolveComponentFactory(StickyNoteComponent)
       const component = this.entry.createComponent(stickyNoteFactory)
-      component.instance.test = 'Howdy'
+      component.instance.test = 'CREATES NEW STICKY'
       component.instance.stickyId = componentId
     } else {
       // Render Existing block
-
-          // ~
-    this.all_ids_in_view[componentId] = true
-
-    this.db.child('room').child('0').child(`registered_blocks`).child(`${componentId}`).update({
-      id: componentId,
-      content: 'generated test',
-      type: 'sticky-note'
-    })
+      //
+      console.log('Render exisiting block. Component Id:', componentId)
 
       const stickyNoteFactory = this.resolver.resolveComponentFactory(StickyNoteComponent)
       const component = this.entry.createComponent(stickyNoteFactory)
-      component.instance.test = 'Howdy'
+
+      console.log('component instance', component.instance)
+      component.instance.test = 'Howdy THIS CODE RENDERS EXISTING'
       component.instance.stickyId = componentId
+
+
+      this.db.child('room').child('0').child(`registered_blocks`).child(`${componentId}`).update({
+        id: componentId,
+        content: 'generated test',
+        type: 'sticky-note'
+      })
 
     }
 
@@ -86,6 +91,12 @@ export class BoardComponent implements OnInit, AfterContentInit {
     }
 
   ngOnInit() {
+
+    // this.testGenerateComponent('1111111')
+    // const stickyNoteFactory = this.resolver.resolveComponentFactory(StickyNoteComponent)
+    // const component = this.entry.createComponent(stickyNoteFactory)
+    // component.instance.stickyId = 21321321321321
+
     // ~ Render the blocks and their state from firebase
     this.db = firebase.database().ref()
 
@@ -98,18 +109,14 @@ export class BoardComponent implements OnInit, AfterContentInit {
           const blockType = el.type
           const blockContent = el.content
 
-          // ~
           this.all_ids_in_view[blockId] = true
-
           this.testGenerateStickyNote(blockId)
           // const block = this.boardUtil.generateComponent(blockType, blockContent)
           // this.renderDraggableToPage(block, blockId)
         }
       }
     })
-  }
 
-  ngAfterContentInit(): void {
 
     this.db.child('room').child('0').child('registered_blocks').on('value', (snapshot) => {
       const blocksSet = snapshot.val()
@@ -123,36 +130,73 @@ export class BoardComponent implements OnInit, AfterContentInit {
 
           this.db.child('room').child('0').child('registered_blocks').once('value').then((snap) => {
 
-
-            // console.log('registered snap', snap.val() )
             const allRegistered = snap.val()
-            console.log('allRegistered:', allRegistered);
             for (const keyReg of Object.keys(allRegistered)) {
-              // if (allRegistered.hasOwnProperty(keyReg)) {
-                // console.log('allregister', allRegistered[keyReg])
-                // this.registeredIds[keyReg] = true
                 all_registered_ids.push(allRegistered[keyReg].id)
-              // }
             }
-            console.log('allRegistered has', all_registered_ids.length, 'values')
-            // }).then( () => {
 
             const all_ids_in_view_array = Object.keys(this.all_ids_in_view)
             const all_view_ids = this.boardUtil.convertArrayOfStringsToNumber(all_ids_in_view_array)
-            // console.log('all view ids', all_view_ids, 'all register ids', all_registered_ids)
 
-            console.log('BoardComponent: all-view-ids', all_view_ids, 'all-register-ids', all_registered_ids)
-            // ! Get array of ids that arent on the view board and render them
-            const y = this.boardUtil.getDifferenceBetweenArrays(all_view_ids, all_registered_ids)
-            console.log('y:', y);
+            const pending_view_ids = this.boardUtil.getDifferenceBetweenArrays(all_view_ids, all_registered_ids)
+            // IF view ids different form register ids fill in the view ids and stop.
+            const isViewAndRegisterSync = this.boardUtil.checkArraysAreEqual(all_view_ids, all_registered_ids)
+            
+            console.log('registered block fired')
+            if (!isViewAndRegisterSync) {
+              pending_view_ids.forEach(id => {
+                this.all_ids_in_view[id] = true
+                // Generate component with the ids
+                this.testGenerateStickyNote(id)
+              })
+            }
 
-
-            // Generate component with the ids
           })
 
         }
       }
     })
+
+  }
+
+  ngAfterContentInit(): void {
+
+    // this.db.child('room').child('0').child('registered_blocks').on('value', (snapshot) => {
+    //   const blocksSet = snapshot.val()
+    //   for (const key in blocksSet) {
+    //     if (blocksSet.hasOwnProperty(key)) {
+    //       const el = blocksSet[key]
+    //       const blockId = el.id
+    //       const blockType = el.type
+    //       const blockContent = el.content
+    //       const all_registered_ids = []
+
+    //       this.db.child('room').child('0').child('registered_blocks').once('value').then((snap) => {
+
+    //         const allRegistered = snap.val()
+    //         for (const keyReg of Object.keys(allRegistered)) {
+    //             all_registered_ids.push(allRegistered[keyReg].id)
+    //         }
+    //         console.log('allRegistered has', all_registered_ids.length, 'values')
+
+    //         const all_ids_in_view_array = Object.keys(this.all_ids_in_view)
+    //         const all_view_ids = this.boardUtil.convertArrayOfStringsToNumber(all_ids_in_view_array)
+
+    //         console.log('BoardComponent: all-view-ids', all_view_ids, 'all-register-ids', all_registered_ids)
+    //         // ! Get array of ids that arent on the view board and render them
+    //         const pending_view_ids = this.boardUtil.getDifferenceBetweenArrays(all_view_ids, all_registered_ids)
+    //         console.log('pending_view_ids:', pending_view_ids)
+
+    //         pending_view_ids.forEach( id => {
+    //           // Generate component with the ids
+    //           this.testGenerateStickyNote(id)
+    //           // this.testGenerateComponent(id)
+    //         })
+    //       })
+
+    //     }
+    //   }
+    // })
 
   }
 
