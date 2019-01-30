@@ -1,5 +1,7 @@
 import { Component, ElementRef, OnInit  } from '@angular/core'
 import { DragService } from './../../shared/drag.service'
+import * as $ from 'jquery'
+
 
 @Component({
   selector: 'app-sticky-note',
@@ -10,6 +12,15 @@ export class StickyNoteComponent implements OnInit{
 
   test = 'Default sticky text'
   stickyId
+  pos3 = 200
+  pos4 = 200
+
+  intialPos = {
+    'background-color': 'green',
+    'left': this.pos3,
+    'right': this.pos4,
+  }
+
 
   constructor(
     private drag: DragService,
@@ -20,6 +31,7 @@ export class StickyNoteComponent implements OnInit{
 
   ngOnInit() {
     const stickyNote = this.el.nativeElement.querySelectorAll('div')[0]
+    const jQStickyNote = $(stickyNote).css('left', 300).css('top', 1000)
     this.drag.dragElement(stickyNote)
   }
 
