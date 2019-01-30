@@ -3,7 +3,7 @@ import * as $ from 'jquery'
 import { BoardComponent } from './../board/board.component'
 import * as uuid from 'uuid/v1'
 import * as _ from '../../../node_modules/lodash'
-
+import * as firebase from '../../../node_modules/firebase'
 
 
 @Injectable({
@@ -15,6 +15,28 @@ export class BoardService {
 
   test() {
     return 'testing board service works'
+  }
+
+  onAddComponent(componentType) {
+    const componentId = this.getRandomId()
+    const db = firebase.database().ref()
+    // Intialize in db
+    switch (componentType) {
+      case 'sticky-note':
+        db.child('room').child('0').child(`blocks/${componentId}`).set({
+          id: componentId,
+          content: 'generated test',
+          pos1: 0,
+          pos2: 0,
+          pos3: 0,
+          pos4: 0,
+          type: componentType
+        })
+        break
+      // Other omponent
+      default:
+        break
+    }
   }
 
   generateToolBar() {

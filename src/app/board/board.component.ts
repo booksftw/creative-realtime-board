@@ -23,33 +23,20 @@ export class BoardComponent implements OnInit {
   constructor(
     private dbAf: AngularFireDatabase,
     private boardUtil: BoardService,
-    private renderer: Renderer2,
-    private el: ElementRef,
     private resolver: ComponentFactoryResolver,
-    private drag: DragService
   ) { }
 
-  testGenerateStickyNote(componentType, componentId?) {
-    this.db = firebase.database().ref()
-    componentId ? componentId = componentId : componentId = this.boardUtil.getRandomId()
-    // set intial position
-    this.db.child('room').child('0').child(`blocks/${componentId}`).set({
-      id: componentId,
-      content: 'generated test',
-      pos1: 0,
-      pos2: 0,
-      pos3: 0,
-      pos4: 0,
-      type: componentType
-    })
+  addComponent(componentType) {
+    // Silence is golden
+    this.boardUtil.onAddComponent(componentType)
   }
 
-  ngOnInit() {
-    // ~ Render the blocks and their state from firebase
-    this.db = firebase.database().ref()
 
+
+  ngOnInit() {
+    // Render Exisiting Components
+    this.db = firebase.database().ref()
     this.db.child('room').child('0').child('blocks').on('child_added', (snapshot) => {
-      // Render Exisiting Components
       const id = snapshot.val().id
       const componentType = snapshot.val().type
       const leftPos = snapshot.val().pos3
@@ -59,6 +46,7 @@ export class BoardComponent implements OnInit {
           const stickyNoteFactory = this.resolver.resolveComponentFactory(StickyNoteComponent)
           const stickyComponent = this.entry.createComponent(stickyNoteFactory)
           stickyComponent.instance.stickyId = snapshot.val().id
+          stickyComponent.instance.content = snapshot.val().content
           stickyComponent.instance.pos3 = leftPos
           stickyComponent.instance.pos4 = topPos
           break
