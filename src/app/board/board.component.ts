@@ -24,16 +24,11 @@ export class BoardComponent implements OnInit, AfterContentInit {
     private el: ElementRef,
     private resolver: ComponentFactoryResolver,
     private drag: DragService
-  ) {
-  }
-
-  testGenerateComponent(id) {
-    console.log('test generating componenet')
-  }
+  ) { }
 
   testGenerateStickyNote(componentId?) {
     console.log('generate sticky')
-    componentId? componentId = componentId : componentId = this.boardUtil.getRandomId()
+    componentId ? componentId = componentId : componentId = this.boardUtil.getRandomId()
       this.db = firebase.database().ref()
       // set intial position
       this.db.child('room').child('0').child(`blocks/${componentId}`).set({
@@ -52,27 +47,29 @@ export class BoardComponent implements OnInit, AfterContentInit {
     // ~ Render the blocks and their state from firebase
     this.db = firebase.database().ref()
 
-    this.db.child('room').child('0').child('blocks').once('value', (snapshot) => {
-      const blocksSet = snapshot.val()
-      for (const key in blocksSet) {
-        if (blocksSet.hasOwnProperty(key)) {
-          const el = blocksSet[key]
-          const blockId = el.id
-          const blockType = el.type
-          const blockContent = el.content
+    // this.db.child('room').child('0').child('blocks').on('value', (snapshot) => {
+    //   const blocksSet = snapshot.val()
+    //   for (const key in blocksSet) {
+    //     if (blocksSet.hasOwnProperty(key)) {
+    //       const el = blocksSet[key]
+    //       const blockId = el.id
+    //       const blockType = el.type
+    //       const blockContent = el.content
+    //       console.log('hi')
+    //       this.testGenerateStickyNote(blockId)
+    //     }
+    //   }
+    // })
 
-          this.testGenerateStickyNote(blockId)
-          // const block = this.boardUtil.generateComponent(blockType, blockContent)
-          // this.renderDraggableToPage(block, blockId)
-        }
-      }
-    })
+    // firebaseDb.child('KeyName').limitToLast(1).on('child_added', yourCallbackFunction);
 
 
-    this.db.child('room').child('0').child('registered_blocks').on('value', (snapshot) => {
-                // Generate component with the ids
-                // this.testGenerateStickyNote(id)
-
+    this.db.child('room').child('0').child('blocks').on('child_added', (snapshot) => {
+      console.log(snapshot.keys, snapshot.val())
+      const id = snapshot.val().id
+      const stickyNoteFactory = this.resolver.resolveComponentFactory(StickyNoteComponent)
+      const stickyComponent = this.entry.createComponent(stickyNoteFactory)
+      stickyComponent.instance.stickyId = id
     })
 
   }

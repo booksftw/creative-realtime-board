@@ -22,8 +22,9 @@ export class StickyNoteComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // const stickyNote = this.el.nativeElement.querySelectorAll('div')[0]
-    // this.drag.dragElement(stickyNote)
+    const stickyNote = this.el.nativeElement.querySelectorAll('div')[0]
+    console.log('stickyNote', stickyNote)
+    this.drag.dragElement(stickyNote)
   }
 
 
