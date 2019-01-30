@@ -7,6 +7,8 @@ import * as $ from 'jquery'
 // import * as _ from '../../assets/third_party/lodash'
 import * as _ from '../../../node_modules/lodash'
 import * as firebase from '../../../node_modules/firebase'
+import { interval } from 'rxjs'
+import { throttle } from 'rxjs/operators'
 
 @Component({
   selector: 'app-board',
@@ -15,6 +17,7 @@ import * as firebase from '../../../node_modules/firebase'
 })
 export class BoardComponent implements OnInit, AfterContentInit {
   db
+  itemsRef
   // component: ComponentRef<StickyNoteComponent>
   @ViewChild('entry', {read: ViewContainerRef}) entry: ViewContainerRef
 
@@ -28,19 +31,19 @@ export class BoardComponent implements OnInit, AfterContentInit {
   ) { }
 
   testGenerateStickyNote(componentId?) {
-    console.log('generate sticky')
-    componentId ? componentId = componentId : componentId = this.boardUtil.getRandomId()
-      this.db = firebase.database().ref()
-      // set intial position
-      this.db.child('room').child('0').child(`blocks/${componentId}`).set({
-        id: componentId,
-        content: 'generated test',
-        pos1: 0,
-        pos2: 0,
-        pos3: 0,
-        pos4: 0,
-        type: 'sticky-note'
-      })
+    // console.log('generate sticky')
+    // componentId ? componentId = componentId : componentId = this.boardUtil.getRandomId()
+    //   this.db = firebase.database().ref()
+    //   // set intial position
+    //   this.db.child('room').child('0').child(`blocks/${componentId}`).set({
+    //     id: componentId,
+    //     content: 'generated test',
+    //     pos1: 0,
+    //     pos2: 0,
+    //     pos3: 0,
+    //     pos4: 0,
+    //     type: 'sticky-note'
+    //   })
     }
 
   ngOnInit() {
@@ -48,37 +51,30 @@ export class BoardComponent implements OnInit, AfterContentInit {
     // ~ Render the blocks and their state from firebase
     this.db = firebase.database().ref()
 
-    // this.db.child('room').child('0').child('blocks/971').on('value', (snapshot) => {
-    //   const el = snapshot.val()
-    //   console.log('el', el)
-    //   el.test = true
-    // })
-
-    // firebaseDb.child('KeyName').limitToLast(1).on('child_added', yourCallbackFunction);
-
-    // this.db.child('room').child('0').child('blocks').on('child_added', (snapshot) => {
-    //   console.log(snapshot.keys, snapshot.val())
-    //   const id = snapshot.val().id
-    //   const stickyNoteFactory = this.resolver.resolveComponentFactory(StickyNoteComponent)
-    //   const stickyComponent = this.entry.createComponent(stickyNoteFactory)
-    //   stickyComponent.instance.stickyId = id
-    // })
-
     this.db.child('room').child('0').child('blocks').on('child_added', (snapshot) => {
-      console.log(snapshot.keys, snapshot.val())
+      // console.log('on child added', snapshot.keys, snapshot.val())
       const id = snapshot.val().id
       const stickyNoteFactory = this.resolver.resolveComponentFactory(StickyNoteComponent)
       const stickyComponent = this.entry.createComponent(stickyNoteFactory)
       stickyComponent.instance.stickyId = snapshot.val().id
     })
+    // Important: This forces the app to generate components properly
+    this.dbAf.object('room/0/blocks').valueChanges().subscribe((e) => { })
 
-    // Ensures it render on first load
-    this.db.child('room').child('0').child('blocks').once('value', (snapshot) => {
-      console.log(snapshot.keys, snapshot.val())
-      const stickyNoteFactory = this.resolver.resolveComponentFactory(StickyNoteComponent)
-      const stickyComponentJunk = this.entry.createComponent(stickyNoteFactory)
-      stickyComponentJunk.destroy()
-    })
+    // this.itemsRef = this.dbAf.list('room/0/blocks')
+    // this.itemsRef.snapshotChanges(['child_added']).pipe(throttle(val => interval(2000)))
+    //   .subscribe(actions => {
+    //     actions.forEach(action => {
+    //       console.log('type', action.type)
+    //       console.log('key', action.key)
+    //       console.log('payload', action.payload.val())
+    //       const stickyNoteFactory = this.resolver.resolveComponentFactory(StickyNoteComponent)
+    //       const stickyComponent = this.entry.createComponent(stickyNoteFactory)
+    //       stickyComponent.instance.stickyId = action.key
+    //     })
+    //   })
+
+
   }
 
   ngAfterContentInit(): void { }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, OnChanges      } from '@angular/core'
+import { Component, ElementRef, OnInit  } from '@angular/core'
 import { DragService } from './../../shared/drag.service'
 
 @Component({
@@ -6,7 +6,7 @@ import { DragService } from './../../shared/drag.service'
   templateUrl: './sticky-note.component.html',
   styleUrls: ['./sticky-note.component.css']
 })
-export class StickyNoteComponent implements OnInit, OnChanges {
+export class StickyNoteComponent implements OnInit{
 
   test = 'Default sticky text'
   stickyId
@@ -20,12 +20,7 @@ export class StickyNoteComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     const stickyNote = this.el.nativeElement.querySelectorAll('div')[0]
-    console.log('stickyNote', stickyNote)
     this.drag.dragElement(stickyNote)
-  }
-
-  ngOnChanges() {
-    console.log('sticky on changes')
   }
 
 }
