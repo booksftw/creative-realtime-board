@@ -1,6 +1,5 @@
 
-<!-- Todo give this a unique id-->
-<div id="1" class="draggable" #stickyNote>
-  <div id="dragHeader" (click)='onHeaderClick()'>Click here to move</div>
-  <textarea class="sticky-note" [(value)]="test" (keyup)='testFunc($event)'></textarea>
+<div [id]="stickyId" class="draggable" >
+  <div id="dragHeader">Click here to move</div>
+  <textarea class="sticky-note" >{{stickyId}}</textarea>
 </div>

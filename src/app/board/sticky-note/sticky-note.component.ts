@@ -1,44 +1,26 @@
-import { Component, AfterContentInit, ElementRef, Renderer2 } from '@angular/core'
+import { Component, ElementRef, OnInit  } from '@angular/core'
 import { DragService } from './../../shared/drag.service'
-import * as $ from 'jquery'
-import * as uuid from 'uuid/v1'
 
 @Component({
   selector: 'app-sticky-note',
   templateUrl: './sticky-note.component.html',
   styleUrls: ['./sticky-note.component.css']
 })
-export class StickyNoteComponent implements AfterContentInit {
+export class StickyNoteComponent implements OnInit{
 
-  test = 'some test yolo HI'
+  test = 'Default sticky text'
+  stickyId
 
   constructor(
     private drag: DragService,
     private el: ElementRef,
-    private renderer: Renderer2
+    // private renderer: Renderer2,
+    // private db: AngularFireDatabase,
   ) { }
 
-  getUniqueId() {
-    return uuid()
-  }
-
-  onHeaderClick(e) {
-    console.log(e.target, ' header clicked')
-  }
-
-  testFunc(e) {
-    console.log(e.target.value)
-  }
-
-
-  ngAfterContentInit(): void {
-    const stickyNote = this.el.nativeElement.querySelector('div')
-    this.renderer.setAttribute(stickyNote, 'id', this.getUniqueId())
-
-    
-    console.log(this.el.nativeElement.querySelector('div'), ' hi')
-    // ! cannot get pos 3 of null error coming from firebase because the id is not found.
-    // ! You need to set up the id in the database by some sort of intial rendering or something.
+  ngOnInit() {
+    const stickyNote = this.el.nativeElement.querySelectorAll('div')[0]
     this.drag.dragElement(stickyNote)
   }
+
 }
