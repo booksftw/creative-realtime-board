@@ -63,13 +63,17 @@ export class BoardComponent implements OnInit, AfterContentInit {
 
     // firebaseDb.child('KeyName').limitToLast(1).on('child_added', yourCallbackFunction);
 
-
     this.db.child('room').child('0').child('blocks').on('child_added', (snapshot) => {
       console.log(snapshot.keys, snapshot.val())
       const id = snapshot.val().id
       const stickyNoteFactory = this.resolver.resolveComponentFactory(StickyNoteComponent)
       const stickyComponent = this.entry.createComponent(stickyNoteFactory)
-      stickyComponent.instance.stickyId = id
+
+      function test () {
+
+        stickyComponent.instance.stickyId = id
+      }
+      setTimeout(test, 5000)
     })
 
   }
