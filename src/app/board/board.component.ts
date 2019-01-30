@@ -1,4 +1,4 @@
-import { Component, Renderer2, ElementRef, ViewChild, ViewContainerRef, ComponentFactoryResolver, OnInit, AfterContentInit } from '@angular/core'
+import { Component, Renderer2, ElementRef, ViewChild, ViewContainerRef, ComponentFactoryResolver, OnInit, AfterContentInit, ComponentRef } from '@angular/core'
 import { StickyNoteComponent } from './sticky-note/sticky-note.component'
 import { AngularFireDatabase } from '@angular/fire/database'
 import { BoardService } from './../shared/board.service'
@@ -15,6 +15,7 @@ import * as firebase from '../../../node_modules/firebase'
 })
 export class BoardComponent implements OnInit, AfterContentInit {
   db
+  // component: ComponentRef<StickyNoteComponent>
   @ViewChild('entry', {read: ViewContainerRef}) entry: ViewContainerRef
 
   constructor(
@@ -47,35 +48,37 @@ export class BoardComponent implements OnInit, AfterContentInit {
     // ~ Render the blocks and their state from firebase
     this.db = firebase.database().ref()
 
-    // this.db.child('room').child('0').child('blocks').on('value', (snapshot) => {
-    //   const blocksSet = snapshot.val()
-    //   for (const key in blocksSet) {
-    //     if (blocksSet.hasOwnProperty(key)) {
-    //       const el = blocksSet[key]
-    //       const blockId = el.id
-    //       const blockType = el.type
-    //       const blockContent = el.content
-    //       console.log('hi')
-    //       this.testGenerateStickyNote(blockId)
-    //     }
-    //   }
+    // this.db.child('room').child('0').child('blocks/971').on('value', (snapshot) => {
+    //   const el = snapshot.val()
+    //   console.log('el', el)
+    //   el.test = true
     // })
 
     // firebaseDb.child('KeyName').limitToLast(1).on('child_added', yourCallbackFunction);
+
+    // this.db.child('room').child('0').child('blocks').on('child_added', (snapshot) => {
+    //   console.log(snapshot.keys, snapshot.val())
+    //   const id = snapshot.val().id
+    //   const stickyNoteFactory = this.resolver.resolveComponentFactory(StickyNoteComponent)
+    //   const stickyComponent = this.entry.createComponent(stickyNoteFactory)
+    //   stickyComponent.instance.stickyId = id
+    // })
 
     this.db.child('room').child('0').child('blocks').on('child_added', (snapshot) => {
       console.log(snapshot.keys, snapshot.val())
       const id = snapshot.val().id
       const stickyNoteFactory = this.resolver.resolveComponentFactory(StickyNoteComponent)
       const stickyComponent = this.entry.createComponent(stickyNoteFactory)
-
-      function test () {
-
-        stickyComponent.instance.stickyId = id
-      }
-      setTimeout(test, 5000)
+      stickyComponent.instance.stickyId = snapshot.val().id
     })
 
+    // Ensures it render on first load
+    this.db.child('room').child('0').child('blocks').once('value', (snapshot) => {
+      console.log(snapshot.keys, snapshot.val())
+      const stickyNoteFactory = this.resolver.resolveComponentFactory(StickyNoteComponent)
+      const stickyComponentJunk = this.entry.createComponent(stickyNoteFactory)
+      stickyComponentJunk.destroy()
+    })
   }
 
   ngAfterContentInit(): void { }

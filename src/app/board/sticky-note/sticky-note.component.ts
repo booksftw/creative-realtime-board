@@ -1,24 +1,21 @@
-import { AngularFireDatabase } from '@angular/fire/database'
-import { Component, AfterContentInit, ElementRef, Renderer2, OnInit, ViewChild      } from '@angular/core'
+import { Component, ElementRef, OnInit, OnChanges      } from '@angular/core'
 import { DragService } from './../../shared/drag.service'
-import * as $ from 'jquery'
-import {catchError, flatMap} from 'rxjs/operators'
 
 @Component({
   selector: 'app-sticky-note',
   templateUrl: './sticky-note.component.html',
   styleUrls: ['./sticky-note.component.css']
 })
-export class StickyNoteComponent implements OnInit {
+export class StickyNoteComponent implements OnInit, OnChanges {
 
   test = 'Default sticky text'
-  stickyId = 1
+  stickyId
 
   constructor(
     private drag: DragService,
     private el: ElementRef,
-    private renderer: Renderer2,
-    private db: AngularFireDatabase,
+    // private renderer: Renderer2,
+    // private db: AngularFireDatabase,
   ) { }
 
   ngOnInit() {
@@ -27,7 +24,8 @@ export class StickyNoteComponent implements OnInit {
     this.drag.dragElement(stickyNote)
   }
 
-
-
+  ngOnChanges() {
+    console.log('sticky on changes')
+  }
 
 }
