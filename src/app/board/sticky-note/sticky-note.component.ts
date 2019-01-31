@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, AfterContentChecked, ViewChild } from '@angular/core'
+import { Component, OnInit, ViewChild } from '@angular/core'
 import { AngularFireDatabase } from '@angular/fire/database'
 import * as firebase from '../../../../node_modules/firebase'
 import * as _ from '../../../../node_modules/lodash'
@@ -8,7 +8,7 @@ import * as _ from '../../../../node_modules/lodash'
   templateUrl: './sticky-note.component.html',
   styleUrls: ['./sticky-note.component.css']
 })
-export class StickyNoteComponent implements OnInit, AfterContentChecked {
+export class StickyNoteComponent implements OnInit {
   content
   stickyId
   leftX
@@ -16,10 +16,9 @@ export class StickyNoteComponent implements OnInit, AfterContentChecked {
   db = firebase.database().ref()
   itemRef = this.afDb.object(`room/0/blocks/${this.stickyId}`)
 
-  @ViewChild("stickyNote") sticky
+  @ViewChild('stickyNote') sticky
 
   constructor(
-    // private el: ElementRef,
     private afDb: AngularFireDatabase
   ) { }
 
@@ -32,10 +31,13 @@ export class StickyNoteComponent implements OnInit, AfterContentChecked {
       .on('value', snap => {
         this.leftX = snap.val().left
         this.topY = snap.val().top
+
+        this.content = snap.val().content
       })
   }
 
   dragElement(element) {
+    // const elmnt = element.target
     const elmnt = element.target
     const elmntId = this.stickyId
 

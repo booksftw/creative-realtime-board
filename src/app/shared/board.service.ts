@@ -26,10 +26,6 @@ export class BoardService {
         db.child('room').child('0').child(`blocks/${componentId}`).set({
           id: componentId,
           content: 'generated test',
-          // pos1: 250,
-          // pos2: 250,
-          // pos3: 250,
-          // pos4: 250,
           left: 250,
           top: 200,
           type: componentType
