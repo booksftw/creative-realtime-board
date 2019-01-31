@@ -1,4 +1,4 @@
-<div [id]="stickyId" cdkDrag (mousedown)="dragElement($event)" #stickyNote class="newDrag"  [style.left.px]="leftX" [style.top.px]="topY">
+<div [id]="stickyId" (mousedown)="dragElement($event)" #stickyNote class="newDrag"  [style.left.px]="leftX" [style.top.px]="topY">
 <!-- <div [id]="stickyId" cdkDrag (document:mousemove)="onMouseMove($event)" #stickyNote class="newDrag"  [style.left.px]="leftX" [style.top.px]="topY"> -->
   <div id="dragHeader">Click here to move</div>
   <textarea class="sticky-note" (keyup)="userInput($event)">Default Content</textarea>

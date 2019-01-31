@@ -30,8 +30,8 @@ export class BoardService {
           // pos2: 250,
           // pos3: 250,
           // pos4: 250,
-          left: 400,
-          top: 500,
+          left: 250,
+          top: 200,
           type: componentType
         })
         break

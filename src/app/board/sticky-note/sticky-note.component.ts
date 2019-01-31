@@ -41,22 +41,25 @@ export class StickyNoteComponent implements OnInit, AfterContentChecked {
 
 
   dragElement(element) {
-    console.log('drag elemnt clicked', element.target, this.stickyId)
     const elmnt = element.target
     const elmntId = this.stickyId
 
-    elmnt.addEventListener('mousedown', dragMouseDown)
+    // elmnt.addEventListener('mousedown', dragMouseDown)
+  
 
-    function dragMouseDown(e) {
-      console.log('drag mouse called')
-      e = e || window.event
-      e.preventDefault()
-      document.onmousemove = elementDrag
-      document.onmouseup = closeDragElement
-    }
+    // function dragMouseDown(e) {
+    //   console.log('drag mouse called')
+    //   e = e || window.event
+    //   e.preventDefault()
+      
+    element = element || window.event
+    element.preventDefault()
+    document.onmousemove = elementDrag
+    document.onmouseup = closeDragElement
+
 
     function elementDrag(e) {
-      console.log('element drag')
+      console.log('element drag', elmnt)
       // Update firebase position
       let x = e.clientX
       let y = e.clientY
@@ -69,10 +72,6 @@ export class StickyNoteComponent implements OnInit, AfterContentChecked {
         left: x,
         top: y,
       })
-
-
-      // console.log('x', x)
-      // console.log('y', y)
     }
 
     function closeDragElement(e) {
@@ -81,19 +80,6 @@ export class StickyNoteComponent implements OnInit, AfterContentChecked {
       document.onmousemove = null
     }
 
-  }
-
-  // Problem need to get x and y value of element clicked
-
-  // On clicked element need to listen to element while dragging
-  onMouseMove(e) {
-    const x = e.x
-    const y = e.y
-    const itemRef = this.afDb.object(`room/0/blocks/${this.stickyId}`)
-    itemRef.update({
-      left: x, // this.sticky.nativeElement.getBoundingClientRect().left,
-      top: y // this.sticky.nativeElement.getBoundingClientRect().top
-    })
   }
 
   userInput(e) {
