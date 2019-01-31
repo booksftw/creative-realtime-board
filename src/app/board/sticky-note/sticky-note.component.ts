@@ -3,6 +3,11 @@ import { AngularFireDatabase } from '@angular/fire/database'
 import { DragService } from './../../shared/drag.service'
 import * as firebase from '../../../../node_modules/firebase'
 
+
+import {pipe} from 'rxjs'
+import { interval } from 'rxjs'
+import { throttle } from 'rxjs/operators'
+
 @Component({
   selector: 'app-sticky-note',
   templateUrl: './sticky-note.component.html',
@@ -27,12 +32,12 @@ export class StickyNoteComponent implements OnInit, AfterContentChecked {
   ) { }
 
   ngOnInit() {
-    this.content = this.afDb.object(`room/0/blocks/${this.stickyId}/content`).valueChanges()
+    // this.content = this.afDb.object(`room/0/blocks/${this.stickyId}/content`).valueChanges()
   }
 
   ngAfterContentChecked() {
-    const stickyNote = this.el.nativeElement.querySelectorAll('div')[0]
-    this.drag.dragElement(stickyNote)
+    // const stickyNote = this.el.nativeElement.querySelectorAll('div')[0]
+    // this.drag.dragElement(stickyNote)
   }
 
   userInput(e) {

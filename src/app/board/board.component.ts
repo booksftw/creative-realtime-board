@@ -58,6 +58,11 @@ export class BoardComponent implements OnInit {
     // Important: This forces the app to generate components properly
     this.dbAf.list('room/0/blocks').valueChanges().subscribe((e) => { })
 
+    // this.content = this.afDb.object(`room/0/blocks/${this.stickyId}/content`).valueChanges()
+    // this.content = this.dbAf.object(`room/0/blocks`).valueChanges().subscribe( (e) => {
+      
+    // } )
+
   }
 
 }

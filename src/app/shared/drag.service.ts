@@ -19,6 +19,7 @@ export class DragService {
     // elmnt.addEventListener('mousedown', dragMouseDown)
 
     function dragMouseDown(e) {
+      console.log('drag mouse called')
       const blockId = elmnt.id
       const userId = this.sessionId
       elmnt.userDragging = userId
@@ -38,7 +39,7 @@ export class DragService {
           pos4: e.clientY
         }
         this.db.child('room').child('0').child('blocks').child(`id${blockId}`).update(posUpdate).then(() => {
-          const throttleElementDrag = _.throttle(elementDrag, 150)
+          const throttleElementDrag = _.throttle(elementDrag, 0)
           document.onmousemove = throttleElementDrag// elementDrag
         })
       }
@@ -60,11 +61,11 @@ export class DragService {
         pos4 = e.clientY // Update coords Y
 
         // Move the block
-        elmnt.style.top = (elmnt.offsetTop - pos2) + 'px' // Y update the object directly
-        elmnt.style.left = (elmnt.offsetLeft - pos1) + 'px'// X
+        // elmnt.style.top = (elmnt.offsetTop - pos2) + 'px' // Y update the object directly
+        // elmnt.style.left = (elmnt.offsetLeft - pos1) + 'px'// X
 
         const elmntId = elmnt.id
-        console.log('elmntID', elmnt.id)
+        // console.log('elmntID', elmnt.id)
 
         // Testing by selecting id1
         this.db.child('room').child('0').child(`blocks/${elmntId}`).once('value', (snapshot) => {
@@ -83,20 +84,20 @@ export class DragService {
     }
 
     // Listener for all receiving clients
-    this.db.child('room').child('0').child('blocks').on('value', (snapshot) => {
+    // this.db.child('room').child('0').child('blocks').on('value', (snapshot) => {
 
-      for (const key in snapshot.val()) {
-        if (snapshot.val().hasOwnProperty(key)) {
-          const el = snapshot.val()[key]
-          const blockId = el.id
-          const block = $(`div#${blockId}`)[0]
+    //   for (const key in snapshot.val()) {
+    //     if (snapshot.val().hasOwnProperty(key)) {
+    //       const el = snapshot.val()[key]
+    //       const blockId = el.id
+    //       const block = $(`div#${blockId}`)[0]
 
-          // just completely update it.
-          $(`div#${blockId}`).css('top', el.pos4)
-          $(`div#${blockId}`).css('left', el.pos3)
-        }
-      }
-    })
+    //       // just completely update it.
+    //       // $(`div#${blockId}`).css('top', el.pos4)
+    //       // $(`div#${blockId}`).css('left', el.pos3)
+    //     }
+    //   }
+    // })
 
     // Close event updates
     function closeDragElement(e) {

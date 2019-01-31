@@ -1,5 +1,5 @@
-
-<div [id]="stickyId" class="draggable" [ngStyle]="intialPos">
+<div [id]="stickyId" cdkDrag>
+<!-- <div [id]="stickyId" class="draggable" [ngStyle]="intialPos"> -->
   <div id="dragHeader">Click here to move</div>
   <textarea class="sticky-note" (keyup)="userInput($event)">{{ (content | async) }}</textarea>
 </div>
