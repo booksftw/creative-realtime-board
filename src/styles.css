@@ -57,22 +57,32 @@ body {
     max-height:250px;*/
 }
 
-.sticky-note:hover {
-    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.15);
+.sticky-note:active, #dragHeader:active {
+    /* box-shadow: 0 5px 8px rgba(0, 0, 0, 0.15); */
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
+
+
 .sticky-note:focus {
-    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 15px 22px rgba(0, 0, 0, 0.2);
     outline: none;
 }
 
 #dragHeader {
-    padding: 5px;
+    /* padding: 5px;
     width:100%;
     cursor: grab;
     z-index: 10;
     background-color: #2196F3;
-    color: #fff;
+    color: #fff; */
+    position: absolute;
+    color: #ccc;
+    cursor: move;
+    width: 24px;
+    height: 24px;
 }
 
 .newDrag {
