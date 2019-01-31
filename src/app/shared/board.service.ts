@@ -20,16 +20,18 @@ export class BoardService {
   onAddComponent(componentType) {
     const componentId = this.getRandomId()
     const db = firebase.database().ref()
-    // Intialize in db
+    // Intialize position and obj in DB
     switch (componentType) {
       case 'sticky-note':
         db.child('room').child('0').child(`blocks/${componentId}`).set({
           id: componentId,
           content: 'generated test',
-          pos1: 0,
-          pos2: 0,
-          pos3: 0,
-          pos4: 0,
+          // pos1: 250,
+          // pos2: 250,
+          // pos3: 250,
+          // pos4: 250,
+          left: 400,
+          top: 500,
           type: componentType
         })
         break
@@ -53,38 +55,6 @@ export class BoardService {
   return toolBar
   }
 
-  generateImageComponent(imgSrc) {
-    const imgComponent = `<img style="width: 100%" src=${imgSrc} />`
-    return imgComponent
-  }
-  generateTextComponent(text) {
-    const textComponent = `<h1 class="textBlock"> ${text} </h1>`
-    return textComponent
-  }
-
-  generateStickyNote(color) {
-    const stickyNoteComponent = `<textarea class="sticky-note"> Nick bazzaoah god of stamina </textarea>`
-    return stickyNoteComponent
-  }
-
-  generateComponent(type, content) {
-
-    switch (type) {
-      case 'text':
-        // console.log('is Text')
-        return this.generateTextComponent(content)
-        break
-      case 'image':
-        // console.log('is Image')
-        return this.generateImageComponent(content)
-        break
-      case 'sticky-note':
-        return this.generateStickyNote('yellow')
-        break
-      default:
-        break
-    }
-  }
 
   getRandomId() {
       return Math.floor(Math.random() * 1000) // uuid()

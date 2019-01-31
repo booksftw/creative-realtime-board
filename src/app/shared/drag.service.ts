@@ -14,40 +14,41 @@ export class DragService {
 
   dragElement(elmnt) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0
-    const dragHeader = elmnt.childNodes[0]
-    dragHeader.addEventListener('mousedown', dragMouseDown)
-    // elmnt.addEventListener('mousedown', dragMouseDown)
+    // const dragHeader = elmnt.childNodes[0]
+    // dragHeader.addEventListener('mousedown', dragMouseDown)
+    elmnt.addEventListener('mousedown', dragMouseDown)
 
     function dragMouseDown(e) {
       console.log('drag mouse called')
-      const blockId = elmnt.id
-      const userId = this.sessionId
-      elmnt.userDragging = userId
+      // const blockId = elmnt.id
+      // const userId = this.sessionId
+      // elmnt.userDragging = userId
       e = e || window.event
       e.preventDefault()
 
-      if (elmnt.userDragging === userId) {
+      // if (elmnt.userDragging === userId) {
         // update node directly
         pos3 = e.clientX
         pos4 = e.clientY
         // call a function whenever the cursor moves:
         document.onmousemove = elementDrag
-      } else {
+      // } else {
         // else update it through throttled firebase
-        const posUpdate = {
-          pos3: e.clientX,
-          pos4: e.clientY
-        }
-        this.db.child('room').child('0').child('blocks').child(`id${blockId}`).update(posUpdate).then(() => {
-          const throttleElementDrag = _.throttle(elementDrag, 0)
-          document.onmousemove = throttleElementDrag// elementDrag
-        })
-      }
+      //   const posUpdate = {
+      //     pos3: e.clientX,
+      //     pos4: e.clientY
+      //   }
+      //   this.db.child('room').child('0').child('blocks').child(`id${blockId}`).update(posUpdate).then(() => {
+      //     const throttleElementDrag = _.throttle(elementDrag, 0)
+      //     document.onmousemove = throttleElementDrag// elementDrag
+      //   })
+      // }
 
       document.onmouseup = closeDragElement
     }
 
     function elementDrag(e) {
+      console.log('element drag')
 
       this.db = firebase.database().ref()
 

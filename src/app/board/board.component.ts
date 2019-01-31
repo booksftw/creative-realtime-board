@@ -2,13 +2,13 @@ import { Component, Renderer2, ElementRef, ViewChild, ViewContainerRef, Componen
 import { StickyNoteComponent } from './sticky-note/sticky-note.component'
 import { AngularFireDatabase } from '@angular/fire/database'
 import { BoardService } from './../shared/board.service'
-import { DragService } from './../shared/drag.service'
+// import { DragService } from './../shared/drag.service'
 import * as $ from 'jquery'
 // import * as _ from '../../assets/third_party/lodash'
 import * as _ from '../../../node_modules/lodash'
 import * as firebase from '../../../node_modules/firebase'
-import { interval } from 'rxjs'
-import { throttle } from 'rxjs/operators'
+// import { interval } from 'rxjs'
+// import { throttle } from 'rxjs/operators'
 
 @Component({
   selector: 'app-board',
@@ -39,16 +39,16 @@ export class BoardComponent implements OnInit {
     this.db.child('room').child('0').child('blocks').on('child_added', (snapshot) => {
       const id = snapshot.val().id
       const componentType = snapshot.val().type
-      const leftPos = snapshot.val().pos3
-      const topPos  = snapshot.val().pos4
+      const leftPos = snapshot.val().left
+      const topPos  = snapshot.val().top
       switch (componentType) {
         case 'sticky-note':
           const stickyNoteFactory = this.resolver.resolveComponentFactory(StickyNoteComponent)
           const stickyComponent = this.entry.createComponent(stickyNoteFactory)
           stickyComponent.instance.stickyId = snapshot.val().id
           stickyComponent.instance.content = snapshot.val().content
-          stickyComponent.instance.pos3 = leftPos
-          stickyComponent.instance.pos4 = topPos
+          stickyComponent.instance.leftX = leftPos
+          stickyComponent.instance.topY = topPos
           break
         default:
           break

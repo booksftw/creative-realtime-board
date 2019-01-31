@@ -1,12 +1,7 @@
-import { Component, ElementRef, OnInit, AfterContentChecked  } from '@angular/core'
+import { Component, ElementRef, OnInit, AfterContentChecked, ViewChild  } from '@angular/core'
 import { AngularFireDatabase } from '@angular/fire/database'
-import { DragService } from './../../shared/drag.service'
 import * as firebase from '../../../../node_modules/firebase'
-
-
-import {pipe} from 'rxjs'
-import { interval } from 'rxjs'
-import { throttle } from 'rxjs/operators'
+import * as _ from '../../../../node_modules/lodash'
 
 @Component({
   selector: 'app-sticky-note',
@@ -17,34 +12,59 @@ export class StickyNoteComponent implements OnInit, AfterContentChecked {
 
   content
   stickyId
-  pos3 = 200
-  pos4 = 200
+  leftX
+  topY
+  db = firebase.database().ref()
 
-  intialPos = {
-    'left': this.pos3,
-    'right': this.pos4,
-  }
+  @ViewChild('stickyNote') sticky
 
   constructor(
-    private drag: DragService,
-    private el: ElementRef,
+    // private el: ElementRef,
     private afDb: AngularFireDatabase
   ) { }
 
   ngOnInit() {
-    // this.content = this.afDb.object(`room/0/blocks/${this.stickyId}/content`).valueChanges()
+    // this.content = this.afDb.object(`room/0/blocks/${this.stickyId}/content/${this.stickyId}`).valueChanges().subscribe( () => {
+    //   console.log(this.sticky.nativeElement.id, 'sticky val')
+    // })
+    // const itemRef = this.afDb.list(`room/0/blocks/${this.stickyId}`)
+    // itemRef.valueChanges().subscribe((snapshot) => {
+    //   // update the position of element
+    //   // @ts-ignore
+    //   this.leftX = snapshot.left
+    //   // @ts-ignore
+    //   this.topY = snapshot.top
+    // })
+
+    this.db.child('room').child('0').child('blocks').child(`${this.stickyId}`).on('value', (snap) => {
+      console.log('left', snap.val().left)
+      console.log('top', snap.val().top)
+      this.leftX = snap.val().left
+      this.topY = snap.val().top
+    })
+
   }
 
   ngAfterContentChecked() {
-    // const stickyNote = this.el.nativeElement.querySelectorAll('div')[0]
-    // this.drag.dragElement(stickyNote)
+  }
+
+  onMouseMove(e) {
+    const x = e.x
+    const y = e.y
+    const itemRef = this.afDb.object(`room/0/blocks/${this.stickyId}`)
+    itemRef.update({
+      left: x, // this.sticky.nativeElement.getBoundingClientRect().left,
+      top: y // this.sticky.nativeElement.getBoundingClientRect().top
+    })
   }
 
   userInput(e) {
-    const db = firebase.database().ref()
-    db.child('room').child('0').child(`blocks/${this.stickyId}`).update({
+    console.log('user input', e)
+    this.db.child('room').child('0').child(`blocks/${this.stickyId}`).update({
       content: e.target.value,
     })
   }
+
+
 
 }
