@@ -15,6 +15,8 @@ export class StickyNoteComponent implements OnInit, AfterContentChecked {
   leftX
   topY
   db = firebase.database().ref()
+  itemRef = this.afDb.object(`room/0/blocks/${this.stickyId}`)
+
 
   @ViewChild('stickyNote') sticky
 
@@ -24,17 +26,6 @@ export class StickyNoteComponent implements OnInit, AfterContentChecked {
   ) { }
 
   ngOnInit() {
-    // this.content = this.afDb.object(`room/0/blocks/${this.stickyId}/content/${this.stickyId}`).valueChanges().subscribe( () => {
-    //   console.log(this.sticky.nativeElement.id, 'sticky val')
-    // })
-    // const itemRef = this.afDb.list(`room/0/blocks/${this.stickyId}`)
-    // itemRef.valueChanges().subscribe((snapshot) => {
-    //   // update the position of element
-    //   // @ts-ignore
-    //   this.leftX = snapshot.left
-    //   // @ts-ignore
-    //   this.topY = snapshot.top
-    // })
 
     this.db.child('room').child('0').child('blocks').child(`${this.stickyId}`).on('value', (snap) => {
       console.log('left', snap.val().left)
@@ -48,6 +39,53 @@ export class StickyNoteComponent implements OnInit, AfterContentChecked {
   ngAfterContentChecked() {
   }
 
+
+  dragElement(element) {
+    console.log('drag elemnt clicked', element.target, this.stickyId)
+    const elmnt = element.target
+    const elmntId = this.stickyId
+
+    elmnt.addEventListener('mousedown', dragMouseDown)
+
+    function dragMouseDown(e) {
+      console.log('drag mouse called')
+      e = e || window.event
+      e.preventDefault()
+      document.onmousemove = elementDrag
+      document.onmouseup = closeDragElement
+    }
+
+    function elementDrag(e) {
+      console.log('element drag')
+      // Update firebase position
+      let x = e.clientX
+      let y = e.clientY
+      // this.itemRef.update({
+      //   left: x, // this.sticky.nativeElement.getBoundingClientRect().left,
+      //   top: y // this.sticky.nativeElement.getBoundingClientRect().top
+      // })
+      const db = firebase.database().ref()
+      db.child('room').child('0').child('blocks').child(elmntId).update({
+        left: x,
+        top: y,
+      })
+
+
+      // console.log('x', x)
+      // console.log('y', y)
+    }
+
+    function closeDragElement(e) {
+      // stop moving when mouse button is released:
+      document.onmouseup = null
+      document.onmousemove = null
+    }
+
+  }
+
+  // Problem need to get x and y value of element clicked
+
+  // On clicked element need to listen to element while dragging
   onMouseMove(e) {
     const x = e.x
     const y = e.y

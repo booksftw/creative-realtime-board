@@ -31,8 +31,6 @@ export class BoardComponent implements OnInit {
     this.boardUtil.onAddComponent(componentType)
   }
 
-
-
   ngOnInit() {
     // Render Exisiting Components
     this.db = firebase.database().ref()
