@@ -36,8 +36,8 @@ export class StickyNoteComponent implements OnInit {
       })
   }
 
+  // For performance, I duplicate this code in each component.
   dragElement(element) {
-    // const elmnt = element.target
     const elmnt = element.target
     const elmntId = this.stickyId
 
