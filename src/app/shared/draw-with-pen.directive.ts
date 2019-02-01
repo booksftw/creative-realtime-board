@@ -7,16 +7,13 @@ import * as firebase from '../../../node_modules/firebase'
 export class DrawWithPenDirective {
 
   @HostListener('mousedown', ['$event']) onmousedown(docE) {
-    console.log('mouse down', docE)
-
+    
     const elmnt = this.el.nativeElement
     const elementId = elmnt.className
     const docX = docE.offsetX
     const docY = docE.offsetY
     document.onmousemove = elementDrag
     document.onmouseup = closeDragElement
-
-    console.log('ON CLICK: ','moveToX', docX, 'moveToY', docY)
 
 
     const db = firebase.database().ref()
@@ -27,18 +24,16 @@ export class DrawWithPenDirective {
       .update({
         drawMoveToX: docX,
         drawMoveToY: docY
-      })
+      }).then( () => {console.log('mouse down')} )
 
-    let drawMoveToX = docX;
-    let drawMoveToY = docY;
+    let drawMoveToX = docX
+    let drawMoveToY = docY
 
     function elementDrag(e) {
       // Update firebase position
       const x = e.offsetX
       const y = e.offsetY
-      console.log('dragX', x, 'dragY', y)
 
-      const db = firebase.database().ref()
 
       db.child('room')
         .child('0')
@@ -63,5 +58,6 @@ export class DrawWithPenDirective {
   constructor(
     private el: ElementRef
   ) { }
+
 
 }
