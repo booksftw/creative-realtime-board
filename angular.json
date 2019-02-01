@@ -28,9 +28,10 @@
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
-              "./src/assets/js/firebase_og.js",
-              "./src/assets/js/firebase_intialize.js",
-              "./src/assets/third_party/lodash.js"
+              "./src/assets/js/two.js"
+              // "./src/assets/js/firebase_og.js",
+              // "./src/assets/js/firebase_intialize.js",
+              // "./src/assets/third_party/lodash.js"
             ]
           },
           "configurations": {

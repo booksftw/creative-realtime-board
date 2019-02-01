@@ -14,12 +14,20 @@ import { BoardComponent } from './board/board.component';
 
 import { BoardService } from './shared/board.service';
 import { StickyNoteComponent } from './board/sticky-note/sticky-note.component';
+import { DrawWithPenDirective } from './shared/draw-with-pen.directive';
+import { DrawPenComponent } from './board/draw-pen/draw-pen.component';
+import { DrawShapesComponent } from './board/draw-shapes/draw-shapes.component';
+import { TwoJsDirective } from './shared/two-js.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     BoardComponent,
-    StickyNoteComponent
+    StickyNoteComponent,
+    DrawWithPenDirective,
+    DrawPenComponent,
+    DrawShapesComponent,
+    TwoJsDirective
   ],
   imports: [
     BrowserModule,
@@ -30,7 +38,7 @@ import { StickyNoteComponent } from './board/sticky-note/sticky-note.component';
     MaterialModule
   ],
   providers: [BoardService],
-  entryComponents: [StickyNoteComponent],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [StickyNoteComponent, DrawPenComponent],
 })
 export class AppModule { }

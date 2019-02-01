@@ -1,5 +1,4 @@
 import { Component, Renderer2, ElementRef, ViewChild, ViewContainerRef, ComponentFactoryResolver, OnInit } from '@angular/core'
-import { StickyNoteComponent } from './sticky-note/sticky-note.component'
 import { AngularFireDatabase } from '@angular/fire/database'
 import { BoardService } from './../shared/board.service'
 // import { DragService } from './../shared/drag.service'
@@ -7,6 +6,8 @@ import * as $ from 'jquery'
 // import * as _ from '../../assets/third_party/lodash'
 import * as _ from '../../../node_modules/lodash'
 import * as firebase from '../../../node_modules/firebase'
+import { StickyNoteComponent } from './sticky-note/sticky-note.component'
+import { DrawPenComponent } from './draw-pen/draw-pen.component';
 // import { interval } from 'rxjs'
 // import { throttle } from 'rxjs/operators'
 
@@ -48,6 +49,14 @@ export class BoardComponent implements OnInit {
           stickyComponent.instance.leftX = leftPos
           stickyComponent.instance.topY = topPos
           break
+          case 'draw-pen-canvas':
+          console.log('create draw pen canvas')
+            const drawPenCanvasFactory = this.resolver.resolveComponentFactory(DrawPenComponent)
+            const drawPenCanvas = this.entry.createComponent(drawPenCanvasFactory)
+            drawPenCanvas.instance.canvasId = snapshot.val().id
+            drawPenCanvas.instance.leftX = leftPos
+            drawPenCanvas.instance.topY = topPos
+            break
         default:
           break
       }
