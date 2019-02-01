@@ -57,6 +57,15 @@ export class BoardService {
           type: componentType
         })
         break
+        case 'text-editor':
+        db.child('room').child('0').child(`blocks/${componentId}`).set({
+          id: componentId,
+          content: 'text editor test',
+          left: 250,
+          top: 200,
+          type: componentType
+        })
+        break
       // Other omponent
       default:
         break

@@ -50,19 +50,27 @@ export class BoardComponent implements OnInit {
           stickyComponent.instance.leftX = leftPos
           stickyComponent.instance.topY = topPos
           break
-          case 'draw-pen-canvas':
-            const drawPenCanvasFactory = this.resolver.resolveComponentFactory(DrawPenComponent)
-            const drawPenCanvas = this.entry.createComponent(drawPenCanvasFactory)
-            drawPenCanvas.instance.canvasId = snapshot.val().id
-            drawPenCanvas.instance.leftX = leftPos
-            drawPenCanvas.instance.topY = topPos
-            break
-          case 'draw-shape':
+        case 'draw-pen-canvas':
+          const drawPenCanvasFactory = this.resolver.resolveComponentFactory(DrawPenComponent)
+          const drawPenCanvas = this.entry.createComponent(drawPenCanvasFactory)
+          drawPenCanvas.instance.canvasId = snapshot.val().id
+          drawPenCanvas.instance.leftX = leftPos
+          drawPenCanvas.instance.topY = topPos
+          break
+        case 'draw-shape':
           const drawShapeFactory = this.resolver.resolveComponentFactory(DrawShapesComponent)
           const drawShape = this.entry.createComponent(drawShapeFactory)
           drawShape.instance.shapeId = snapshot.val().id
           drawShape.instance.leftX = leftPos
           drawShape.instance.topY = topPos
+          break
+        case 'text-editor':
+          const textEditorFactory = this.resolver.resolveComponentFactory(StickyNoteComponent) // ! Update this info
+          const textComponent = this.entry.createComponent(stickyNoteFactory)
+          stickyComponent.instance.stickyId = snapshot.val().id
+          stickyComponent.instance.content = snapshot.val().content
+          stickyComponent.instance.leftX = leftPos
+          stickyComponent.instance.topY = topPos
           break
         default:
           break
