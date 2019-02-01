@@ -39,6 +39,6 @@ import { TwoJsDirective } from './shared/two-js.directive';
   ],
   providers: [BoardService],
   bootstrap: [AppComponent],
-  entryComponents: [StickyNoteComponent, DrawPenComponent],
+  entryComponents: [StickyNoteComponent, DrawPenComponent, DrawShapesComponent],
 })
 export class AppModule { }

@@ -14,7 +14,7 @@ export class StickyNoteComponent implements OnInit {
   leftX
   topY
   db = firebase.database().ref()
-  itemRef = this.afDb.object(`room/0/blocks/${this.stickyId}`)
+  // itemRef = this.afDb.object(`room/0/blocks/${this.stickyId}`)
 
   @ViewChild('stickyNote') sticky
 
