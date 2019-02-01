@@ -18,6 +18,7 @@ import { DrawWithPenDirective } from './shared/draw-with-pen.directive';
 import { DrawPenComponent } from './board/draw-pen/draw-pen.component';
 import { DrawShapesComponent } from './board/draw-shapes/draw-shapes.component';
 import { TwoJsDirective } from './shared/two-js.directive';
+import { MarkdownDirective } from './shared/markdown.directive';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { TwoJsDirective } from './shared/two-js.directive';
     DrawWithPenDirective,
     DrawPenComponent,
     DrawShapesComponent,
-    TwoJsDirective
+    TwoJsDirective,
+    MarkdownDirective
   ],
   imports: [
     BrowserModule,
