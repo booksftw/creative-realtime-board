@@ -31,6 +31,19 @@ export class BoardService {
           type: componentType
         })
         break
+        case 'draw-pen-canvas':
+        db.child('room').child('0').child(`blocks/${componentId}`).set({
+          id: componentId,
+          // content: 'generated test',
+          drawLineToX: 0,
+          drawLineToY: 0,
+          drawMoveToX: 0,
+          drawMoveToY: 0,
+          left: 250,
+          top: 200,
+          type: componentType
+        })
+        break
       // Other omponent
       default:
         break
