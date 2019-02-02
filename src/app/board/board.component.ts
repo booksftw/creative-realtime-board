@@ -9,6 +9,8 @@ import * as firebase from '../../../node_modules/firebase'
 import { StickyNoteComponent } from './sticky-note/sticky-note.component'
 import { DrawPenComponent } from './draw-pen/draw-pen.component'
 import { DrawShapesComponent } from './draw-shapes/draw-shapes.component'
+import { TextEditorComponent } from './text-editor/text-editor.component'
+
 // import { interval } from 'rxjs'
 // import { throttle } from 'rxjs/operators'
 
@@ -65,12 +67,13 @@ export class BoardComponent implements OnInit {
           drawShape.instance.topY = topPos
           break
         case 'text-editor':
-          const textEditorFactory = this.resolver.resolveComponentFactory(StickyNoteComponent) // ! Update this info
-          const textComponent = this.entry.createComponent(stickyNoteFactory)
-          stickyComponent.instance.stickyId = snapshot.val().id
-          stickyComponent.instance.content = snapshot.val().content
-          stickyComponent.instance.leftX = leftPos
-          stickyComponent.instance.topY = topPos
+          console.log('text editors')
+          const textEditorFactory = this.resolver.resolveComponentFactory(TextEditorComponent)
+          const textComponent = this.entry.createComponent(textEditorFactory)
+          textComponent.instance.textId = snapshot.val().id
+          textComponent.instance.content = snapshot.val().content
+          textComponent.instance.leftX = leftPos
+          textComponent.instance.topY = topPos
           break
         default:
           break

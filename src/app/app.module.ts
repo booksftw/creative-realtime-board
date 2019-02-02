@@ -19,6 +19,7 @@ import { DrawPenComponent } from './board/draw-pen/draw-pen.component';
 import { DrawShapesComponent } from './board/draw-shapes/draw-shapes.component';
 import { TwoJsDirective } from './shared/two-js.directive';
 import { MarkdownDirective } from './shared/markdown.directive';
+import { TextEditorComponent } from './board/text-editor/text-editor.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { MarkdownDirective } from './shared/markdown.directive';
     DrawPenComponent,
     DrawShapesComponent,
     TwoJsDirective,
-    MarkdownDirective
+    MarkdownDirective,
+    TextEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +44,6 @@ import { MarkdownDirective } from './shared/markdown.directive';
   ],
   providers: [BoardService],
   bootstrap: [AppComponent],
-  entryComponents: [StickyNoteComponent, DrawPenComponent, DrawShapesComponent],
+  entryComponents: [StickyNoteComponent, DrawPenComponent, DrawShapesComponent, TextEditorComponent],
 })
 export class AppModule { }

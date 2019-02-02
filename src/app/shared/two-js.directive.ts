@@ -18,7 +18,7 @@ export class TwoJsDirective implements OnInit {
     // two has convenience methods to create shapes.
     const circle = two.makeCircle(72, 100, 50)
     const rect = two.makeRectangle(213, 100, 100, 100)
-
+    
     // The object returned has many stylable properties:
     circle.fill = '#FF8000'
     circle.stroke = 'orangered' // Accepts all valid css color
