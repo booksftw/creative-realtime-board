@@ -1,15 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 /* *{
     cursor: grab; 
 } */
 
+/* Board background */
+
+body {
+    height: 150vh;
+    margin: 8px;
+    font: 14px/18px Arial, sans-serif;
+    text-align: center;
+    background-color: #efefef;
+    background-image: linear-gradient(rgba(200, 200, 200, .15) 1px, transparent 1px), linear-gradient(90deg, rgba(200, 200, 200, .15) 1px, transparent 1px);
+    background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+    background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+}
+
 .textBlock {
     font-size: 1vh;
-}  
+}
 
-.draggable{ 
+.draggable {
     position: absolute;
     z-index: 8;
     cursor: default;
@@ -19,7 +32,7 @@
     width: 127px;
     height: 137px;
 }
- 
+
 .sticky-note {
     float: left;
     padding: 25px 25px 40px;
@@ -40,14 +53,11 @@
     max-height:250px;*/
 }
 
-.sticky-note:active, #dragHeader:active {
+.sticky-note:active,
+#dragHeader:active {
     /* box-shadow: 0 5px 8px rgba(0, 0, 0, 0.15); */
-    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-    0 8px 10px 1px rgba(0, 0, 0, 0.14),
-    0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
-
-
 
 .sticky-note:focus {
     box-shadow: 0 15px 22px rgba(0, 0, 0, 0.2);
@@ -69,17 +79,14 @@
 }
 
 .newDrag {
-    position:absolute;
+    position: absolute;
 }
 
-
-body {
-    height: 150vh;
-    margin: 8px;
-    font: 14px/18px Arial, sans-serif;
-    text-align: center;
-    background-color: #efefef;
-    background-image: linear-gradient(rgba(200, 200, 200, .15) 1px, transparent 1px), linear-gradient(90deg, rgba(200, 200, 200, .15) 1px, transparent 1px);
-    background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
-    background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+.garbage-can {
+    background-color: red;
+    width:250px;
+    height:250px;
+    position: absolute;
+    right: 0em;
+    bottom: 0;
 }

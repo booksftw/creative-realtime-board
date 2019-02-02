@@ -22,6 +22,7 @@ import { MarkdownDirective } from './shared/markdown.directive';
 import { TextEditorComponent } from './board/text-editor/text-editor.component';
 import { AtramentPaintDirective } from './shared/atrament-paint.directive';
 import { AltraPaintComponent } from './board/altra-paint/altra-paint.component';
+import { GarbageDirective } from './shared/garbage.directive';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { AltraPaintComponent } from './board/altra-paint/altra-paint.component';
     MarkdownDirective,
     TextEditorComponent,
     AtramentPaintDirective,
-    AltraPaintComponent
+    AltraPaintComponent,
+    GarbageDirective,
   ],
   imports: [
     BrowserModule,
