@@ -13,7 +13,6 @@ export class AtramentPaintDirective implements OnInit {
 
 
   ngOnInit() {
-    console.log('this el', this.el.nativeElement)
     this.sketcher = new Atrament(this.el.nativeElement)
     this.sketcher = Atrament('#mySketcher', 500, 500, 'black')
 

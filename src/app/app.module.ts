@@ -23,6 +23,8 @@ import { TextEditorComponent } from './board/text-editor/text-editor.component';
 import { AtramentPaintDirective } from './shared/atrament-paint.directive';
 import { AltraPaintComponent } from './board/altra-paint/altra-paint.component';
 import { GarbageDirective } from './shared/garbage.directive';
+import { PaintJsDirective } from './shared/paint-js.directive';
+import { PaperPaintComponent } from './board/paper-paint/paper-paint.component';
 
 
 @NgModule({
@@ -39,6 +41,8 @@ import { GarbageDirective } from './shared/garbage.directive';
     AtramentPaintDirective,
     AltraPaintComponent,
     GarbageDirective,
+    PaintJsDirective,
+    PaperPaintComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +54,12 @@ import { GarbageDirective } from './shared/garbage.directive';
   ],
   providers: [BoardService],
   bootstrap: [AppComponent],
-  entryComponents: [StickyNoteComponent, DrawPenComponent, DrawShapesComponent, TextEditorComponent, AltraPaintComponent],
+  entryComponents: [
+    StickyNoteComponent,
+    DrawPenComponent,
+    DrawShapesComponent,
+    TextEditorComponent,
+    AltraPaintComponent,
+    PaperPaintComponent],
 })
 export class AppModule { }

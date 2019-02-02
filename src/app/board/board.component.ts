@@ -11,6 +11,8 @@ import { DrawPenComponent } from './draw-pen/draw-pen.component'
 import { DrawShapesComponent } from './draw-shapes/draw-shapes.component'
 import { TextEditorComponent } from './text-editor/text-editor.component'
 import { AltraPaintComponent } from './altra-paint/altra-paint.component'
+import { PaperPaintComponent } from './paper-paint/paper-paint.component'
+
 
 
 // import { interval } from 'rxjs'
@@ -77,14 +79,13 @@ export class BoardComponent implements OnInit {
           textComponent.instance.leftX = leftPos
           textComponent.instance.topY = topPos
           break
-        case 'altra-paint-canvas':
-        console.log('altra-paint-canvas')
-        const altraPaintFactory = this.resolver.resolveComponentFactory(AltraPaintComponent)
-        const altraPaintComponent = this.entry.createComponent(altraPaintFactory)
-        altraPaintComponent.instance.canvasId = snapshot.val().id
+        case 'paper-paint-canvas':
+        const paperPaintFactory = this.resolver.resolveComponentFactory(PaperPaintComponent)
+        const PaperComponent = this.entry.createComponent(paperPaintFactory)
+        PaperComponent.instance.canvasId = snapshot.val().id
         // textComponent.instance.canvasData = snapshot.val().content
-        altraPaintComponent.instance.leftX = leftPos
-        altraPaintComponent.instance.topY = topPos
+        PaperComponent.instance.leftX = leftPos
+        PaperComponent.instance.topY = topPos
         break
         default:
           break
