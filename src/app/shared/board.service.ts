@@ -66,6 +66,15 @@ export class BoardService {
           type: componentType
         })
         break
+        case 'altra-paint-canvas':
+        db.child('room').child('0').child(`blocks/${componentId}`).set({
+          id: componentId,
+          content: 'generated test',
+          left: 250,
+          top: 200,
+          type: componentType
+        })
+        break
       // Other omponent
       default:
         break
