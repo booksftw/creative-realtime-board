@@ -16,11 +16,11 @@ export class AtramentPaintDirective implements OnInit {
     console.log('this el', this.el.nativeElement)
     this.sketcher = new Atrament(this.el.nativeElement)
     this.sketcher = Atrament('#mySketcher', 500, 500, 'black')
-    
+
     // ! Drawing Sync - Work in progress
-    // const myImage = new Image() 
+    // const myImage = new Image()
     // myImage.src = 'https://www.catster.com/wp-content/uploads/2018/05/A-gray-cat-crying-looking-upset.jpg'
-    
+
     // const canvas = this.el.nativeElement
     // const ctx = canvas.getContext('2d')
     // console.log('canvas', canvas, 'ctx', ctx)

@@ -1,5 +1,6 @@
-*{
-    cursor: grab; /* Use this to change cursor to custom pointer*/  
+* {
+    cursor: grab;
+    /* Use this to change cursor to custom pointer*/
 }
 
 #mydiv {
@@ -8,15 +9,16 @@
     background-color: #f1f1f1;
     border: 1px solid #d3d3d3;
     text-align: center;
-    cursor:grabbing;
-    display: block; /* Neccessary to grab the entire block */
+    cursor: grabbing;
+    display: block;
+    /* Neccessary to grab the entire block */
 }
 
 .textBlock {
     font-size: 1vh;
-}  
+}
 
-.anotherBlock{ 
+.anotherBlock {
     position: absolute;
     z-index: 8;
     background-color: #f1f1f1;
@@ -27,7 +29,7 @@
     height: 137px;
 }
 
-.draggable{ 
+.draggable {
     position: absolute;
     z-index: 8;
     background-color: yellowgreen;
@@ -40,5 +42,11 @@
 
 body {
     height: 150vh;
-}  
-
+    margin: 8px;
+    font: 14px/18px Arial, sans-serif;
+    text-align: center;
+    background-color: #efefef;
+    background-image: linear-gradient(rgba(200, 200, 200, .15) 1px, transparent 1px), linear-gradient(90deg, rgba(200, 200, 200, .15) 1px, transparent 1px);
+    background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+    background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+}
