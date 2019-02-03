@@ -1,6 +1,7 @@
 import { Component, Renderer2, ElementRef, ViewChild, ViewContainerRef, ComponentFactoryResolver, OnInit } from '@angular/core'
 import { AngularFireDatabase } from '@angular/fire/database'
 import { BoardService } from './../shared/board.service'
+import { BoardStateService } from './../shared/board-state.service';
 // import { DragService } from './../shared/drag.service'
 import * as $ from 'jquery'
 // import * as _ from '../../assets/third_party/lodash'
@@ -26,13 +27,19 @@ import { PaperPaintComponent } from './paper-paint/paper-paint.component'
 export class BoardComponent implements OnInit {
   db
   itemsRef
+  enableDeleteComponent = false
+
   @ViewChild('entry', {read: ViewContainerRef}) entry: ViewContainerRef
 
   constructor(
     private dbAf: AngularFireDatabase,
     private boardUtil: BoardService,
     private resolver: ComponentFactoryResolver,
+    private viewContainerRef: ViewContainerRef,
+    private state: BoardStateService
   ) { }
+
+
 
   addComponent(componentType) {
     // Silence is golden
@@ -51,14 +58,17 @@ export class BoardComponent implements OnInit {
         case 'sticky-note':
           const stickyNoteFactory = this.resolver.resolveComponentFactory(StickyNoteComponent)
           const stickyComponent = this.entry.createComponent(stickyNoteFactory)
+          this.state.componentRef[id] = stickyComponent
           stickyComponent.instance.stickyId = snapshot.val().id
           stickyComponent.instance.content = snapshot.val().content
           stickyComponent.instance.leftX = leftPos
           stickyComponent.instance.topY = topPos
           break
         case 'draw-pen-canvas':
+        // ! Deprecated - replaced by altra paint
           const drawPenCanvasFactory = this.resolver.resolveComponentFactory(DrawPenComponent)
           const drawPenCanvas = this.entry.createComponent(drawPenCanvasFactory)
+          this.state.componentRef[id] = drawPenCanvas
           drawPenCanvas.instance.canvasId = snapshot.val().id
           drawPenCanvas.instance.leftX = leftPos
           drawPenCanvas.instance.topY = topPos
@@ -66,6 +76,7 @@ export class BoardComponent implements OnInit {
         case 'draw-shape':
           const drawShapeFactory = this.resolver.resolveComponentFactory(DrawShapesComponent)
           const drawShape = this.entry.createComponent(drawShapeFactory)
+          this.state.componentRef[id] = drawShape
           drawShape.instance.shapeId = snapshot.val().id
           drawShape.instance.leftX = leftPos
           drawShape.instance.topY = topPos
@@ -74,19 +85,21 @@ export class BoardComponent implements OnInit {
           console.log('text editors')
           const textEditorFactory = this.resolver.resolveComponentFactory(TextEditorComponent)
           const textComponent = this.entry.createComponent(textEditorFactory)
+          this.state.componentRef[id] = textComponent
           textComponent.instance.textId = snapshot.val().id
           textComponent.instance.content = snapshot.val().content
           textComponent.instance.leftX = leftPos
           textComponent.instance.topY = topPos
           break
         case 'atra-paint-canvas':
-        // ! Hacked to test altra paint
         const altraPaintFactory = this.resolver.resolveComponentFactory(AltraPaintComponent)
         const altraPaintComponent = this.entry.createComponent(altraPaintFactory)
+        this.state.componentRef[id] = altraPaintComponent
         altraPaintComponent.instance.canvasId = snapshot.val().id
         // textComponent.instance.canvasData = snapshot.val().content
         altraPaintComponent.instance.leftX = leftPos
         altraPaintComponent.instance.topY = topPos
+        altraPaintComponent.instance.compRef = altraPaintComponent
         break
         default:
           break

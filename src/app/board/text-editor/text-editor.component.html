@@ -6,6 +6,9 @@
       <path d="M0 0h24v24H0z" fill="none"></path>
     </svg>
   </div>
+  <div>
+      <button class='deleteBlock' (click)="onDeleteClick()">X</button>
+    </div>
   <textarea class="text-editor" (keyup)="userInput($event)">{{content}}</textarea>
   <!-- <div appMarkdown> </div> -->
 </div>

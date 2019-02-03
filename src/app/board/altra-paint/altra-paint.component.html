@@ -5,5 +5,9 @@
       <path d="M0 0h24v24H0z" fill="none"></path>
     </svg>
   </div>
+  <div>
+    <button class='deleteBlock' (click)="onDeleteClick()">X</button>
+  </div>
+
   <canvas [canvasTag]="canvasId"  id='mySketcher' width="595" height="595" appAtramentPaint style="background-color:white" ></canvas>
 </div>

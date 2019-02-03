@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { AngularFireDatabase } from '@angular/fire/database'
 import * as firebase from '../../../../node_modules/firebase'
+import { BoardStateService } from 'src/app/shared/board-state.service';
 
 @Component({
   selector: 'app-text-editor',
@@ -13,11 +14,13 @@ export class TextEditorComponent implements OnInit {
   leftX
   topY
   db = firebase.database().ref()
+  compRef
 
   @ViewChild('textEditor') textEditor
 
   constructor(
-    private afDb: AngularFireDatabase
+    private afDb: AngularFireDatabase,
+    private state: BoardStateService
   ){ }
 
   ngOnInit() {
@@ -27,11 +30,35 @@ export class TextEditorComponent implements OnInit {
     .child('blocks')
     .child(`${this.textId}`)
     .on('value', snap => {
+      // Sync drag position
       this.leftX = snap.val().left
       this.topY = snap.val().top
 
       // this.content = snap.val().content
+
+      // Sync destory components
+      const destroyThisComponent = snap.val().destroyThisComponent
+      if (destroyThisComponent) {
+        const compRef = this.state.componentRef[this.textId]
+        compRef.destroy()
+        this.db
+          .child('room')
+          .child('0')
+          .child('blocks')
+          .child(`${this.textId}`)
+          .set({})
+      }
     })
+  }
+
+  onDeleteClick() {
+
+    this.db
+    .child('room')
+    .child('0')
+    .child('blocks')
+    .child(`${this.textId}`)
+    .update({ destroyThisComponent: true })
   }
 
   // For performance, I duplicate this code in each component.

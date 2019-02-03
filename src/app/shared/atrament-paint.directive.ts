@@ -14,12 +14,11 @@ export class AtramentPaintDirective implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-    this.sketcher = Atrament(this.el.nativeElement, 500, 500, 'black')
+    this.sketcher = Atrament(this.el.nativeElement, 1000, 1000, 'orange')
 
     const canvas = this.el.nativeElement
     const canvasId = this.canvasTag
 
-    console.log('canvasTag', this.canvasTag)
 
     // ! Drawing Intial Sync
     // ! The data url needs to be sup in afterviewInit
@@ -33,7 +32,6 @@ export class AtramentPaintDirective implements OnInit, AfterViewInit {
     .child('blocks')
     .child(`${canvasId}`)
     .once('value', (snap) => {
-      console.log('snap', snap.val())
       myImage.src = ''
       myImage.onload = function () {
           const logo = {
@@ -52,7 +50,6 @@ export class AtramentPaintDirective implements OnInit, AfterViewInit {
 
     const dataUrl = this.sketcher.toImage()
     // const dataUrl = this.sketcher.toDataURL('image/jpeg')
-    console.log('DATA URL' , dataUrl)
 
     // ~ Disabled for now - You can activate it by splitting the array sending to firebase and joining it together to render it
     // function autoSaveToDB(canvasId) {

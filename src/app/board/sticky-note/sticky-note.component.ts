@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core'
 import { AngularFireDatabase } from '@angular/fire/database'
 import * as firebase from '../../../../node_modules/firebase'
 import * as _ from '../../../../node_modules/lodash'
+import { BoardStateService } from 'src/app/shared/board-state.service'
 
 @Component({
   selector: 'app-sticky-note',
@@ -14,12 +15,12 @@ export class StickyNoteComponent implements OnInit {
   leftX
   topY
   db = firebase.database().ref()
-  // itemRef = this.afDb.object(`room/0/blocks/${this.stickyId}`)
 
   @ViewChild('stickyNote') sticky
 
   constructor(
-    private afDb: AngularFireDatabase
+    private afDb: AngularFireDatabase,
+    private state: BoardStateService
   ) { }
 
   ngOnInit() {
@@ -29,11 +30,37 @@ export class StickyNoteComponent implements OnInit {
       .child('blocks')
       .child(`${this.stickyId}`)
       .on('value', snap => {
+        // Sync drag position
         this.leftX = snap.val().left
         this.topY = snap.val().top
 
+        // Sync text
         this.content = snap.val().content
+
+        // Sync destory components
+        const destroyThisComponent = snap.val().destroyThisComponent
+        if (destroyThisComponent) {
+          const compRef = this.state.componentRef[this.stickyId]
+          compRef.destroy()
+
+          this.db
+          .child('room')
+          .child('0')
+          .child('blocks')
+          .child(`${this.stickyId}`)
+          .set({})
+        }
       })
+  }
+
+  onDeleteClick() {
+
+    this.db
+    .child('room')
+    .child('0')
+    .child('blocks')
+    .child(`${this.stickyId}`)
+    .update({ destroyThisComponent: true })
   }
 
   // For performance, I duplicate this code in each component.
