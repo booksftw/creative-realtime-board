@@ -22,7 +22,6 @@ import { MarkdownDirective } from './shared/markdown.directive';
 import { TextEditorComponent } from './board/text-editor/text-editor.component';
 import { AtramentPaintDirective } from './shared/atrament-paint.directive';
 import { AltraPaintComponent } from './board/altra-paint/altra-paint.component';
-import { GarbageDirective } from './shared/garbage.directive';
 import { PaintJsDirective } from './shared/paint-js.directive';
 import { PaperPaintComponent } from './board/paper-paint/paper-paint.component';
 
@@ -40,7 +39,6 @@ import { PaperPaintComponent } from './board/paper-paint/paper-paint.component';
     TextEditorComponent,
     AtramentPaintDirective,
     AltraPaintComponent,
-    GarbageDirective,
     PaintJsDirective,
     PaperPaintComponent,
   ],
