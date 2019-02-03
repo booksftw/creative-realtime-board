@@ -24,14 +24,13 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/assets/css/toolbar.css"
+              "src/assets/css/toolbar.css",
+              "src/assets/css/board.css"
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/paper/dist/paper-full.min.js",
               "./src/assets/js/two.js"
-              // "./src/assets/js/firebase_og.js",
-              // "./src/assets/js/firebase_intialize.js",
-              // "./src/assets/third_party/lodash.js"
             ]
           },
           "configurations": {

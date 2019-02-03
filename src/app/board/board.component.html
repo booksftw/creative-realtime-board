@@ -1,10 +1,49 @@
-<p>
-  board works!
-</p>
+<!--  -->
 
 <div class="board_container" #entry>
+
+  <div>
+    <!-- Jim designs-->
+    <ul class="toolbar top cf">
+      <li class="home"><a href="#>"><i class="fas fa-home"></i></a></li>
+      <li class="pName"><a href="#>"><i class="far fa-star">Project</i></a></li>
+      <li class="camera"><a href="#>"><i class="fas fa-camera"></i></a></li>
+    </ul>
+    <!-- <a href="#"><img class="logo3" src="../doc/logo3.png"></a> Need to link to logo --> 
+  </div>
+
+
   <!-- Magic happens here -->
-  <button mat-raised-button color="primary" (click)='addComponent("sticky-note")'>Generate StickyNote</button>
-  <button mat-button color="primary" (click)='addComponent("draw-pen-canvas")'>Generate Draw Canvas</button>
-  <button mat-button color="warning" (click)='addComponent("draw-shape")'>Generate Draw Shape</button>
+  <!-- <div style="position:relative;top:200px"> -->
+  <!-- <button mat-raised-button color="primary" (click)='addComponent("sticky-note")'>Generate StickyNote</button> -->
+  <!-- <button mat-button color="primary" (click)='addComponent("draw-pen-canvas")'>Generate Draw Canvas</button> -->
+  <!-- <button mat-button color="warning" (click)='addComponent("draw-shape")'>Generate Draw Shape</button> -->
+  <!-- <button mat-button color="secondary" (click)='addComponent("text-editor")'>Generate Text Editor</button> -->
+  <!-- <button mat-button color="primary" (click)='addComponent("altra-paint-canvas")'>Generate Draw Altra Paint Canvas</button> -->
+  <!-- </div> -->
+
+
+  <div>
+    <ul class="toolbar cf">
+      <!-- <li><a href="#>"><i class="fas fa-mouse-pointer"></i></a></li> -->
+      <li><a (click)='addComponent("atra-paint-canvas")'><i class="fas fa-pen"></i></a></li>
+      <li><a (click)='addComponent("sticky-note")'><i class="far fa-sticky-note"></i></a></li>
+      <li><a (click)='addComponent("text-editor")'><i class="fas fa-text-width"></i></a></li>
+      <!-- <li><a href="#>"><i class="fas fa-arrow-right"></i></a></li> -->
+      <li><a (click)='addComponent("draw-shape")'><i class="far fa-square"></i></a></li>
+      <li><a href="#>"><i class="far fa-image"></i></a></li>
+      <!-- <li><input type="file" name="pic" accept="image/*"></li> -->
+      <!-- <li><a href="#>"><i class="fas fa-eraser"></i></a></li> -->
+    </ul>
+  </div>
+
+
+  <div>
+    <ul class="toolbar bottom cf">
+      <!-- <li><a href="#>"><i class="far fa-trash-alt"></i></a></li> -->
+      <li><a href="#>"><i class="fas fa-comment"></i></a></li>
+    </ul>
+  </div>
+
+
 </div>

@@ -1,56 +1,54 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { AngularFireDatabase } from '@angular/fire/database'
 import * as firebase from '../../../../node_modules/firebase'
-import * as _ from '../../../../node_modules/lodash'
-import { BoardStateService } from 'src/app/shared/board-state.service'
+import { BoardStateService } from 'src/app/shared/board-state.service';
 
 @Component({
-  selector: 'app-sticky-note',
-  templateUrl: './sticky-note.component.html',
-  styleUrls: ['./sticky-note.component.css']
+  selector: 'app-text-editor',
+  templateUrl: './text-editor.component.html',
+  styleUrls: ['./text-editor.component.css']
 })
-export class StickyNoteComponent implements OnInit {
+export class TextEditorComponent implements OnInit {
   content
-  stickyId
+  textId
   leftX
   topY
   db = firebase.database().ref()
+  compRef
 
-  @ViewChild('stickyNote') sticky
+  @ViewChild('textEditor') textEditor
 
   constructor(
     private afDb: AngularFireDatabase,
     private state: BoardStateService
-  ) { }
+  ){ }
 
   ngOnInit() {
     this.db
-      .child('room')
-      .child('0')
-      .child('blocks')
-      .child(`${this.stickyId}`)
-      .on('value', snap => {
-        // Sync drag position
-        this.leftX = snap.val().left
-        this.topY = snap.val().top
+    .child('room')
+    .child('0')
+    .child('blocks')
+    .child(`${this.textId}`)
+    .on('value', snap => {
+      // Sync drag position
+      this.leftX = snap.val().left
+      this.topY = snap.val().top
 
-        // Sync text
-        this.content = snap.val().content
+      // this.content = snap.val().content
 
-        // Sync destory components
-        const destroyThisComponent = snap.val().destroyThisComponent
-        if (destroyThisComponent) {
-          const compRef = this.state.componentRef[this.stickyId]
-          compRef.destroy()
-
-          this.db
+      // Sync destory components
+      const destroyThisComponent = snap.val().destroyThisComponent
+      if (destroyThisComponent) {
+        const compRef = this.state.componentRef[this.textId]
+        compRef.destroy()
+        this.db
           .child('room')
           .child('0')
           .child('blocks')
-          .child(`${this.stickyId}`)
+          .child(`${this.textId}`)
           .set({})
-        }
-      })
+      }
+    })
   }
 
   onDeleteClick() {
@@ -59,14 +57,14 @@ export class StickyNoteComponent implements OnInit {
     .child('room')
     .child('0')
     .child('blocks')
-    .child(`${this.stickyId}`)
+    .child(`${this.textId}`)
     .update({ destroyThisComponent: true })
   }
 
   // For performance, I duplicate this code in each component.
   dragElement(element) {
     const elmnt = element.target
-    const elmntId = this.stickyId
+    const elmntId = this.textId
 
     element = element || window.event
     element.preventDefault()
@@ -100,9 +98,10 @@ export class StickyNoteComponent implements OnInit {
     this.db
       .child('room')
       .child('0')
-      .child(`blocks/${this.stickyId}`)
+      .child(`blocks/${this.textId}`)
       .update({
         content: e.target.value
       })
   }
+
 }

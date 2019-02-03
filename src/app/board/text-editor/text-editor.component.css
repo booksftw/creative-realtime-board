@@ -1,0 +1,11 @@
+.ql-container {
+    margin-top: 35px;
+    background-color: whitesmoke;
+    width: 20em;
+}
+
+button.save-editor {
+    position: relative;
+    left: 18em;
+    bottom: 2em;
+}

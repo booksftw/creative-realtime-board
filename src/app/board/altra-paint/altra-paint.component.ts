@@ -1,53 +1,45 @@
-import { Component, OnInit, ViewChild } from '@angular/core'
-import { AngularFireDatabase } from '@angular/fire/database'
+import { Component, OnInit } from '@angular/core'
 import * as firebase from '../../../../node_modules/firebase'
-import * as _ from '../../../../node_modules/lodash'
 import { BoardStateService } from 'src/app/shared/board-state.service'
 
 @Component({
-  selector: 'app-sticky-note',
-  templateUrl: './sticky-note.component.html',
-  styleUrls: ['./sticky-note.component.css']
+  selector: 'app-altra-paint',
+  templateUrl: './altra-paint.component.html',
+  styleUrls: ['./altra-paint.component.css']
 })
-export class StickyNoteComponent implements OnInit {
-  content
-  stickyId
+export class AltraPaintComponent implements OnInit {
+  canvasId
+  canvasData
   leftX
   topY
   db = firebase.database().ref()
-
-  @ViewChild('stickyNote') sticky
+  compRef
 
   constructor(
-    private afDb: AngularFireDatabase,
     private state: BoardStateService
   ) { }
 
   ngOnInit() {
+
     this.db
       .child('room')
       .child('0')
       .child('blocks')
-      .child(`${this.stickyId}`)
+      .child(`${this.canvasId}`)
       .on('value', snap => {
         // Sync drag position
         this.leftX = snap.val().left
         this.topY = snap.val().top
-
-        // Sync text
-        this.content = snap.val().content
-
         // Sync destory components
         const destroyThisComponent = snap.val().destroyThisComponent
         if (destroyThisComponent) {
-          const compRef = this.state.componentRef[this.stickyId]
+          const compRef = this.state.componentRef[this.canvasId]
           compRef.destroy()
-
           this.db
           .child('room')
           .child('0')
           .child('blocks')
-          .child(`${this.stickyId}`)
+          .child(`${this.canvasId}`)
           .set({})
         }
       })
@@ -59,15 +51,14 @@ export class StickyNoteComponent implements OnInit {
     .child('room')
     .child('0')
     .child('blocks')
-    .child(`${this.stickyId}`)
+    .child(`${this.canvasId}`)
     .update({ destroyThisComponent: true })
   }
 
   // For performance, I duplicate this code in each component.
   dragElement(element) {
     const elmnt = element.target
-    const elmntId = this.stickyId
-
+    const elmntId = this.canvasId
     element = element || window.event
     element.preventDefault()
     document.onmousemove = elementDrag
@@ -96,13 +87,4 @@ export class StickyNoteComponent implements OnInit {
     }
   }
 
-  userInput(e) {
-    this.db
-      .child('room')
-      .child('0')
-      .child(`blocks/${this.stickyId}`)
-      .update({
-        content: e.target.value
-      })
-  }
 }

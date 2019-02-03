@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import * as firebase from '../../../../node_modules/firebase'
+import { BoardStateService } from 'src/app/shared/board-state.service';
 
 @Component({
   selector: 'app-draw-shapes',
@@ -11,8 +12,11 @@ export class DrawShapesComponent implements OnInit {
   leftX
   topY
   db = firebase.database().ref()
+  compRef
 
-  constructor() { }
+  constructor(
+    private state: BoardStateService
+  ) { }
 
   ngOnInit() {
     this.db
@@ -21,9 +25,32 @@ export class DrawShapesComponent implements OnInit {
     .child('blocks')
     .child(`${this.shapeId}`)
     .on('value', snap => {
+      // Sync drag position
       this.leftX = snap.val().left
       this.topY = snap.val().top
+      // Sync destory components
+      const destroyThisComponent = snap.val().destroyThisComponent
+      if (destroyThisComponent) {
+        const compRef = this.state.componentRef[this.shapeId]
+        compRef.destroy()
+        this.db
+          .child('room')
+          .child('0')
+          .child('blocks')
+          .child(`${this.shapeId}`)
+          .set({})
+      }
     })
+  }
+
+  onDeleteClick() {
+
+    this.db
+    .child('room')
+    .child('0')
+    .child('blocks')
+    .child(`${this.shapeId}`)
+    .update({ destroyThisComponent: true })
   }
 
   // For performance, I duplicate this code in each component.
