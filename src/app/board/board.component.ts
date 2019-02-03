@@ -79,13 +79,14 @@ export class BoardComponent implements OnInit {
           textComponent.instance.leftX = leftPos
           textComponent.instance.topY = topPos
           break
-        case 'paper-paint-canvas':
-        const paperPaintFactory = this.resolver.resolveComponentFactory(PaperPaintComponent)
-        const PaperComponent = this.entry.createComponent(paperPaintFactory)
-        PaperComponent.instance.canvasId = snapshot.val().id
+        case 'atra-paint-canvas':
+        // ! Hacked to test altra paint
+        const altraPaintFactory = this.resolver.resolveComponentFactory(AltraPaintComponent)
+        const altraPaintComponent = this.entry.createComponent(altraPaintFactory)
+        altraPaintComponent.instance.canvasId = snapshot.val().id
         // textComponent.instance.canvasData = snapshot.val().content
-        PaperComponent.instance.leftX = leftPos
-        PaperComponent.instance.topY = topPos
+        altraPaintComponent.instance.leftX = leftPos
+        altraPaintComponent.instance.topY = topPos
         break
         default:
           break

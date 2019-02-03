@@ -66,7 +66,7 @@ export class BoardService {
           type: componentType
         })
         break
-        case 'paper-paint-canvas':
+        case 'atra-paint-canvas':
         db.child('room').child('0').child(`blocks/${componentId}`).set({
           id: componentId,
           content: 'generated test',

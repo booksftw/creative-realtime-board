@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core'
 import { PaperScope, Project, Path, Point, Size, Rectangle, paper } from 'paper'
 import * as firebase from '../../../../node_modules/firebase'
+import { pathToFileURL } from 'url';
 
 @Component({
   selector: 'app-paper-paint',
@@ -13,64 +14,67 @@ export class PaperPaintComponent implements OnInit {
   leftX
   topY
   db = firebase.database().ref()
+  path
+  myPath
 
   @ViewChild('canvasElement') canvasElement: ElementRef;
-    scope: PaperScope;
-    project: Project;
+  scope: PaperScope;
+  project: Project;
 
   constructor() { }
 
   ngOnInit() {
-    // this.scope = new PaperScope()
-    // this.project = new Project(this.canvasElement.nativeElement)
+    // paper.install(window)
+    this.scope = new PaperScope()
+    this.project = new Project(this.canvasElement.nativeElement)
 
     // const canvas = this.canvasElement.nativeElement
     // paper.setup(canvas)
 
-    // var path = new paper.Path();
-		// // Give the stroke a color
-		// path.strokeColor = 'black';
-		// var start = new paper.Point(100, 100);
-		// // Move to start and draw a line from there
-		// path.moveTo(start);
-		// // Note that the plus operator on Point objects does not work
-		// // in JavaScript. Instead, we need to call the add() function:
-		// path.lineTo(start.add([ 200, -50 ]));
-		// // Draw the view now:
-		// paper.view.draw();
-
-    // const currentPath = new Path()
-    // this.project.activeLayer.addChild(currentPath)
+    // this.path = new paper.Path()
     // // Give the stroke a color
-    // currentPath.strokeColor = 'black'
-    // const start = new Point(100, 100)
+    // this.path.strokeColor = 'black'
+    const start = new paper.Point(100, 100)
+    console.log('paper point', start)
     // // Move to start and draw a line from there
-    // currentPath.moveTo(start)
-    // // Note the plus operator on Point objects.
-    // // PaperScript does that for us, and much more!
-    // currentPath.lineTo(start + [ 100, -50 ])
-
-    // ... add some points, set some properties
-
-    var topLeft = new Point(10, 20);
-var rectSize = new Size(200, 100);
-var rect = new Rectangle(topLeft, rectSize);
-console.log(rect); // { x: 10, y: 20, width: 200, height: 100 }
-console.log(rect.point); // { x: 10, y: 20 }
-console.log(rect.size); // { width: 200, height: 100 }
-
-
-
+    // this.path.moveTo(start)
+    // // Note that the plus operator on Point objects does not work
+    // // in JavaScript. Instead, we need to call the add() function:
+    // this.path.lineTo(start.add([200, -50]))
+    // // Draw the view now:
+    // paper.view.draw()
 
     this.db
-    .child('room')
-    .child('0')
-    .child('blocks')
-    .child(`${this.canvasId}`)
-    .on('value', snap => {
-      this.leftX = snap.val().left
-      this.topY = snap.val().top
+      .child('room')
+      .child('0')
+      .child('blocks')
+      .child(`${this.canvasId}`)
+      .on('value', snap => {
+        this.leftX = snap.val().left
+        this.topY = snap.val().top
+      })
+  }
+
+  onMouseDown(event) {
+    // console.log('mouse down')
+    this.myPath = new Path()
+    this.myPath.strokeColor = 'black'
+    document.onmousemove = this.onMouseDrag
+  }
+  
+
+  onMouseDrag(event) {
+    console.log('mouse drag', event)
+    // this.myPath.add(event.point)
+  }
+  
+  onMouseUp(event) {
+    const myCircle = new Path.Circle({
+      center: event.point,
+      radius: 10
     })
+    myCircle.strokeColor = 'black'
+    myCircle.fillColor = 'white'
   }
 
   dragElement(element) {
