@@ -24,6 +24,10 @@ import { AtramentPaintDirective } from './shared/atrament-paint.directive';
 import { AltraPaintComponent } from './board/altra-paint/altra-paint.component';
 import { PaintJsDirective } from './shared/paint-js.directive';
 import { PaperPaintComponent } from './board/paper-paint/paper-paint.component';
+import { ChatboxComponent } from './board/chatbox/chatbox.component';
+import { ChatinputComponent } from './board/chatbox/chatinput/chatinput.component';
+import { ChatmessagelistComponent } from './board/chatbox/chatmessagelist/chatmessagelist.component';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
@@ -41,6 +45,10 @@ import { PaperPaintComponent } from './board/paper-paint/paper-paint.component';
     AltraPaintComponent,
     PaintJsDirective,
     PaperPaintComponent,
+    ChatboxComponent,
+    ChatinputComponent,
+    ChatmessagelistComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

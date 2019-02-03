@@ -28,6 +28,8 @@ export class BoardComponent implements OnInit {
   db
   itemsRef
   enableDeleteComponent = false
+  // Todo Set this to false for production it's set to false for development
+  show = true
 
   @ViewChild('entry', {read: ViewContainerRef}) entry: ViewContainerRef
 
@@ -39,7 +41,9 @@ export class BoardComponent implements OnInit {
     private state: BoardStateService
   ) { }
 
-
+  onChatClick() {
+    this.show = !this.show
+  }
 
   addComponent(componentType) {
     // Silence is golden

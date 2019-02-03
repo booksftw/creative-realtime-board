@@ -32,16 +32,19 @@
       <!-- <li><a href="#>"><i class="fas fa-arrow-right"></i></a></li> -->
       <li><a (click)='addComponent("draw-shape")'><i class="far fa-square"></i></a></li>
       <li><a href="#>"><i class="far fa-image"></i></a></li>
+      <li><p>canvas icon</p></li>
       <!-- <li><input type="file" name="pic" accept="image/*"></li> -->
       <!-- <li><a href="#>"><i class="fas fa-eraser"></i></a></li> -->
     </ul>
   </div>
 
-
+<app-chatbox *ngIf="show"></app-chatbox>
   <div>
     <ul class="toolbar bottom cf">
-      <!-- <li><a href="#>"><i class="far fa-trash-alt"></i></a></li> -->
-      <li><a href="#>"><i class="fas fa-comment"></i></a></li>
+      <li>
+        <a (click)="show = !show">
+          <i class="fas fa-comment"></i>
+        </a></li>
     </ul>
   </div>
 
