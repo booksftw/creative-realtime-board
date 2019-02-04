@@ -78,6 +78,8 @@ import { VideoHelpersDirective } from './shared/video-helpers.directive'
     DrawShapesComponent,
     TextEditorComponent,
     AltraPaintComponent,
-    PaperPaintComponent],
+    PaperPaintComponent,
+    VideoStreamComponent
+  ],
 })
 export class AppModule { }

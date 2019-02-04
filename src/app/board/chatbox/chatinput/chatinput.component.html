@@ -1,5 +1,6 @@
-<p>
-  chatinput works!
-</p>
-
-
+<form (ngSubmit)="onEnter(formz)" #formz="ngForm">
+  <mat-form-field class="example-full-width" >
+    <textarea #ngModel matInput name="userMessage" placeholder="Send a message"></textarea>
+    <input type="submit">
+  </mat-form-field>
+</form>

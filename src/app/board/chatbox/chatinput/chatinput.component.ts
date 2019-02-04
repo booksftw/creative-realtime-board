@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
+import * as firebase from 'node_modules/firebase'
+
 
 @Component({
   selector: 'app-chatinput',
@@ -12,4 +14,9 @@ export class ChatinputComponent implements OnInit {
   ngOnInit() {
   }
 
+
+  onEnter(e) {
+    // Update a message object to firebase
+    console.log('enter', e.userMessage)
+  }
 }
