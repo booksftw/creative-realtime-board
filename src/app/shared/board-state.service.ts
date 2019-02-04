@@ -5,8 +5,13 @@ import { Injectable } from '@angular/core'
 })
 export class BoardStateService {
 
+  board = {
+    activeId: 0
+  }
+
   componentRef = {
-    test:''
-    }
+    test: ''
+  }
+
 
 }
