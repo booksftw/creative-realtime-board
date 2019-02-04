@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener } from '@angular/core';
+import { Directive, ElementRef, HostListener } from '@angular/core'
 import * as firebase from '../../../node_modules/firebase'
 
 @Directive({
@@ -7,7 +7,7 @@ import * as firebase from '../../../node_modules/firebase'
 export class DrawWithPenDirective {
 
   @HostListener('mousedown', ['$event']) onmousedown(docE) {
-    
+
     const elmnt = this.el.nativeElement
     const elementId = elmnt.className
     const docX = docE.offsetX
@@ -24,7 +24,7 @@ export class DrawWithPenDirective {
       .update({
         drawMoveToX: docX,
         drawMoveToY: docY
-      }).then( () => {console.log('mouse down')} )
+      }).then(() => { console.log('mouse down') })
 
     let drawMoveToX = docX
     let drawMoveToY = docY
@@ -45,8 +45,8 @@ export class DrawWithPenDirective {
           drawLineToX: x,
           drawLineToY: y
         })
-      drawMoveToX = x;
-      drawMoveToY = y;
+      drawMoveToX = x
+      drawMoveToY = y
     }
 
     function closeDragElement(e) {
