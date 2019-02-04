@@ -13,6 +13,9 @@ import { DrawShapesComponent } from './draw-shapes/draw-shapes.component'
 import { TextEditorComponent } from './text-editor/text-editor.component'
 import { AltraPaintComponent } from './altra-paint/altra-paint.component'
 import { PaperPaintComponent } from './paper-paint/paper-paint.component'
+import { ActivatedRoute, Router } from '@angular/router';
+
+
 
 
 
@@ -38,7 +41,9 @@ export class BoardComponent implements OnInit {
     private boardUtil: BoardService,
     private resolver: ComponentFactoryResolver,
     private viewContainerRef: ViewContainerRef,
-    private state: BoardStateService
+    private state: BoardStateService,
+    private router: Router,
+    private route: ActivatedRoute,
   ) { }
 
   onChatClick() {
@@ -51,6 +56,12 @@ export class BoardComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('routes params', this.route.queryParams.value)
+
+    this.route.queryParams.subscribe( (data) => {
+      console.log('data pararms', data)
+    })
+
     // Render Exisiting Components
     this.db = firebase.database().ref()
     this.db.child('room').child('0').child('blocks').on('child_added', (snapshot) => {

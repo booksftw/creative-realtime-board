@@ -9,20 +9,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!-- <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet"> -->
-  <!-- <link href="https://cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet"> -->
-  <!-- <script src="./assets/js/attrament-paint.js"></script> -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
     crossorigin="anonymous">
-  <!-- <script src="./src/assets/js/two.js"></script> -->
-  <!-- Load the Paper.js library -->
 
+    <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyA3dsfwoyj3x8O53NeRJs695_faNzx54CI",
+        authDomain: "realtime-creative-board.firebaseapp.com",
+        databaseURL: "https://realtime-creative-board.firebaseio.com",
+        projectId: "realtime-creative-board",
+        storageBucket: "realtime-creative-board.appspot.com",
+        messagingSenderId: "158977800333"
+      };
+      firebase.initializeApp(config);
+    </script>
 
-  <!-- <script type="text/javascript" src="/node_modules/paper/dist/paper-full.min.js"></script> -->
-  <!-- Define inlined PaperScript associate it with myCanvas -->
-  <!-- <script type="text/paperscript" canvas="myCanvas"> -->
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
 
-</script>
+    <script type="text/javascript">
+      // // FirebaseUI config.
+      // var uiConfig = {
+      //   signInSuccessUrl: '<url-to-redirect-to-on-success>',
+      //   signInOptions: [
+      //     // Leave the lines as is for the providers you want to offer your users.
+      //     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      //     firebase.auth.EmailAuthProvider.PROVIDER_ID,
+      //   ],
+      //   // tosUrl and privacyPolicyUrl accept either url string or a callback
+      //   // function.
+      //   // Terms of service url/callback.
+      //   tosUrl: '<your-tos-url>',
+      //   // Privacy policy url/callback.
+      //   privacyPolicyUrl: function() {
+      //     window.location.assign('<your-privacy-policy-url>');
+      //   }
+      // };
+
+      // Initialize the FirebaseUI Widget using Firebase.
+      // var ui = new firebaseui.auth.AuthUI(firebase.auth());
+      // // The start method will wait until the DOM is loaded.
+      // ui.start('#firebaseui-auth-container', uiConfig);
+    </script>
+
 </head>
 
 <body>
