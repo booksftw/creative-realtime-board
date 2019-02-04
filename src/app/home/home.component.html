@@ -3,4 +3,10 @@
 </p>
 <!-- <a routerLink='/board' queryParams="{test:'testing'}">Go to board</a> -->
 
-<a [routerLink]="['/choose']" [queryParams]="{ display_name: 'something'}"> Get Started</a>
+<mat-form-field class="example-full-width">
+  <input #userDisplayName matInput placeholder="Display name" value="Sushi">
+</mat-form-field>
+
+<!-- <a mat-button [routerLink]="['/choose']" [queryParams]="{ display_name: 'hello'}"> Get Started</a> -->
+<a mat-button (click)="onGetStarted(userDisplayName)"> Get Started</a> 
+

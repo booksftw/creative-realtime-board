@@ -1,3 +1,17 @@
 <h1>
   choose-room works!
 </h1>
+
+<button (click)="onCreateRoom()">Create Room</button>
+
+<div>
+  <h1>Exisiting room list here</h1>
+  <ul>
+    <!-- Inline style -->
+    <li *ngFor="let room of exisitingRooms" (click)=onJoinRoom(room.id) style="cursor: pointer">
+      <a>
+        {{ room.name }} {{room.id}}
+      </a>
+    </li>
+  </ul>
+</div>

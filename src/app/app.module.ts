@@ -32,6 +32,8 @@ import { ChatmessagelistComponent } from './board/chatbox/chatmessagelist/chatme
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { ChooseRoomComponent } from './choose-room/choose-room.component';
+import { VideoStreamComponent } from './board/video-stream/video-stream.component';
+import { VideoHelpersDirective } from './shared/video-helpers.directive'
 
 
 @NgModule({
@@ -55,6 +57,8 @@ import { ChooseRoomComponent } from './choose-room/choose-room.component';
     HomeComponent,
     LoginComponent,
     ChooseRoomComponent,
+    VideoStreamComponent,
+    VideoHelpersDirective,
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,10 @@
     <button class='deleteBlock' (click)="onDeleteClick()">X</button>
   </div>
 
+  <iframe src="https://appr.tc/" width=800px height=400px allow="geolocation; microphone; camera">
+    <p>Your browser does not support iframes.</p>
+  </iframe>
+
   <textarea class="sticky-note" (keyup)="userInput($event)">{{content}}</textarea>
 </div>
 

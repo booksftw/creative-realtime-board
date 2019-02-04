@@ -15,6 +15,7 @@ export class TextEditorComponent implements OnInit {
   topY
   db = firebase.database().ref()
   compRef
+  boardId
 
   @ViewChild('textEditor') textEditor
 
@@ -24,18 +25,17 @@ export class TextEditorComponent implements OnInit {
   ){ }
 
   ngOnInit() {
+    const boardId = this.boardId
     this.db
     .child('room')
-    .child('0')
+    .child(`${boardId}`)
     .child('blocks')
     .child(`${this.textId}`)
     .on('value', snap => {
       // Sync drag position
       this.leftX = snap.val().left
       this.topY = snap.val().top
-
       // this.content = snap.val().content
-
       // Sync destory components
       const destroyThisComponent = snap.val().destroyThisComponent
       if (destroyThisComponent) {
@@ -43,7 +43,7 @@ export class TextEditorComponent implements OnInit {
         compRef.destroy()
         this.db
           .child('room')
-          .child('0')
+          .child(`${boardId}`)
           .child('blocks')
           .child(`${this.textId}`)
           .set({})
@@ -55,7 +55,7 @@ export class TextEditorComponent implements OnInit {
 
     this.db
     .child('room')
-    .child('0')
+    .child(`${this.boardId}`)
     .child('blocks')
     .child(`${this.textId}`)
     .update({ destroyThisComponent: true })
@@ -65,6 +65,7 @@ export class TextEditorComponent implements OnInit {
   dragElement(element) {
     const elmnt = element.target
     const elmntId = this.textId
+    const boardId = this.boardId
 
     element = element || window.event
     element.preventDefault()
@@ -78,7 +79,7 @@ export class TextEditorComponent implements OnInit {
 
       const db = firebase.database().ref()
       db.child('room')
-        .child('0')
+        .child(`${boardId}`)
         .child('blocks')
         .child(elmntId)
         .update({
@@ -97,7 +98,7 @@ export class TextEditorComponent implements OnInit {
   userInput(e) {
     this.db
       .child('room')
-      .child('0')
+      .child(`${this.boardId}`)
       .child(`blocks/${this.textId}`)
       .update({
         content: e.target.value
