@@ -20,6 +20,7 @@ import { DrawWithPenDirective } from './shared/draw-with-pen.directive'
 import { DrawPenComponent } from './board/draw-pen/draw-pen.component'
 import { DrawShapesComponent } from './board/draw-shapes/draw-shapes.component'
 import { TwoJsDirective } from './shared/two-js.directive'
+// import { MarkdownDirective } from './shared/markdown.directive'
 import { TextEditorComponent } from './board/text-editor/text-editor.component'
 import { AtramentPaintDirective } from './shared/atrament-paint.directive'
 import { AltraPaintComponent } from './board/altra-paint/altra-paint.component'
@@ -34,7 +35,11 @@ import { ChooseRoomComponent } from './choose-room/choose-room.component'
 import { VideoStreamComponent } from './board/video-stream/video-stream.component'
 import { VideoHelpersDirective } from './shared/video-helpers.directive';
 import { DrawCircleComponent } from './board/draw-circle/draw-circle.component';
-import { DrawRectComponent } from './board/draw-rect/draw-rect.component'
+import { DrawRectComponent } from './board/draw-rect/draw-rect.component';
+import { CircleDirective } from './shared/shapes/circle.directive';
+import { StarDirective } from './shared/shapes/star.directive';
+import { RectangleDirective } from './shared/shapes/rectangle.directive';
+import { DrawStarComponent } from './board/draw-star/draw-star.component'
 
 
 @NgModule({
@@ -46,6 +51,7 @@ import { DrawRectComponent } from './board/draw-rect/draw-rect.component'
     DrawPenComponent,
     DrawShapesComponent,
     TwoJsDirective,
+    // MarkdownDirective,
     TextEditorComponent,
     AtramentPaintDirective,
     AltraPaintComponent,
@@ -62,6 +68,10 @@ import { DrawRectComponent } from './board/draw-rect/draw-rect.component'
     VideoHelpersDirective,
     DrawCircleComponent,
     DrawRectComponent,
+    CircleDirective,
+    StarDirective,
+    RectangleDirective,
+    DrawStarComponent,
 
   ],
   imports: [

@@ -1,7 +1,14 @@
 iframe:focus {
     outline: none;
-} 
+}
 
 iframe[seamless] {
     display: block;
-} 
+}
+
+.videoHeader {
+    color: orangered;
+    text-align: left;
+    margin: 0;
+    font-size: .5em;
+}

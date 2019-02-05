@@ -60,11 +60,9 @@ export class BoardComponent implements OnInit, AfterViewInit {
       console.log(data, data.roomName)
       this.roomName = data.roomName
       this.userDisplayName = data.userDisplayName
-      console.log('user board id', this.boardId)
+      this.roomName = data.roomName
+      console.log('user board id', this.boardId, this.roomName)
     })
-
-
-
   }
 
   ngAfterViewInit() {
@@ -152,6 +150,10 @@ export class BoardComponent implements OnInit, AfterViewInit {
         })
         // Important: This forces the app to generate components properly
         this.dbAf.list(`room/${this.boardId}/blocks`).valueChanges().subscribe((e) => { })
+  }
+
+  onChangeRoomName() {
+    // show change room input
   }
 
 }

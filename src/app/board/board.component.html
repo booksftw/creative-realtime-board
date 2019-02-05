@@ -6,7 +6,7 @@
     <!-- Jim designs-->
     <ul class="toolbar top cf">
       <li routerLink="" class="home"><a><i class="fas fa-home"></i></a></li>
-      <li class="pName"><a><i class="far">{{ roomName }}</i></a></li>
+      <li class="pName"><a (click)="onChangeRoomName()"><i class="far">{{roomName}}</i></a></li>
       <li class="camera"><a href="#>"><i class="fas fa-camera"></i></a></li>
     </ul>
     <!-- <a href="#"><img class="logo3" src="../doc/logo3.png"></a> Need to link to logo -->
@@ -24,16 +24,20 @@
 
 
   <div>
-    <ul class="toolbar cf">
+    <ul class="toolbar left cf">
       <!-- <li><a href="#>"><i class="fas fa-mouse-pointer"></i></a></li> -->
       <li><a (click)='addComponent("atra-paint-canvas")'><i class="fas fa-pen"></i></a></li>
+            <li><a href=""><i class="fas fa-eraser"></i></a></li>
       <li><a (click)='addComponent("sticky-note")'><i class="far fa-sticky-note"></i></a></li>
       <li><a (click)='addComponent("text-editor")'><i class="fas fa-text-width"></i></a></li>
       <!-- <li><a href="#>"><i class="fas fa-arrow-right"></i></a></li> -->
+      <li><a (click)='addComponent("draw-shape")'><i class="far fa-star"></i></a></li>
+      <li><a (click)='addComponent("draw-circle")'><i class="far fa-circle"></i></a></li>
       <li><a (click)='addComponent("draw-shape")'><i class="far fa-square"></i></a></li>
-      <li><a href="#>"><i class="far fa-image"></i></a></li>
+      <li><a (click)='addComponent("draw-shape")'><i class="far fa-bookmark"></i></a></li>
+      <li><input type="file" name="file" id="file" class="inputfile" /><label for="file"></label><i class="far fa-image addPic"></i></li>
       <li>
-        <p>canvas icon</p>
+        <a href=""><i class="fas fa-chalkboard"></i></a>
       </li>
       <!-- <li><input type="file" name="pic" accept="image/*"></li> -->
       <!-- <li><a href="#>"><i class="fas fa-eraser"></i></a></li> -->
@@ -45,6 +49,10 @@
   <div>
     <ul class="toolbar bottom cf">
       <li>
+        <a (click)='addComponent("video-stream-frame")'>
+          <i class="fas fa-video"></i>
+        </a></li>
+      <li>
         <a (click)="show = !show">
           <i class="fas fa-comment"></i>
         </a></li>
@@ -52,7 +60,7 @@
   </div>
 
 
-  <button (click)='addComponent("video-stream-frame")'>ADD VIDEO FRAME</button>
+  <!-- <button (click)='addComponent("video-stream-frame")'>ADD VIDEO FRAME</button> -->
 
   <!-- <iframe src="https://appr.tc/" width=800px height=400px allow="geolocation; microphone; camera">
     <p>Your browser does not support iframes.</p>
