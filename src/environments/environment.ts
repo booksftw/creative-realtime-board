@@ -5,14 +5,14 @@
 export const environment = {
   production: false,
   firebase : {
-    apiKey: "AIzaSyA3dsfwoyj3x8O53NeRJs695_faNzx54CI",
-    authDomain: "realtime-creative-board.firebaseapp.com",
-    databaseURL: "https://realtime-creative-board.firebaseio.com",
-    projectId: "realtime-creative-board",
-    storageBucket: "realtime-creative-board.appspot.com",
-    messagingSenderId: "158977800333"
+    apiKey: 'AIzaSyA3dsfwoyj3x8O53NeRJs695_faNzx54CI',
+    authDomain: 'realtime-creative-board.firebaseapp.com',
+    databaseURL: 'https://realtime-creative-board.firebaseio.com',
+    projectId: 'realtime-creative-board',
+    storageBucket: 'realtime-creative-board.appspot.com',
+    messagingSenderId: '158977800333'
   }
-};
+}
 
 /*
  * For easier debugging in development mode, you can import the following file

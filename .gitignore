@@ -2,6 +2,8 @@
 
 #NZ
 /.firebase
+/.firebase.json
+/.firebaserc
 
 # compiled output
 /dist

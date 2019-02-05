@@ -1,0 +1,11 @@
+<p class="chatRoom">
+  Chat Room
+</p>
+
+<div class="chatBox">
+  <ul class="chatListBox">
+    <li class="chatList" *ngFor="let message of messages | async">
+      {{ message.userDisplayName}}:     {{message.message}}
+    </li>
+  </ul>
+</div>

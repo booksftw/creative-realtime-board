@@ -14,16 +14,17 @@ export class AltraPaintComponent implements OnInit {
   topY
   db = firebase.database().ref()
   compRef
+  boardId
 
   constructor(
     private state: BoardStateService
   ) { }
 
   ngOnInit() {
-
+    const boardId = this.boardId
     this.db
       .child('room')
-      .child('0')
+      .child(`${boardId}`)
       .child('blocks')
       .child(`${this.canvasId}`)
       .on('value', snap => {
@@ -37,7 +38,7 @@ export class AltraPaintComponent implements OnInit {
           compRef.destroy()
           this.db
           .child('room')
-          .child('0')
+          .child(`${boardId}`)
           .child('blocks')
           .child(`${this.canvasId}`)
           .set({})
@@ -49,7 +50,7 @@ export class AltraPaintComponent implements OnInit {
 
     this.db
     .child('room')
-    .child('0')
+    .child(`${this.boardId}`)
     .child('blocks')
     .child(`${this.canvasId}`)
     .update({ destroyThisComponent: true })
@@ -59,6 +60,7 @@ export class AltraPaintComponent implements OnInit {
   dragElement(element) {
     const elmnt = element.target
     const elmntId = this.canvasId
+    const boardId = this.boardId
     element = element || window.event
     element.preventDefault()
     document.onmousemove = elementDrag
@@ -71,7 +73,7 @@ export class AltraPaintComponent implements OnInit {
 
       const db = firebase.database().ref()
       db.child('room')
-        .child('0')
+        .child(`${boardId}`)
         .child('blocks')
         .child(elmntId)
         .update({
