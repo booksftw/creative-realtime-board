@@ -30,6 +30,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
   show = false
   boardId
   userDisplayName
+  roomName
 
   @ViewChild('entry', {read: ViewContainerRef}) entry: ViewContainerRef
 
@@ -55,6 +56,8 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
     this.route.queryParams.subscribe(data => {
       this.boardId = data.roomId
+      console.log(data, data.roomName)
+      this.roomName = data.roomName
       this.userDisplayName = data.userDisplayName
       console.log('user board id', this.boardId)
     })

@@ -13,6 +13,7 @@ export class ChooseRoomComponent implements OnInit {
   exisitingRooms = []
   roomSnapshotListener
   userDisplayListener
+  roomName
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -31,6 +32,8 @@ export class ChooseRoomComponent implements OnInit {
         const roomId = room.key
         const roomData = room.payload.val()
         // @ts-ignore
+        this.roomName = room.payload.val().name
+        // @ts-ignore
         const roomName = room.payload.val().name
         const roomDataForView = {id: roomId, name: roomName}
         this.exisitingRooms.push(roomDataForView)
@@ -42,20 +45,20 @@ export class ChooseRoomComponent implements OnInit {
   }
 
   onJoinRoom(id) {
-    this.router.navigate(['/board'], { queryParams: { roomId: id, userDisplayName: this.userDisplayName } })
+    this.router.navigate(['/board'], { queryParams: { roomId: id, roomName: this.roomName, userDisplayName: this.userDisplayName } })
     // Unsubscribe to listeners
     this.roomSnapshotListener.unsubscribe()
     this.userDisplayListener.unsubscribe()
   }
   onCreateRoom() {
-    const id = Math.floor(Math.random() * 100000)
+    const id = Math.floor(Math.random() * 1000000000000)
 
     this.db.object(`room/${id}`).set({
       name: 'Unicorn Room',
       blocks: {}
     })
 
-    this.router.navigate(['/board'], { queryParams: { roomId: id, userDisplayName: this.userDisplayName } })
+    this.router.navigate(['/board'], { queryParams: { roomId: id, roomName: this.roomName, userDisplayName: this.userDisplayName } })
     // Unsubscribe to listeners
     this.roomSnapshotListener.unsubscribe()
     this.userDisplayListener.unsubscribe()
