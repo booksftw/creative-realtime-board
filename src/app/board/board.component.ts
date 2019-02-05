@@ -15,6 +15,7 @@ import { AltraPaintComponent } from './altra-paint/altra-paint.component'
 import { PaperPaintComponent } from './paper-paint/paper-paint.component'
 import { ActivatedRoute, Router } from '@angular/router'
 import { VideoStreamComponent } from './video-stream/video-stream.component'
+import { DrawCircleComponent } from './draw-circle/draw-circle.component';
 
 
 @Component({
@@ -136,6 +137,15 @@ export class BoardComponent implements OnInit, AfterViewInit {
               videoFrameComponent.instance.topY = topPos
               videoFrameComponent.instance.boardId = this.boardId
               break
+            case 'draw-circle':
+              const drawCircleFactory = this.resolver.resolveComponentFactory(DrawCircleComponent)
+              const drawCircle = this.entry.createComponent(drawCircleFactory)
+              this.state.componentRef[id] = drawCircle
+              drawCircle.instance.shapeId = snapshot.val().id
+              drawCircle.instance.leftX = leftPos
+              drawCircle.instance.topY = topPos
+              drawCircle.instance.boardId = this.boardId
+            break
             default:
               break
           }

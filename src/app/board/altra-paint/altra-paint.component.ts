@@ -23,11 +23,14 @@ export class AltraPaintComponent implements OnInit, AfterViewInit {
     private el: ElementRef
   ) { }
 
-  ngAfterViewInit() {
+  ngOnInit() {
     const boardId = this.boardId
     console.log(this.el.nativeElement.querySelector('#mySketcher'))
     const canvas = this.el.nativeElement.querySelector('#mySketcher')
     const sketcher = Atrament(canvas, 500, 500, 'orange')
+    sketcher.adaptiveStroke = false
+    // sketcher.smoothing = false;
+
     const canvasId = this.canvasId
 
     // Listen and Intialize Render
@@ -77,7 +80,7 @@ export class AltraPaintComponent implements OnInit, AfterViewInit {
       })
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     const boardId = this.boardId
     console.log(this.el.nativeElement.querySelector('#mySketcher'))
     const canvas = this.el.nativeElement.querySelector('#mySketcher')
@@ -102,7 +105,7 @@ export class AltraPaintComponent implements OnInit, AfterViewInit {
           .update({
             content: dataUrl
           })
-      }, 400)
+      }, 100)
     }
     autoSaveCanvas(sketcher)
   }

@@ -40,10 +40,8 @@
     </ul>
   </div>
 
-  <app-chatbox 
-  *ngIf="show"
-  >
-</app-chatbox>
+  <app-chatbox *ngIf="show" > </app-chatbox>
+
   <div>
     <ul class="toolbar bottom cf">
       <li>
@@ -64,3 +62,5 @@
   <!-- <app-video-stream></app-video-stream> -->
 
 </div>
+
+<button (click)='addComponent("draw-circle")'>Draw Circle</button>

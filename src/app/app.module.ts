@@ -32,7 +32,9 @@ import { HomeComponent } from './home/home.component'
 import { LoginComponent } from './login/login.component'
 import { ChooseRoomComponent } from './choose-room/choose-room.component'
 import { VideoStreamComponent } from './board/video-stream/video-stream.component'
-import { VideoHelpersDirective } from './shared/video-helpers.directive'
+import { VideoHelpersDirective } from './shared/video-helpers.directive';
+import { DrawCircleComponent } from './board/draw-circle/draw-circle.component';
+import { DrawRectComponent } from './board/draw-rect/draw-rect.component'
 
 
 @NgModule({
@@ -58,6 +60,8 @@ import { VideoHelpersDirective } from './shared/video-helpers.directive'
     ChooseRoomComponent,
     VideoStreamComponent,
     VideoHelpersDirective,
+    DrawCircleComponent,
+    DrawRectComponent,
 
   ],
   imports: [
@@ -79,7 +83,8 @@ import { VideoHelpersDirective } from './shared/video-helpers.directive'
     TextEditorComponent,
     AltraPaintComponent,
     PaperPaintComponent,
-    VideoStreamComponent
+    VideoStreamComponent,
+    DrawCircleComponent
   ],
 })
 export class AppModule { }

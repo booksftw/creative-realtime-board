@@ -28,6 +28,7 @@ export class ChooseRoomComponent implements OnInit {
     })
 
     this.roomSnapshotListener = this.db.list('room').snapshotChanges().subscribe(rooms => {
+      const savedRooms = []
       rooms.forEach(room => {
         const roomId = room.key
         const roomData = room.payload.val()
@@ -36,10 +37,9 @@ export class ChooseRoomComponent implements OnInit {
         // @ts-ignore
         const roomName = room.payload.val().name
         const roomDataForView = {id: roomId, name: roomName}
-        this.exisitingRooms.push(roomDataForView)
+        savedRooms.push(roomDataForView)
       })
-
-      console.log(this.exisitingRooms, ' existing rooms')
+      this.exisitingRooms = savedRooms
     })
 
   }
