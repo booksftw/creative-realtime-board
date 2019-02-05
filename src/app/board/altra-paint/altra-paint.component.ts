@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core'
+import * as Atrament from '../../../assets/js/attrament-paint'
 import * as firebase from '../../../../node_modules/firebase'
 import { BoardStateService } from 'src/app/shared/board-state.service'
 
@@ -7,7 +8,7 @@ import { BoardStateService } from 'src/app/shared/board-state.service'
   templateUrl: './altra-paint.component.html',
   styleUrls: ['./altra-paint.component.css']
 })
-export class AltraPaintComponent implements OnInit {
+export class AltraPaintComponent implements OnInit, AfterViewInit {
   canvasId
   canvasData
   leftX
@@ -15,13 +16,36 @@ export class AltraPaintComponent implements OnInit {
   db = firebase.database().ref()
   compRef
   boardId
+  // sketcher
 
   constructor(
-    private state: BoardStateService
+    private state: BoardStateService,
+    private el: ElementRef
   ) { }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     const boardId = this.boardId
+    console.log(this.el.nativeElement.querySelector('#mySketcher'))
+    const canvas = this.el.nativeElement.querySelector('#mySketcher')
+    const sketcher = Atrament(canvas, 500, 500, 'orange')
+    const canvasId = this.canvasId
+
+    // Listen and Intialize Render
+    this.db
+      .child('room')
+      .child(`${boardId}`)
+      .child('blocks')
+      .child(`${this.canvasId}`)
+      .once('value', snap => {
+        // Sync image
+        const myImage = new Image()
+        myImage.src = snap.val().content
+        const ctx = canvas.getContext('2d')
+        console.log('ctx once', ctx)
+        ctx.drawImage(myImage, 0, 0)
+      })
+
+    // Listen and Render
     this.db
       .child('room')
       .child(`${boardId}`)
@@ -33,6 +57,10 @@ export class AltraPaintComponent implements OnInit {
         this.topY = snap.val().top
 
         // Sync image
+        const myImage = new Image()
+        myImage.src = snap.val().content
+        const ctx = canvas.getContext('2d')
+        ctx.drawImage(myImage, 0, 0)
 
         // Sync destory components
         const destroyThisComponent = snap.val().destroyThisComponent
@@ -40,23 +68,53 @@ export class AltraPaintComponent implements OnInit {
           const compRef = this.state.componentRef[this.canvasId]
           compRef.destroy()
           this.db
+            .child('room')
+            .child(`${boardId}`)
+            .child('blocks')
+            .child(`${this.canvasId}`)
+            .set({})
+        }
+      })
+  }
+
+  ngOnInit() {
+    const boardId = this.boardId
+    console.log(this.el.nativeElement.querySelector('#mySketcher'))
+    const canvas = this.el.nativeElement.querySelector('#mySketcher')
+    const sketcher = Atrament(canvas, 500, 500, 'orange')
+    const canvasId = this.canvasId
+
+    function autoSaveCanvas(atrCanvas) {
+      const db = firebase.database().ref()
+      const sketcherForData = sketcher
+      console.log('calling1', sketcherForData)
+
+      setInterval(() => {
+        const dataUrl = sketcherForData.toImage()
+        console.log('calling')
+
+
+        db
           .child('room')
           .child(`${boardId}`)
           .child('blocks')
-          .child(`${this.canvasId}`)
-          .set({})
-        }
-      })
+          .child(`${canvasId}`)
+          .update({
+            content: dataUrl
+          })
+      }, 400)
+    }
+    autoSaveCanvas(sketcher)
   }
 
   onDeleteClick() {
 
     this.db
-    .child('room')
-    .child(`${this.boardId}`)
-    .child('blocks')
-    .child(`${this.canvasId}`)
-    .update({ destroyThisComponent: true })
+      .child('room')
+      .child(`${this.boardId}`)
+      .child('blocks')
+      .child(`${this.canvasId}`)
+      .update({ destroyThisComponent: true })
   }
 
   // For performance, I duplicate this code in each component.

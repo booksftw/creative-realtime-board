@@ -14,7 +14,7 @@ export class AtramentPaintDirective implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-    this.sketcher = Atrament(this.el.nativeElement, 1000, 1000, 'orange')
+    // this.sketcher = Atrament(this.el.nativeElement, 1000, 1000, 'orange')
 
     const canvas = this.el.nativeElement
     const canvasId = this.canvasTag
