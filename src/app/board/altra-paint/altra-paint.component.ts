@@ -31,6 +31,9 @@ export class AltraPaintComponent implements OnInit {
         // Sync drag position
         this.leftX = snap.val().left
         this.topY = snap.val().top
+
+        // Sync image
+
         // Sync destory components
         const destroyThisComponent = snap.val().destroyThisComponent
         if (destroyThisComponent) {

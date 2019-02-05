@@ -68,5 +68,5 @@ export class AtramentPaintDirective implements OnInit, AfterViewInit {
     // autoSaveToDB(dataUrl)
   }
 
-  
+
 }
