@@ -5,11 +5,11 @@
   <div>
     <!-- Jim designs-->
     <ul class="toolbar top cf">
-      <li class="home"><a href="#>"><i class="fas fa-home"></i></a></li>
+      <li routerLink="" class="home"><a><i class="fas fa-home"></i></a></li>
       <li class="pName"><a href="#>"><i class="far fa-star">Project</i></a></li>
       <li class="camera"><a href="#>"><i class="fas fa-camera"></i></a></li>
     </ul>
-    <!-- <a href="#"><img class="logo3" src="../doc/logo3.png"></a> Need to link to logo --> 
+    <!-- <a href="#"><img class="logo3" src="../doc/logo3.png"></a> Need to link to logo -->
   </div>
 
 
@@ -32,18 +32,35 @@
       <!-- <li><a href="#>"><i class="fas fa-arrow-right"></i></a></li> -->
       <li><a (click)='addComponent("draw-shape")'><i class="far fa-square"></i></a></li>
       <li><a href="#>"><i class="far fa-image"></i></a></li>
+      <li>
+        <p>canvas icon</p>
+      </li>
       <!-- <li><input type="file" name="pic" accept="image/*"></li> -->
       <!-- <li><a href="#>"><i class="fas fa-eraser"></i></a></li> -->
     </ul>
   </div>
 
-
+  <app-chatbox 
+  *ngIf="show"
+  >
+</app-chatbox>
   <div>
     <ul class="toolbar bottom cf">
-      <!-- <li><a href="#>"><i class="far fa-trash-alt"></i></a></li> -->
-      <li><a href="#>"><i class="fas fa-comment"></i></a></li>
+      <li>
+        <a (click)="show = !show">
+          <i class="fas fa-comment"></i>
+        </a></li>
     </ul>
   </div>
 
+
+  <button (click)='addComponent("video-stream-frame")'>ADD VIDEO FRAME</button>
+
+  <!-- <iframe src="https://appr.tc/" width=800px height=400px allow="geolocation; microphone; camera">
+    <p>Your browser does not support iframes.</p>
+  </iframe> -->
+  <!-- <iframe width="90%" height="500px" src="//appr.tc" allow="geolocation; microphone; camera"></iframe> -->
+
+  <!-- <app-video-stream></app-video-stream> -->
 
 </div>

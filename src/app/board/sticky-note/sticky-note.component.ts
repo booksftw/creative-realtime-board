@@ -15,6 +15,7 @@ export class StickyNoteComponent implements OnInit {
   leftX
   topY
   db = firebase.database().ref()
+  boardId
 
   @ViewChild('stickyNote') sticky
 
@@ -23,20 +24,21 @@ export class StickyNoteComponent implements OnInit {
     private state: BoardStateService
   ) { }
 
+  // ! Todo unsubscribe from all listners on destroy
   ngOnInit() {
+    const boardId = this.boardId
+    console.log('sticky board id', boardId)
     this.db
       .child('room')
-      .child('0')
+      .child(`${boardId}`)
       .child('blocks')
       .child(`${this.stickyId}`)
       .on('value', snap => {
         // Sync drag position
         this.leftX = snap.val().left
         this.topY = snap.val().top
-
         // Sync text
         this.content = snap.val().content
-
         // Sync destory components
         const destroyThisComponent = snap.val().destroyThisComponent
         if (destroyThisComponent) {
@@ -45,7 +47,7 @@ export class StickyNoteComponent implements OnInit {
 
           this.db
           .child('room')
-          .child('0')
+          .child(`${boardId}`)
           .child('blocks')
           .child(`${this.stickyId}`)
           .set({})
@@ -57,7 +59,7 @@ export class StickyNoteComponent implements OnInit {
 
     this.db
     .child('room')
-    .child('0')
+    .child(`${this.boardId}`)
     .child('blocks')
     .child(`${this.stickyId}`)
     .update({ destroyThisComponent: true })
@@ -65,6 +67,7 @@ export class StickyNoteComponent implements OnInit {
 
   // For performance, I duplicate this code in each component.
   dragElement(element) {
+    const boardId = this.boardId
     const elmnt = element.target
     const elmntId = this.stickyId
 
@@ -77,10 +80,9 @@ export class StickyNoteComponent implements OnInit {
       // Update firebase position
       const x = e.clientX
       const y = e.clientY
-
       const db = firebase.database().ref()
       db.child('room')
-        .child('0')
+        .child(`${boardId}`)
         .child('blocks')
         .child(elmntId)
         .update({
@@ -99,7 +101,7 @@ export class StickyNoteComponent implements OnInit {
   userInput(e) {
     this.db
       .child('room')
-      .child('0')
+      .child(`${this.boardId}`)
       .child(`blocks/${this.stickyId}`)
       .update({
         content: e.target.value

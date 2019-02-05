@@ -126,9 +126,9 @@
     display: flex;
     height: fit-content;
     width: 8em;
-    position: absolute;
+    position: fixed;
     right: 0.5em;
-    top: 51.5em;
+    bottom: 0em;
     box-shadow: 3px 3px 6px rgba(0, 0, 0, .5);
 }
 

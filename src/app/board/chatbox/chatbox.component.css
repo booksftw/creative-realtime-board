@@ -1,0 +1,7 @@
+.chat-container {
+    position: fixed;
+    background-color: yellowgreen;
+    width: 27em;
+    right: 0;
+    bottom: 0;
+}

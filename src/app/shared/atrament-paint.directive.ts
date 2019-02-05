@@ -19,7 +19,6 @@ export class AtramentPaintDirective implements OnInit, AfterViewInit {
     const canvas = this.el.nativeElement
     const canvasId = this.canvasTag
 
-
     // ! Drawing Intial Sync
     // ! The data url needs to be sup in afterviewInit
     const myImage = new Image()

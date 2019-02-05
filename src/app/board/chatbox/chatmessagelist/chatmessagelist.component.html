@@ -1,0 +1,11 @@
+<p>
+  chatmessagelist works!
+</p>
+
+<div>
+  <ul>
+    <li *ngFor="let message of messages | async">
+      {{ message.userDisplayName}}:     {{message.message}}
+    </li>
+  </ul>
+</div>
