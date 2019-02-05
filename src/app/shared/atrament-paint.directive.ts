@@ -21,26 +21,26 @@ export class AtramentPaintDirective implements OnInit, AfterViewInit {
 
     // ! Drawing Intial Sync
     // ! The data url needs to be sup in afterviewInit
-    const myImage = new Image()
-    const ctx = canvas.getContext('2d')
-
-    const db = firebase.database().ref()
-    db
-    .child('room')
-    .child('0')
-    .child('blocks')
-    .child(`${canvasId}`)
-    .once('value', (snap) => {
-      myImage.src = ''
-      myImage.onload = function () {
-          const logo = {
-            img: myImage,
-            x: (canvas.width / 2) - (myImage.width / 2),
-            y: (canvas.height / 2) - (myImage.height / 2)
-        }
-        ctx.drawImage(logo.img, 0, 0, logo.img.width, logo.img.height)
-      }
-    })
+    // ! Do this in the component
+    // const myImage = new Image()
+    // const ctx = canvas.getContext('2d')
+    // const db = firebase.database().ref()
+    // db
+    // .child('room')
+    // .child('0')
+    // .child('blocks')
+    // .child(`${canvasId}`)
+    // .once('value', (snap) => {
+    //   myImage.src = ''
+    //   myImage.onload = function () {
+    //       const logo = {
+    //         img: myImage,
+    //         x: (canvas.width / 2) - (myImage.width / 2),
+    //         y: (canvas.height / 2) - (myImage.height / 2)
+    //     }
+    //     ctx.drawImage(logo.img, 0, 0, logo.img.width, logo.img.height)
+    //   }
+    // })
   }
 
   ngAfterViewInit(): void {
@@ -51,21 +51,21 @@ export class AtramentPaintDirective implements OnInit, AfterViewInit {
     // const dataUrl = this.sketcher.toDataURL('image/jpeg')
 
     // ~ Disabled for now - You can activate it by splitting the array sending to firebase and joining it together to render it
-    // function autoSaveToDB(canvasId) {
-    //   setInterval(() => {
-    //     // const dataUrl = this.sketcher.toImage()
-    //     console.log('DATA URL' , dataUrl, 'save')
-    //     const db = firebase.database().ref()
-    //     db
-    //       .child('room')
-    //       .child('0')
-    //       .child(`blocks/${canvasId}`)
-    //       .update({
-    //         content: dataUrl
-    //       })
-    //   }, 5000)
-    // }
-    // autoSaveToDB(dataUrl)
+    function autoSaveToDB(canvasId) {
+      setInterval(() => {
+        // const dataUrl = this.sketcher.toImage()
+        console.log('DATA URL' , dataUrl, 'save')
+        const db = firebase.database().ref()
+        db
+          .child('room')
+          .child('0')
+          .child(`blocks/${canvasId}`)
+          .update({
+            content: dataUrl
+          })
+      }, 5000)
+    }
+    autoSaveToDB(dataUrl)
   }
 
   

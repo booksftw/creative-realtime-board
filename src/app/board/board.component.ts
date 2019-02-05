@@ -30,6 +30,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
   show = false
   boardId
   userDisplayName
+  roomName
 
   @ViewChild('entry', {read: ViewContainerRef}) entry: ViewContainerRef
 
@@ -56,11 +57,9 @@ export class BoardComponent implements OnInit, AfterViewInit {
     this.route.queryParams.subscribe(data => {
       this.boardId = data.roomId
       this.userDisplayName = data.userDisplayName
-      console.log('user board id', this.boardId)
+      this.roomName = data.roomName
+      console.log('user board id', this.boardId, this.roomName)
     })
-
-
-
   }
 
   ngAfterViewInit() {
@@ -139,6 +138,10 @@ export class BoardComponent implements OnInit, AfterViewInit {
         })
         // Important: This forces the app to generate components properly
         this.dbAf.list(`room/${this.boardId}/blocks`).valueChanges().subscribe((e) => { })
+  }
+
+  onChangeRoomName() {
+    // show change room input
   }
 
 }
