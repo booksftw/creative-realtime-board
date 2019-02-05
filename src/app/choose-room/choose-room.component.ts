@@ -42,7 +42,7 @@ export class ChooseRoomComponent implements OnInit {
   }
 
   onJoinRoom(id) {
-    this.router.navigate(['/board'], { queryParams: { roomId: id } })
+    this.router.navigate(['/board'], { queryParams: { roomId: id, userDisplayName: this.userDisplayName } })
     // Unsubscribe to listeners
     this.roomSnapshotListener.unsubscribe()
     this.userDisplayListener.unsubscribe()
@@ -55,7 +55,7 @@ export class ChooseRoomComponent implements OnInit {
       blocks: {}
     })
 
-    this.router.navigate(['/board'], { queryParams: { roomId: id } })
+    this.router.navigate(['/board'], { queryParams: { roomId: id, userDisplayName: this.userDisplayName } })
     // Unsubscribe to listeners
     this.roomSnapshotListener.unsubscribe()
     this.userDisplayListener.unsubscribe()

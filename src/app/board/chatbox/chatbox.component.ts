@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core'
   styleUrls: ['./chatbox.component.css']
 })
 export class ChatboxComponent implements OnInit {
-
-  constructor() { }
+  userDisplayName
+  constructor(
+   
+  ) { }
 
   ngOnInit() {
+    
   }
 
 }

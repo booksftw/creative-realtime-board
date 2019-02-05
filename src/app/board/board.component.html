@@ -40,7 +40,10 @@
     </ul>
   </div>
 
-  <app-chatbox *ngIf="show"></app-chatbox>
+  <app-chatbox 
+  *ngIf="show"
+  >
+</app-chatbox>
   <div>
     <ul class="toolbar bottom cf">
       <li>
@@ -49,6 +52,7 @@
         </a></li>
     </ul>
   </div>
+
 
   <button (click)='addComponent("video-stream-frame")'>ADD VIDEO FRAME</button>
 

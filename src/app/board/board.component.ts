@@ -1,7 +1,7 @@
-import { Component, Renderer2, ElementRef, ViewChild, ViewContainerRef, ComponentFactoryResolver, OnInit, AfterViewInit } from '@angular/core'
+import { Component, ViewChild, ViewContainerRef, ComponentFactoryResolver, OnInit, AfterViewInit } from '@angular/core'
 import { AngularFireDatabase } from '@angular/fire/database'
 import { BoardService } from './../shared/board.service'
-import { BoardStateService } from './../shared/board-state.service';
+import { BoardStateService } from './../shared/board-state.service'
 // import { DragService } from './../shared/drag.service'
 import * as $ from 'jquery'
 // import * as _ from '../../assets/third_party/lodash'
@@ -13,12 +13,9 @@ import { DrawShapesComponent } from './draw-shapes/draw-shapes.component'
 import { TextEditorComponent } from './text-editor/text-editor.component'
 import { AltraPaintComponent } from './altra-paint/altra-paint.component'
 import { PaperPaintComponent } from './paper-paint/paper-paint.component'
-import { ActivatedRoute, Router } from '@angular/router';
-import { VideoStreamComponent } from './video-stream/video-stream.component';
+import { ActivatedRoute, Router } from '@angular/router'
+import { VideoStreamComponent } from './video-stream/video-stream.component'
 
-
-// import { interval } from 'rxjs'
-// import { throttle } from 'rxjs/operators'
 
 @Component({
   selector: 'app-board',
@@ -30,8 +27,9 @@ export class BoardComponent implements OnInit, AfterViewInit {
   itemsRef
   enableDeleteComponent = false
   // Todo Set this to false for production it's set to false for development
-  show = true
+  show = false
   boardId
+  userDisplayName
 
   @ViewChild('entry', {read: ViewContainerRef}) entry: ViewContainerRef
 
@@ -57,6 +55,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
     this.route.queryParams.subscribe(data => {
       this.boardId = data.roomId
+      this.userDisplayName = data.userDisplayName
       console.log('user board id', this.boardId)
     })
 

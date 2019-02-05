@@ -35,7 +35,7 @@ export class TextEditorComponent implements OnInit {
       // Sync drag position
       this.leftX = snap.val().left
       this.topY = snap.val().top
-      // this.content = snap.val().content
+      this.content = snap.val().content
       // Sync destory components
       const destroyThisComponent = snap.val().destroyThisComponent
       if (destroyThisComponent) {
