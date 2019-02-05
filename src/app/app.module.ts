@@ -18,16 +18,12 @@ import { DrawWithPenDirective } from './shared/draw-with-pen.directive';
 import { DrawPenComponent } from './board/draw-pen/draw-pen.component';
 import { DrawShapesComponent } from './board/draw-shapes/draw-shapes.component';
 import { TwoJsDirective } from './shared/two-js.directive';
-import { MarkdownDirective } from './shared/markdown.directive';
-<<<<<<< HEAD
-=======
 import { TextEditorComponent } from './board/text-editor/text-editor.component';
 import { AtramentPaintDirective } from './shared/atrament-paint.directive';
 import { AltraPaintComponent } from './board/altra-paint/altra-paint.component';
 import { PaintJsDirective } from './shared/paint-js.directive';
 import { PaperPaintComponent } from './board/paper-paint/paper-paint.component';
 
->>>>>>> integrate/image_upload
 
 @NgModule({
   declarations: [
@@ -38,16 +34,11 @@ import { PaperPaintComponent } from './board/paper-paint/paper-paint.component';
     DrawPenComponent,
     DrawShapesComponent,
     TwoJsDirective,
-<<<<<<< HEAD
-    MarkdownDirective
-=======
-    MarkdownDirective,
     TextEditorComponent,
     AtramentPaintDirective,
     AltraPaintComponent,
     PaintJsDirective,
     PaperPaintComponent,
->>>>>>> integrate/image_upload
   ],
   imports: [
     BrowserModule,
@@ -65,6 +56,7 @@ import { PaperPaintComponent } from './board/paper-paint/paper-paint.component';
     DrawShapesComponent,
     TextEditorComponent,
     AltraPaintComponent,
-    PaperPaintComponent],
+    PaperPaintComponent
+  ],
 })
 export class AppModule { }
