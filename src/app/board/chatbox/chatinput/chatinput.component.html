@@ -1,0 +1,22 @@
+<!-- <form (ngSubmit)="onEnter(formz)" #formz="ngForm">
+  <mat-form-field class="example-full-width">
+    <textarea #ngModel matInput name="userMessage" placeholder="Send a message"></textarea>
+    <input type="submit">
+  </mat-form-field>
+</form> -->
+
+<form (ngSubmit)="onEnter(form)" #form="ngForm">
+  <mat-form-field class="example-full-width">
+    <input matInput type="text" id='userMessage' placeholder="Enter message" name="userMessage" class="form-control" ngModel>
+  </mat-form-field>
+  <button style="width:20%" mat-raised-button>Send</button>
+</form>
+
+
+<!-- <form (ngSubmit)="onEnter(form)" #form="ngForm">
+  <div class="form-group">
+    <label for="heroName">Hero Name</label>
+    <input type="text" id='heroName' name="heroName" class="form-control" ngModel>
+  </div>
+  <button class="btn btn-primary">Submit</button>
+</form> -->

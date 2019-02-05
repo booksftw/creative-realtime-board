@@ -18,13 +18,13 @@ export class BoardService {
     return 'testing board service works'
   }
 
-  onAddComponent(componentType) {
+  onAddComponent(componentType, boardId) {
     const componentId = this.getRandomId()
     const db = firebase.database().ref()
     // Intialize position and obj in DB
     switch (componentType) {
       case 'sticky-note':
-        db.child('room').child('0').child(`blocks/${componentId}`).set({
+        db.child('room').child(`${boardId}`).child(`blocks/${componentId}`).set({
           id: componentId,
           content: 'generated test',
           left: 250,
@@ -34,7 +34,7 @@ export class BoardService {
         })
         break
         case 'draw-pen-canvas':
-        db.child('room').child('0').child(`blocks/${componentId}`).set({
+        db.child('room').child(`${boardId}`).child(`blocks/${componentId}`).set({
           id: componentId,
           // content: 'generated test',
           drawLineToX: 0,
@@ -48,7 +48,7 @@ export class BoardService {
         })
         break
         case 'draw-shape':
-        db.child('room').child('0').child(`blocks/${componentId}`).set({
+        db.child('room').child(`${boardId}`).child(`blocks/${componentId}`).set({
           id: componentId,
           // content: 'generated test',
           drawLineToX: 0,
@@ -62,7 +62,7 @@ export class BoardService {
         })
         break
         case 'text-editor':
-        db.child('room').child('0').child(`blocks/${componentId}`).set({
+        db.child('room').child(`${boardId}`).child(`blocks/${componentId}`).set({
           id: componentId,
           content: 'text editor test',
           left: 250,
@@ -72,9 +72,18 @@ export class BoardService {
         })
         break
         case 'atra-paint-canvas':
-        db.child('room').child('0').child(`blocks/${componentId}`).set({
+        db.child('room').child(`${boardId}`).child(`blocks/${componentId}`).set({
           id: componentId,
           content: 'generated test',
+          left: 250,
+          top: 200,
+          type: componentType,
+          destroyThisComponent: false
+        })
+        break
+        case 'video-stream-frame':
+        db.child('room').child(`${boardId}`).child(`blocks/${componentId}`).set({
+          id: componentId,
           left: 250,
           top: 200,
           type: componentType,

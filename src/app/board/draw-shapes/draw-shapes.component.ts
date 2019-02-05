@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import * as firebase from '../../../../node_modules/firebase'
-import { BoardStateService } from 'src/app/shared/board-state.service';
+import { BoardStateService } from 'src/app/shared/board-state.service'
 
 @Component({
   selector: 'app-draw-shapes',
@@ -13,15 +13,18 @@ export class DrawShapesComponent implements OnInit {
   topY
   db = firebase.database().ref()
   compRef
+  boardId
 
   constructor(
     private state: BoardStateService
   ) { }
 
   ngOnInit() {
+    console.log('this board id', this.boardId)
+    const boardId = this.boardId
     this.db
     .child('room')
-    .child('0')
+    .child(`${this.boardId}`)
     .child('blocks')
     .child(`${this.shapeId}`)
     .on('value', snap => {
@@ -35,7 +38,7 @@ export class DrawShapesComponent implements OnInit {
         compRef.destroy()
         this.db
           .child('room')
-          .child('0')
+          .child(`${boardId}`)
           .child('blocks')
           .child(`${this.shapeId}`)
           .set({})
@@ -47,7 +50,7 @@ export class DrawShapesComponent implements OnInit {
 
     this.db
     .child('room')
-    .child('0')
+    .child(`${this.boardId}`)
     .child('blocks')
     .child(`${this.shapeId}`)
     .update({ destroyThisComponent: true })
@@ -57,6 +60,7 @@ export class DrawShapesComponent implements OnInit {
   dragElement(element) {
     const elmnt = element.target
     const elmntId = this.shapeId
+    const boardId = this.boardId
 
     element = element || window.event
     element.preventDefault()
@@ -70,7 +74,7 @@ export class DrawShapesComponent implements OnInit {
 
       const db = firebase.database().ref()
       db.child('room')
-        .child('0')
+        .child(boardId)
         .child('blocks')
         .child(elmntId)
         .update({

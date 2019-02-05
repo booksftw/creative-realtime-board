@@ -6,7 +6,8 @@ import { Injectable } from '@angular/core'
 export class BoardStateService {
 
   componentRef = {
-    test:''
-    }
+    test: ''
+  }
+
 
 }
