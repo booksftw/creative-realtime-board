@@ -129,7 +129,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
           const altraPaintFactory = this.resolver.resolveComponentFactory(AltraPaintComponent)
           const altraPaintComponent = this.entry.createComponent(altraPaintFactory)
           this.state.componentRef[id] = altraPaintComponent
-          console.log('altra paint comp snapshot id', snapshot.val().id)
+          console.log('canvas paint comp snapshot id', snapshot.val().id)
           altraPaintComponent.instance.canvasId = snapshot.val().id
           altraPaintComponent.instance.canvasData = snapshot.val().content
           altraPaintComponent.instance.leftX = leftPos
