@@ -13,10 +13,8 @@ export class AltraPaintComponent implements OnInit, AfterViewInit {
   db = firebase.database().ref()
 
   sketcher
-
   @Input() boardId
   canvasMode
-  // sketcher
 
   constructor(
     private state: BoardStateService,
@@ -25,14 +23,28 @@ export class AltraPaintComponent implements OnInit, AfterViewInit {
 
   changeMode(mode) {
     const canvas = this.el.nativeElement.querySelector('#mySketcher')
-    canvas.mode = 'erase'
-    console.log('change mode clear canvas')
-    this.sketcher.clear()
-    // if (mode) {
-    //   // Set the update mode
-    // } else {
-    //   // sketcher.mode = 'draw' 
-    // }
+    const ctx = canvas.getContext('2d')
+    const boardId = this.boardId
+    const dataURL = this.sketcher.toImage()
+
+    // update firebase
+    switch (mode) {
+      case 'clear':
+        this.db.child('room').child(`${boardId}`).child('canvas').update({
+          canvasData: 'clear'
+        })
+        break
+      case 'draw':
+
+        break
+      case 'erase':
+
+        break
+
+      default:
+        break
+    }
+
   }
 
   ngOnInit() {
@@ -45,9 +57,16 @@ export class AltraPaintComponent implements OnInit, AfterViewInit {
     // this.sketcher.opacity = 0.8
 
     // Render the state that's in the database
-    this.db.child('room').child(`${boardId}`).child('canvas').on('value', function(snapshot) {
-      // Draw the canvas on update
+    this.db.child('room').child(`${boardId}`).child('canvas').on('value', function (snapshot) {
       const ctx = canvas.getContext('2d')
+
+      if (snapshot.val().canvasData === 'clear') {
+        console.log('init clear')
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        return
+      }
+
+      // Draw the canvas on update
       const image = new Image()
       image.onload = function () {
         ctx.drawImage(image, 0, 0)

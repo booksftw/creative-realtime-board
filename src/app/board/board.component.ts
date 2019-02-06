@@ -15,9 +15,9 @@ import { AltraPaintComponent } from './altra-paint/altra-paint.component'
 import { PaperPaintComponent } from './paper-paint/paper-paint.component'
 import { ActivatedRoute, Router } from '@angular/router'
 import { VideoStreamComponent } from './video-stream/video-stream.component'
-import { DrawCircleComponent } from './draw-circle/draw-circle.component';
-import { DrawRectComponent } from './draw-rect/draw-rect.component';
-import { DrawStarComponent } from './draw-star/draw-star.component';
+import { DrawCircleComponent } from './draw-circle/draw-circle.component'
+import { DrawRectComponent } from './draw-rect/draw-rect.component'
+import { DrawStarComponent } from './draw-star/draw-star.component'
 
 
 @Component({
@@ -49,7 +49,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
   changePaintState(mode) {
     // ! USE VIEW CHILD TO CALL THE PAINT COMPONENT TO CLEAR THE CANVAS AND OTHER MODES
-    // AltraPaintComponent.
+    this.paintComp.changeMode('clear')
     console.log('change paint state', this.paintMode)
   }
 
