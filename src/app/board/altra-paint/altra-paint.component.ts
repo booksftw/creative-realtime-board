@@ -82,11 +82,14 @@ export class AltraPaintComponent implements OnInit, AfterViewInit {
   }
 
   onSave() {
+    const canvas = this.el.nativeElement.querySelector('#mySketcher')
     const boardId = this.boardId
     const dataURL = this.sketcher.toImage()
+    const imgData = canvas.toDataURL()
+
     this.sketcher.clear()
     this.db.child('room').child(`${boardId}`).child('canvas').update({
-      canvasData: dataURL
+      canvasData: imgData
     })
 
   }
