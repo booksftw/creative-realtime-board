@@ -34,6 +34,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
   boardId
   userDisplayName
   roomName
+  paintMode = 'draw'
 
   @ViewChild('entry', { read: ViewContainerRef }) entry: ViewContainerRef
 
@@ -44,6 +45,11 @@ export class BoardComponent implements OnInit, AfterViewInit {
     private state: BoardStateService,
     private route: ActivatedRoute
   ) { }
+
+
+  changePaintState(mode) {
+    this.paintMode = mode
+  }
 
   onChatClick() {
     this.show = !this.show
@@ -173,7 +179,6 @@ export class BoardComponent implements OnInit, AfterViewInit {
   }
 
   onChangeRoomName() {
-    // show change room input
+    // Text input popup and change the room name by setting the database and listening to set this view state.
   }
-
 }
