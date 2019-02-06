@@ -1,5 +1,8 @@
 <!--  -->
 
+<div class="board_container" #entry>
+<app-altra-paint></app-altra-paint>
+
   <div>
     <!-- Jim designs-->
     <ul class="toolbar top cf">
@@ -24,28 +27,25 @@
   <div>
     <ul class="toolbar left cf">
       <!-- <li><a href="#>"><i class="fas fa-mouse-pointer"></i></a></li> -->
-      <li><a (click)='addComponent("atra-paint-canvas")'><i class="fas fa-pen"></i></a></li>
-            <li><a><i class="fas fa-eraser"></i></a></li>
+      <li><a (click)='changePaintState("draw")'><i class="fas fa-paint-brush"></i></a></li>
+      <li><a (click)='changePaintState("erase")'><i class="fas fa-eraser"></i></a></li>
       <li><a (click)='addComponent("sticky-note")'><i class="far fa-sticky-note"></i></a></li>
       <li><a (click)='addComponent("text-editor")'><i class="fas fa-text-width"></i></a></li>
       <!-- <li><a href="#>"><i class="fas fa-arrow-right"></i></a></li> -->
-      <li><a (click)='addComponent("draw-shape")'><i class="far fa-star"></i></a></li>
-      <li><a (click)='addComponent("draw-shape")'><i class="far fa-circle"></i></a></li>
-      <li><a (click)='addComponent("draw-shape")'><i class="far fa-square"></i></a></li>
-      <li><a (click)='addComponent("draw-shape")'><i class="far fa-bookmark"></i></a></li>
-      <li><input type="file" name="file" id="file" accept="image/*" class="inputfile" /><label for="file"><i class="far fa-image addPic"></i></label></li>
-      <li>
-        <a><i class="fas fa-chalkboard"></i></a>
-      </li>
+      <li><a (click)='addComponent("draw-star")'><i class="far fa-star"></i></a></li>
+      <li><a (click)='addComponent("draw-circle")'><i class="far fa-circle"></i></a></li>
+      <li><a (click)='addComponent("draw-rectangle")'><i class="far fa-square"></i></a></li>
+      <!-- <li><a (click)='addComponent("draw-shape")'><i class="far fa-bookmark"></i></a></li> -->
+      <li><input type="file" name="file" id="file" class="inputfile" /><label for="file"><i class="far fa-image addPic"></i></label></li>
+      <li><a><i class="fas fa-chalkboard"></i></a></li>
+      <li><a><i class="fas fa-skull-crossbones"></i></a></li>
       <!-- <li><input type="file" name="pic" accept="image/*"></li> -->
       <!-- <li><a href="#>"><i class="fas fa-eraser"></i></a></li> -->
     </ul>
   </div>
 
-  <app-chatbox
-  *ngIf="show"
-  >
-</app-chatbox>
+  <app-chatbox *ngIf="show" > </app-chatbox>
+
   <div>
     <ul class="toolbar bottom cf">
       <li>

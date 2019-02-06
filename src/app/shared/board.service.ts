@@ -33,7 +33,7 @@ export class BoardService {
           destroyThisComponent: false
         })
         break
-        case 'draw-pen-canvas':
+      case 'draw-pen-canvas':
         db.child('room').child(`${boardId}`).child(`blocks/${componentId}`).set({
           id: componentId,
           // content: 'generated test',
@@ -47,7 +47,7 @@ export class BoardService {
           destroyThisComponent: false
         })
         break
-        case 'draw-shape':
+      case 'draw-shape':
         db.child('room').child(`${boardId}`).child(`blocks/${componentId}`).set({
           id: componentId,
           // content: 'generated test',
@@ -61,7 +61,7 @@ export class BoardService {
           destroyThisComponent: false
         })
         break
-        case 'text-editor':
+      case 'text-editor':
         db.child('room').child(`${boardId}`).child(`blocks/${componentId}`).set({
           id: componentId,
           content: 'text editor test',
@@ -71,7 +71,7 @@ export class BoardService {
           destroyThisComponent: false
         })
         break
-        case 'atra-paint-canvas':
+      case 'atra-paint-canvas':
         db.child('room').child(`${boardId}`).child(`blocks/${componentId}`).set({
           id: componentId,
           content: 'generated test',
@@ -81,7 +81,34 @@ export class BoardService {
           destroyThisComponent: false
         })
         break
-        case 'video-stream-frame':
+      case 'video-stream-frame':
+        db.child('room').child(`${boardId}`).child(`blocks/${componentId}`).set({
+          id: componentId,
+          left: 250,
+          top: 200,
+          type: componentType,
+          destroyThisComponent: false
+        })
+        break
+      case 'draw-circle':
+        db.child('room').child(`${boardId}`).child(`blocks/${componentId}`).set({
+          id: componentId,
+          left: 250,
+          top: 200,
+          type: componentType,
+          destroyThisComponent: false
+        })
+        break
+      case 'draw-rectangle':
+        db.child('room').child(`${boardId}`).child(`blocks/${componentId}`).set({
+          id: componentId,
+          left: 250,
+          top: 200,
+          type: componentType,
+          destroyThisComponent: false
+        })
+        break
+      case 'draw-star':
         db.child('room').child(`${boardId}`).child(`blocks/${componentId}`).set({
           id: componentId,
           left: 250,
@@ -107,12 +134,12 @@ export class BoardService {
                       </ul>
                     </div>
                   `
-  return toolBar
+    return toolBar
   }
 
 
   getRandomId() {
-      return Math.floor(Math.random() * 1000) // uuid()
+    return Math.floor(Math.random() * 1000) // uuid()
   }
 
   getDifferenceBetweenArrays(arry1, arry2) {
@@ -140,14 +167,14 @@ export class BoardService {
 
   checkArraysAreEqual(arry1, arry2) {
     // Works with simple arrays only
-    return arry1.length === arry2.length && arry1.every( (value, index) => arry2[index] === value )
+    return arry1.length === arry2.length && arry1.every((value, index) => arry2[index] === value)
   }
 
   convertArrayOfStringsToNumber(arry) {
     // Takes an array of strings and returns an array of numbers
     const result = []
     arry.forEach(el => {
-      result.push( Number(el) )
+      result.push(Number(el))
     })
     return result
   }
