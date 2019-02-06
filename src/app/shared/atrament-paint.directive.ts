@@ -62,24 +62,5 @@ export class AtramentPaintDirective implements OnInit, AfterViewInit {
   //   autoSaveToDB(dataUrl)
   // }
 
-        // ref.putString(message).then(function (snapshot) {
-        //   console.log('Uploaded a raw string!')
-        // })
-
-        //   console.log('DATA URL' , dataUrl, 'save')
-        //   const db = firebase.database().ref()
-        //   db
-        //     .child('room')
-        //     .child('0')
-        //     .child(`blocks/${canvasId}`)
-        //     .update({
-        //       content: dataUrl
-        //     })
-        // }, 5000)
-      // }, 3000)
-    // }
-    // autoSaveToDB(dataUrl, dataUrl)
-    
-
   }
 }

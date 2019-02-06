@@ -63,8 +63,6 @@ export class BoardComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    // Init paint component first
-    // this.boardUtil.onAddComponent('atra-paint-canvas', this.boardId)
 
     this.route.queryParams.subscribe(data => {
       this.boardId = data.roomId
@@ -77,6 +75,10 @@ export class BoardComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    // Init paint component first
+    // this.boardUtil.onAddComponent('atra-paint-canvas', this.boardId)
+    console.log('CREATE PAINT CANVAS')
+
     // Render Exisiting Components
     this.db = firebase.database().ref()
     this.db.child('room').child(`${this.boardId}`).child('blocks').on('child_added', (snapshot) => {
@@ -126,16 +128,17 @@ export class BoardComponent implements OnInit, AfterViewInit {
           textComponent.instance.boardId = this.boardId
           break
         case 'atra-paint-canvas':
-          const altraPaintFactory = this.resolver.resolveComponentFactory(AltraPaintComponent)
-          const altraPaintComponent = this.entry.createComponent(altraPaintFactory)
-          this.state.componentRef[id] = altraPaintComponent
-          console.log('canvas paint comp snapshot id', snapshot.val().id)
-          altraPaintComponent.instance.canvasId = snapshot.val().id
-          altraPaintComponent.instance.canvasData = snapshot.val().content
-          altraPaintComponent.instance.leftX = leftPos
-          altraPaintComponent.instance.topY = topPos
+        // ! passing these direct to the component through input
+          // const altraPaintFactory = this.resolver.resolveComponentFactory(AltraPaintComponent)
+          // const altraPaintComponent = this.entry.createComponent(altraPaintFactory)
+          // this.state.componentRef[id] = altraPaintComponent
+          // console.log('canvas paint comp snapshot id', snapshot.val().id)
+          // altraPaintComponent.instance.canvasId = snapshot.val().id
+          // altraPaintComponent.instance.canvasData = snapshot.val().content
+          // altraPaintComponent.instance.leftX = leftPos
+          // altraPaintComponent.instance.topY = topPos
           // altraPaintComponent.instance.compRef = altraPaintComponent
-          altraPaintComponent.instance.boardId = this.boardId
+          // altraPaintComponent.instance.boardId = this.boardId
           break
         case 'video-stream-frame':
           const videoFrameFactory = this.resolver.resolveComponentFactory(VideoStreamComponent)

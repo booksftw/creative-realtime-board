@@ -1,7 +1,7 @@
-<!--  -->
 
 <div class="board_container" #entry>
-<app-altra-paint></app-altra-paint>
+
+  <app-altra-paint [boardId]="boardId"></app-altra-paint>
 
   <div>
     <!-- Jim designs-->
@@ -12,16 +12,6 @@
     </ul>
     <!-- <a href="#"><img class="logo3" src="../doc/logo3.png"></a> Need to link to logo -->
   </div>
-
-
-  <!-- Magic happens here -->
-  <!-- <div style="position:relative;top:200px"> -->
-  <!-- <button mat-raised-button color="primary" (click)='addComponent("sticky-note")'>Generate StickyNote</button> -->
-  <!-- <button mat-button color="primary" (click)='addComponent("draw-pen-canvas")'>Generate Draw Canvas</button> -->
-  <!-- <button mat-button color="warning" (click)='addComponent("draw-shape")'>Generate Draw Shape</button> -->
-  <!-- <button mat-button color="secondary" (click)='addComponent("text-editor")'>Generate Text Editor</button> -->
-  <!-- <button mat-button color="primary" (click)='addComponent("altra-paint-canvas")'>Generate Draw Altra Paint Canvas</button> -->
-  <!-- </div> -->
 
 
   <div>
@@ -59,15 +49,5 @@
         </a></li>
     </ul>
   </div>
-
-
-  <!-- <button (click)='addComponent("video-stream-frame")'>ADD VIDEO FRAME</button> -->
-
-  <!-- <iframe src="https://appr.tc/" width=800px height=400px allow="geolocation; microphone; camera">
-    <p>Your browser does not support iframes.</p>
-  </iframe> -->
-  <!-- <iframe width="90%" height="500px" src="//appr.tc" allow="geolocation; microphone; camera"></iframe> -->
-
-  <!-- <app-video-stream></app-video-stream> -->
 
 </div>
