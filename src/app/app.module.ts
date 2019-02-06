@@ -39,7 +39,8 @@ import { DrawRectComponent } from './board/draw-rect/draw-rect.component';
 import { CircleDirective } from './shared/shapes/circle.directive';
 import { StarDirective } from './shared/shapes/star.directive';
 import { RectangleDirective } from './shared/shapes/rectangle.directive';
-import { DrawStarComponent } from './board/draw-star/draw-star.component'
+import { DrawStarComponent } from './board/draw-star/draw-star.component';
+import { FrameBackgroundComponent } from './board/frame-background/frame-background.component'
 
 
 @NgModule({
@@ -72,6 +73,7 @@ import { DrawStarComponent } from './board/draw-star/draw-star.component'
     StarDirective,
     RectangleDirective,
     DrawStarComponent,
+    FrameBackgroundComponent,
 
   ],
   imports: [
@@ -96,7 +98,8 @@ import { DrawStarComponent } from './board/draw-star/draw-star.component'
     VideoStreamComponent,
     DrawCircleComponent,
     DrawRectComponent,
-    DrawStarComponent
+    DrawStarComponent,
+    FrameBackgroundComponent
   ],
 })
 export class AppModule { }

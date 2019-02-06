@@ -117,6 +117,15 @@ export class BoardService {
           destroyThisComponent: false
         })
         break
+      case 'frame-background':
+      db.child('room').child(`${boardId}`).child(`blocks/${componentId}`).set({
+        id: componentId,
+        left: 250,
+        top: 200,
+        type: componentType,
+        destroyThisComponent: false
+      })
+      break
       // Other omponent
       default:
         break

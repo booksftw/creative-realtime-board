@@ -1,3 +1,4 @@
+import { FrameBackgroundComponent } from './frame-background/frame-background.component';
 import { Component, ViewChild, ViewContainerRef, ComponentFactoryResolver, OnInit, AfterViewInit } from '@angular/core'
 import { AngularFireDatabase } from '@angular/fire/database'
 import { BoardService } from './../shared/board.service'
@@ -36,6 +37,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
   paintMode = 'draw'
 
   @ViewChild('entry', { read: ViewContainerRef }) entry: ViewContainerRef
+  @ViewChild('frameEntry', {read: ViewContainerRef}) frameEntry: ViewContainerRef
   @ViewChild(AltraPaintComponent) paintComp
 
   constructor(
@@ -52,19 +54,18 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
     switch (mode) {
       case 'clear':
-      this.paintComp.changeMode('clear')
+        this.paintComp.changeMode('clear')
         break
       case 'erase':
-      this.paintComp.changeMode('erase')
+        this.paintComp.changeMode('erase')
         break
       case 'draw':
-      this.paintComp.changeMode('draw')
+        this.paintComp.changeMode('draw')
         break
       default:
         break
     }
 
-    
     console.log('change paint state', this.paintMode)
   }
 
@@ -141,7 +142,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
           textComponent.instance.boardId = this.boardId
           break
         case 'atra-paint-canvas':
-        // ! passing these direct to the component through input
+          // ? Paint canvas loads at runtime
           // const altraPaintFactory = this.resolver.resolveComponentFactory(AltraPaintComponent)
           // const altraPaintComponent = this.entry.createComponent(altraPaintFactory)
           // this.state.componentRef[id] = altraPaintComponent
@@ -189,6 +190,15 @@ export class BoardComponent implements OnInit, AfterViewInit {
           drawStar.instance.leftX = leftPos
           drawStar.instance.topY = topPos
           drawStar.instance.boardId = this.boardId
+          break
+        case 'frame-background':
+          const frameBackgroundFactory = this.resolver.resolveComponentFactory(FrameBackgroundComponent)
+          const frameBackground = this.frameEntry.createComponent(frameBackgroundFactory)
+          this.state.componentRef[id] = frameBackground
+          frameBackground.instance.frameId = snapshot.val().id
+          frameBackground.instance.leftX = leftPos
+          frameBackground.instance.topY = topPos
+          frameBackground.instance.boardId = this.boardId
           break
         default:
           break
