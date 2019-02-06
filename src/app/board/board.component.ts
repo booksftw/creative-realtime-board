@@ -49,6 +49,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
   changePaintState(mode) {
     this.paintMode = mode
+    console.log('change paint state', this.paintMode)
   }
 
   onChatClick() {
@@ -62,6 +63,8 @@ export class BoardComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    // Init paint component first
+    // this.boardUtil.onAddComponent('atra-paint-canvas', this.boardId)
 
     this.route.queryParams.subscribe(data => {
       this.boardId = data.roomId
@@ -126,8 +129,9 @@ export class BoardComponent implements OnInit, AfterViewInit {
           const altraPaintFactory = this.resolver.resolveComponentFactory(AltraPaintComponent)
           const altraPaintComponent = this.entry.createComponent(altraPaintFactory)
           this.state.componentRef[id] = altraPaintComponent
+          console.log('altra paint comp snapshot id', snapshot.val().id)
           altraPaintComponent.instance.canvasId = snapshot.val().id
-          // textComponent.instance.canvasData = snapshot.val().content
+          altraPaintComponent.instance.canvasData = snapshot.val().content
           altraPaintComponent.instance.leftX = leftPos
           altraPaintComponent.instance.topY = topPos
           // altraPaintComponent.instance.compRef = altraPaintComponent

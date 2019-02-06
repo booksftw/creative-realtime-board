@@ -1,6 +1,7 @@
 <!--  -->
 
 <div class="board_container" #entry>
+<app-altra-paint></app-altra-paint>
 
   <div>
     <!-- Jim designs-->
@@ -26,7 +27,7 @@
   <div>
     <ul class="toolbar left cf">
       <!-- <li><a href="#>"><i class="fas fa-mouse-pointer"></i></a></li> -->
-      <li><a (click)='addComponent("atra-paint-canvas")'><i class="fas fa-pen"></i></a></li>
+      <li><a (click)='changePaintState("draw")'><i class="fas fa-pen"></i></a></li>
       <li><a (click)='changePaintState("erase")'><i class="fas fa-eraser"></i></a></li>
       <li><a (click)='addComponent("sticky-note")'><i class="far fa-sticky-note"></i></a></li>
       <li><a (click)='addComponent("text-editor")'><i class="fas fa-text-width"></i></a></li>

@@ -36,28 +36,12 @@ export class AltraPaintComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     const boardId = this.boardId
-    console.log(this.el.nativeElement.querySelector('#mySketcher'))
     const canvas = this.el.nativeElement.querySelector('#mySketcher')
-    const sketcher = Atrament(canvas, 500, 500, 'orange')
-    sketcher.adaptiveStroke = false
+    // const sketcher = Atrament(canvas, 3000, 3000, 'orange')
+    // sketcher.adaptiveStroke = false
     // sketcher.smoothing = false;
-
     const canvasId = this.canvasId
-
-    // Listen and Intialize Render
-    this.db
-      .child('room')
-      .child(`${boardId}`)
-      .child('blocks')
-      .child(`${this.canvasId}`)
-      .once('value', snap => {
-        // Sync image
-        const myImage = new Image()
-        myImage.src = snap.val().content
-        const ctx = canvas.getContext('2d')
-        console.log('ctx once', ctx)
-        ctx.drawImage(myImage, 0, 0)
-      })
+    console.log('zzzzboardId', `${boardId}`, 'zzzcanvasId', `${canvasId}`)
 
     // Listen and Render
     this.db
@@ -67,9 +51,8 @@ export class AltraPaintComponent implements OnInit, AfterViewInit {
       .child(`${this.canvasId}`)
       .on('value', snap => {
         // Sync drag position
-        this.leftX = snap.val().left
-        this.topY = snap.val().top
-
+        // this.leftX = snap.val().left
+        // this.topY = snap.val().top
         // Sync image
         const myImage = new Image()
         myImage.src = snap.val().content
@@ -77,91 +60,95 @@ export class AltraPaintComponent implements OnInit, AfterViewInit {
         ctx.drawImage(myImage, 0, 0)
 
         // Sync destory components
-        const destroyThisComponent = snap.val().destroyThisComponent
-        if (destroyThisComponent) {
-          const compRef = this.state.componentRef[this.canvasId]
-          compRef.destroy()
-          this.db
-            .child('room')
-            .child(`${boardId}`)
-            .child('blocks')
-            .child(`${this.canvasId}`)
-            .set({})
-        }
+        // const destroyThisComponent = snap.val().destroyThisComponent
+        // if (destroyThisComponent) {
+        //   const compRef = this.state.componentRef[this.canvasId]
+        //   compRef.destroy()
+        //   this.db
+        //     .child('room')
+        //     .child(`${boardId}`)
+        //     .child('blocks')
+        //     .child(`${this.canvasId}`)
+        //     .set({})
+        // }
       })
   }
 
   ngAfterViewInit() {
+    console.log('ngAfterviewInit')
     const boardId = this.boardId
-    console.log(this.el.nativeElement.querySelector('#mySketcher'))
     const canvas = this.el.nativeElement.querySelector('#mySketcher')
-    const sketcher = Atrament(canvas, 500, 500, 'orange')
+    const sketcher = Atrament(canvas, 1900, 1900, 'orange')
+    sketcher.adaptiveStroke = false
+    sketcher.smoothing = false;
+    sketcher.weight = 20; //in pixels
+    sketcher.opacity = 0.5
     const canvasId = this.canvasId
-
-    function autoSaveCanvas(atrCanvas) {
+    console.log('ngAfterviewInit2')
+    function autoSaveCanvas(id) {
+      console.log('auto save canvas')
       const db = firebase.database().ref()
-      const sketcherForData = sketcher
-      console.log('calling1', sketcherForData)
+      const sketcherForData =  sketcher //canvas // sketcher
+      
 
       setInterval(() => {
+        const autoSaveCanvasId = id
         const dataUrl = sketcherForData.toImage()
-        console.log('calling')
-
-
-        db
-          .child('room')
-          .child(`${boardId}`)
-          .child('blocks')
-          .child(`${canvasId}`)
-          .update({
-            content: dataUrl
-          })
-      }, 100)
+        console.log('boardId', `${boardId}`, 'canvasId', `${id}`)
+        // db
+        //   .child('room')
+        //   .child(`${boardId}`)
+        //   .child('blocks')
+        //   .child(`${canvasId}`)
+        //   .update({
+        //     content: dataUrl
+        //   })
+      }, 1000)
     }
-    autoSaveCanvas(sketcher)
+    autoSaveCanvas(canvasId)
   }
 
-  onDeleteClick() {
+  // onDeleteClick() {
 
-    this.db
-      .child('room')
-      .child(`${this.boardId}`)
-      .child('blocks')
-      .child(`${this.canvasId}`)
-      .update({ destroyThisComponent: true })
-  }
+  //   this.db
+  //     .child('room')
+  //     .child(`${this.boardId}`)
+  //     .child('blocks')
+  //     .child(`${this.canvasId}`)
+  //     .update({ destroyThisComponent: true })
+  // }
 
   // For performance, I duplicate this code in each component.
-  dragElement(element) {
-    const elmnt = element.target
-    const elmntId = this.canvasId
-    const boardId = this.boardId
-    element = element || window.event
-    element.preventDefault()
-    document.onmousemove = elementDrag
-    document.onmouseup = closeDragElement
+  // dragElement(element) {
+  //   const elmnt = element.target
+  //   const elmntId = this.canvasId
+  //   const boardId = this.boardId
+  //   element = element || window.event
+  //   element.preventDefault()
+  //   document.onmousemove = elementDrag
+  //   document.onmouseup = closeDragElement
 
-    function elementDrag(e) {
-      // Update firebase position
-      const x = e.clientX
-      const y = e.clientY
+  //   function elementDrag(e) {
+  //     // Update firebase position
+  //     const x = e.clientX
+  //     const y = e.clientY
 
-      const db = firebase.database().ref()
-      db.child('room')
-        .child(`${boardId}`)
-        .child('blocks')
-        .child(elmntId)
-        .update({
-          left: x,
-          top: y
-        })
-    }
+  //     const db = firebase.database().ref()
+  //     db.child('room')
+  //       .child(`${boardId}`)
+  //       .child('blocks')
+  //       .child(elmntId)
+  //       .update({
+  //         left: x,
+  //         top: y
+  //       })
+  //   }
 
-    function closeDragElement(e) {
-      // stop moving when mouse button is released:
-      document.onmouseup = null
-      document.onmousemove = null
-    }
-  }
+  //   function closeDragElement(e) {
+  //     // stop moving when mouse button is released:
+  //     document.onmouseup = null
+  //     document.onmousemove = null
+  //   }
+  // }
 
 }
