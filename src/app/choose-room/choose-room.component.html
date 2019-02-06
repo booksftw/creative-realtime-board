@@ -1,20 +1,18 @@
-<h1>
-  choose-room works!
-</h1>
+<!-- <button (click)="onCreateRoom()">Create Room</button> -->
 
-<button (click)="onCreateRoom()">Create Room</button>
-
-<div>
+<!-- <div>
   <h1>Exisiting room list here</h1>
   <ul>
-    <!-- Inline style -->
     <li *ngFor="let room of exisitingRooms" (click)=onJoinRoom(room.id) style="cursor: pointer">
       <a>
         {{ room.name }} {{room.id}}
       </a>
     </li>
   </ul>
-</div>
+</div> -->
+
+
+
   <div class="waveWrapper waveAnimation">
   <div class="waveWrapperInner bgTop">
     <div class="wave waveTop"></div>
@@ -45,8 +43,9 @@
     <h1 class="my-4">Room List</h1>
   </div>
 
+  <!-- SERT UP CREATE ROOM BUTTON-->
     <div class="row">
-      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item" (click)="onCreateRoom()">
         <div class="card h-100">
           <a href="#"></a>
           <div class="card-body">
@@ -57,18 +56,26 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+
+      <!-- <li *ngFor="let room of exisitingRooms" (click)=onJoinRoom(room.id) style="cursor: pointer">
+        <a>
+          {{ room.name }} {{room.id}}
+        </a>
+      </li> -->
+
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item" *ngFor="let room of exisitingRooms" (click)=onJoinRoom(room.id) style="cursor: pointer">
         <div class="card h-100">
           <a href="#"></a>
           <div class="card-body">
             <h4 class="card-title">
-              <a href="#">Project Two</a>
+              <a href="#"> {{ room.name }} {{room.id}}</a>
             </h4>
             <p class="card-text"></p>
           </div>
         </div>
       </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+
+      <!-- <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
         <div class="card h-100">
           <a href="#"></a>
           <div class="card-body">
@@ -102,11 +109,11 @@
         </div>
       </div>
 
-    </div>
+    </div> -->
     <!-- /.row -->
 
     <!-- Pagination -->
-    <ul class="pagination justify-content-center">
+    <!-- <ul class="pagination justify-content-center">
       <li class="page-item">
         <a class="page-link" href="#" aria-label="Previous">
           <span aria-hidden="true">&laquo;</span>
@@ -128,7 +135,7 @@
           <span class="sr-only">Next</span>
         </a>
       </li>
-    </ul>
+    </ul> -->
 
   </div>
 </div>
