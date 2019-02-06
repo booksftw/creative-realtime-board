@@ -49,7 +49,22 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
   changePaintState(mode) {
     // ! USE VIEW CHILD TO CALL THE PAINT COMPONENT TO CLEAR THE CANVAS AND OTHER MODES
-    this.paintComp.changeMode('clear')
+
+    switch (mode) {
+      case 'clear':
+      this.paintComp.changeMode('clear')
+        break
+      case 'erase':
+      this.paintComp.changeMode('erase')
+        break
+      case 'draw':
+      this.paintComp.changeMode('draw')
+        break
+      default:
+        break
+    }
+
+    
     console.log('change paint state', this.paintMode)
   }
 

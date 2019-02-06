@@ -27,6 +27,7 @@ export class AltraPaintComponent implements OnInit, AfterViewInit {
     const boardId = this.boardId
     const dataURL = this.sketcher.toImage()
 
+    console.log(mode , 'change mode')
     // update firebase
     switch (mode) {
       case 'clear':
@@ -35,12 +36,14 @@ export class AltraPaintComponent implements OnInit, AfterViewInit {
         })
         break
       case 'draw':
-
+        this.sketcher.weight = 6 // in pixels
+        this.sketcher.mode = 'draw'
         break
       case 'erase':
-
+      this.sketcher.weight = 40 // in pixels
+      console.log(mode, 'erase mode online')
+        this.sketcher.mode = 'erase'
         break
-
       default:
         break
     }
@@ -81,11 +84,11 @@ export class AltraPaintComponent implements OnInit, AfterViewInit {
   onSave() {
     const boardId = this.boardId
     const dataURL = this.sketcher.toImage()
+    this.sketcher.clear()
     this.db.child('room').child(`${boardId}`).child('canvas').update({
       canvasData: dataURL
     })
 
-    this.sketcher.clear()
   }
 
   ngAfterViewInit() {
