@@ -50,27 +50,11 @@ export class AltraPaintComponent implements OnInit, AfterViewInit {
       .child('blocks')
       .child(`${this.canvasId}`)
       .on('value', snap => {
-        // Sync drag position
-        // this.leftX = snap.val().left
-        // this.topY = snap.val().top
         // Sync image
         const myImage = new Image()
         myImage.src = snap.val().content
         const ctx = canvas.getContext('2d')
         ctx.drawImage(myImage, 0, 0)
-
-        // Sync destory components
-        // const destroyThisComponent = snap.val().destroyThisComponent
-        // if (destroyThisComponent) {
-        //   const compRef = this.state.componentRef[this.canvasId]
-        //   compRef.destroy()
-        //   this.db
-        //     .child('room')
-        //     .child(`${boardId}`)
-        //     .child('blocks')
-        //     .child(`${this.canvasId}`)
-        //     .set({})
-        // }
       })
   }
 
@@ -89,12 +73,12 @@ export class AltraPaintComponent implements OnInit, AfterViewInit {
       console.log('auto save canvas')
       const db = firebase.database().ref()
       const sketcherForData =  sketcher //canvas // sketcher
-      
+      const autoSaveCanvasId = id
 
       setInterval(() => {
-        const autoSaveCanvasId = id
+        const autoSaveCanvasIdInterval = autoSaveCanvasId
         const dataUrl = sketcherForData.toImage()
-        console.log('boardId', `${boardId}`, 'canvasId', `${id}`)
+        console.log('boardId', `${boardId}`, 'canvasId', `${autoSaveCanvasIdInterval}`)
         // db
         //   .child('room')
         //   .child(`${boardId}`)
@@ -103,52 +87,9 @@ export class AltraPaintComponent implements OnInit, AfterViewInit {
         //   .update({
         //     content: dataUrl
         //   })
-      }, 1000)
+      }, 3000)
     }
     autoSaveCanvas(canvasId)
   }
-
-  // onDeleteClick() {
-
-  //   this.db
-  //     .child('room')
-  //     .child(`${this.boardId}`)
-  //     .child('blocks')
-  //     .child(`${this.canvasId}`)
-  //     .update({ destroyThisComponent: true })
-  // }
-
-  // For performance, I duplicate this code in each component.
-  // dragElement(element) {
-  //   const elmnt = element.target
-  //   const elmntId = this.canvasId
-  //   const boardId = this.boardId
-  //   element = element || window.event
-  //   element.preventDefault()
-  //   document.onmousemove = elementDrag
-  //   document.onmouseup = closeDragElement
-
-  //   function elementDrag(e) {
-  //     // Update firebase position
-  //     const x = e.clientX
-  //     const y = e.clientY
-
-  //     const db = firebase.database().ref()
-  //     db.child('room')
-  //       .child(`${boardId}`)
-  //       .child('blocks')
-  //       .child(elmntId)
-  //       .update({
-  //         left: x,
-  //         top: y
-  //       })
-  //   }
-
-  //   function closeDragElement(e) {
-  //     // stop moving when mouse button is released:
-  //     document.onmouseup = null
-  //     document.onmousemove = null
-  //   }
-  // }
 
 }
