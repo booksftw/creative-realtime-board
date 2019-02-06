@@ -29,7 +29,6 @@ export class BoardComponent implements OnInit, AfterViewInit {
   db
   itemsRef
   enableDeleteComponent = false
-  // Todo Set this to false for production it's set to false for development
   show = false
   boardId
   userDisplayName
@@ -37,6 +36,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
   paintMode = 'draw'
 
   @ViewChild('entry', { read: ViewContainerRef }) entry: ViewContainerRef
+  @ViewChild(AltraPaintComponent) paintComp
 
   constructor(
     private dbAf: AngularFireDatabase,
@@ -48,7 +48,8 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
 
   changePaintState(mode) {
-    this.paintMode = mode
+    // ! USE VIEW CHILD TO CALL THE PAINT COMPONENT TO CLEAR THE CANVAS AND OTHER MODES
+    // AltraPaintComponent.
     console.log('change paint state', this.paintMode)
   }
 
@@ -57,14 +58,11 @@ export class BoardComponent implements OnInit, AfterViewInit {
   }
 
   addComponent(componentType) {
-    console.log('board id ', this.boardId)
     // Silence is golden
     this.boardUtil.onAddComponent(componentType, this.boardId)
   }
 
   ngOnInit() {
-    // Init paint component first
-    // this.boardUtil.onAddComponent('atra-paint-canvas', this.boardId)
 
     this.route.queryParams.subscribe(data => {
       this.boardId = data.roomId
@@ -72,11 +70,13 @@ export class BoardComponent implements OnInit, AfterViewInit {
       this.roomName = data.roomName
       this.userDisplayName = data.userDisplayName
       this.roomName = data.roomName
-      console.log('user board id', this.boardId, this.roomName)
     })
   }
 
   ngAfterViewInit() {
+    // Init paint component first
+    // this.boardUtil.onAddComponent('atra-paint-canvas', this.boardId)
+
     // Render Exisiting Components
     this.db = firebase.database().ref()
     this.db.child('room').child(`${this.boardId}`).child('blocks').on('child_added', (snapshot) => {
@@ -126,16 +126,17 @@ export class BoardComponent implements OnInit, AfterViewInit {
           textComponent.instance.boardId = this.boardId
           break
         case 'atra-paint-canvas':
-          const altraPaintFactory = this.resolver.resolveComponentFactory(AltraPaintComponent)
-          const altraPaintComponent = this.entry.createComponent(altraPaintFactory)
-          this.state.componentRef[id] = altraPaintComponent
-          console.log('canvas paint comp snapshot id', snapshot.val().id)
-          altraPaintComponent.instance.canvasId = snapshot.val().id
-          altraPaintComponent.instance.canvasData = snapshot.val().content
-          altraPaintComponent.instance.leftX = leftPos
-          altraPaintComponent.instance.topY = topPos
+        // ! passing these direct to the component through input
+          // const altraPaintFactory = this.resolver.resolveComponentFactory(AltraPaintComponent)
+          // const altraPaintComponent = this.entry.createComponent(altraPaintFactory)
+          // this.state.componentRef[id] = altraPaintComponent
+          // console.log('canvas paint comp snapshot id', snapshot.val().id)
+          // altraPaintComponent.instance.canvasId = snapshot.val().id
+          // altraPaintComponent.instance.canvasData = snapshot.val().content
+          // altraPaintComponent.instance.leftX = leftPos
+          // altraPaintComponent.instance.topY = topPos
           // altraPaintComponent.instance.compRef = altraPaintComponent
-          altraPaintComponent.instance.boardId = this.boardId
+          // altraPaintComponent.instance.boardId = this.boardId
           break
         case 'video-stream-frame':
           const videoFrameFactory = this.resolver.resolveComponentFactory(VideoStreamComponent)
