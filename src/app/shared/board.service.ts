@@ -26,7 +26,7 @@ export class BoardService {
       case 'sticky-note':
         db.child('room').child(`${boardId}`).child(`blocks/${componentId}`).set({
           id: componentId,
-          content: 'generated test',
+          content: '',
           left: 250,
           top: 200,
           type: componentType,
@@ -64,7 +64,7 @@ export class BoardService {
       case 'text-editor':
         db.child('room').child(`${boardId}`).child(`blocks/${componentId}`).set({
           id: componentId,
-          content: 'text editor test',
+          content: '',
           left: 250,
           top: 200,
           type: componentType,
@@ -74,7 +74,7 @@ export class BoardService {
       case 'atra-paint-canvas':
         db.child('room').child(`${boardId}`).child(`blocks/${componentId}`).set({
           id: componentId,
-          content: 'generated test',
+          content: '',
           left: 250,
           top: 200,
           type: componentType,
@@ -117,6 +117,15 @@ export class BoardService {
           destroyThisComponent: false
         })
         break
+      case 'frame-background':
+      db.child('room').child(`${boardId}`).child(`blocks/${componentId}`).set({
+        id: componentId,
+        left: 250,
+        top: 200,
+        type: componentType,
+        destroyThisComponent: false
+      })
+      break
       // Other omponent
       default:
         break
