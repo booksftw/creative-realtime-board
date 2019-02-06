@@ -13,9 +13,10 @@
 
 .chatRoom {
     position: relative;
-    background: #eee;
+    background: #efefef;
+    color: #333;
     margin: 0;
     font-size: 2em;
     padding: 1em;
-    border-bottom: 1px solid #aaa;
+    /*border-bottom: 1px solid #aaa;*/
 }

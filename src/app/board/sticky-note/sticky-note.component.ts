@@ -27,7 +27,6 @@ export class StickyNoteComponent implements OnInit {
   // ! Todo unsubscribe from all listners on destroy
   ngOnInit() {
     const boardId = this.boardId
-    console.log('sticky board id', boardId)
     this.db
       .child('room')
       .child(`${boardId}`)

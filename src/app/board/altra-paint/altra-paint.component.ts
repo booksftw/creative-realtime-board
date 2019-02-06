@@ -11,7 +11,7 @@ import { BoardStateService } from 'src/app/shared/board-state.service'
 export class AltraPaintComponent implements OnInit, AfterViewInit {
   canvasData
   db = firebase.database().ref()
-  
+
   sketcher
 
   @Input() boardId
@@ -26,6 +26,8 @@ export class AltraPaintComponent implements OnInit, AfterViewInit {
   changeMode(mode) {
     const canvas = this.el.nativeElement.querySelector('#mySketcher')
     canvas.mode = 'erase'
+    console.log('change mode clear canvas')
+    this.sketcher.clear()
     // if (mode) {
     //   // Set the update mode
     // } else {
@@ -44,8 +46,6 @@ export class AltraPaintComponent implements OnInit, AfterViewInit {
 
     // Render the state that's in the database
     this.db.child('room').child(`${boardId}`).child('canvas').on('value', function(snapshot) {
-      console.log('updat ethe canvas with this data', snapshot.val().canvasData)
-
       // Draw the canvas on update
       const ctx = canvas.getContext('2d')
       const image = new Image()

@@ -6,7 +6,7 @@
     padding: 0;
     position: absolute;
     border-radius: 4px;
-    box-shadow: 3px 3px 6px rgba(0, 0, 0, .5);
+    box-shadow: 9px 3px 6px rgba(0, 0, 0, .5);
 }
 
 .toolbar li {
@@ -66,7 +66,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 13.5em;
+    width: fit-content;
     border-radius: 4px;
     box-shadow: 3px 3px 6px rgba(0, 0, 0, .5);
 }
@@ -74,18 +74,6 @@
 .toolbar li {
     list-style: none;
     width: 100%;
-}
-
-.toolbar a {
-    margin: 0;
-    background: #fff;
-    border-left: 1px solid rgba(255, 255, 255, .3);
-    border-right: 1px solid rgba(255, 255, 255, .3);
-    color: #222;
-    display: block;
-    font-size: 1.5em;
-    line-height: 2.2em;
-    text-decoration: none;
 }
 
 .toolbar.top li:first-child a {
@@ -96,21 +84,9 @@
     border-radius: 0 4px 4px 0;
 }
 
-.toolbar a:hover {
-    background: #328dfc;
-    color: #fff;
-    text-shadow: 0 1px 0 #666;
-}
-
-.toolbar a:active {
-    background: #2367ba;
-    box-shadow: 0 2px 3px rgba(0, 0, 0, .3) inset;
-    text-shadow: 0 -1px 0 #666;
-}
-
-.pName {
-    width: 100%;
-    /*padding: 0 1em 0 1em;*/
+.toolbar.top .pName {
+    min-width: 12em;
+    max-width: fit-content;
 }
 
 .home {
@@ -137,18 +113,18 @@
   z-index: -1;
 }
 
-.toolbar .inputfile + label {
+/*.toolbar .inputfile + label {
     font-size: 1.25em;
     font-weight: 700;
     color: white;
     background-color: black;
     display: inline-block;
-}
+}*/
 
-.inputfile:focus + label,
+/*.inputfile:focus + label,
 .inputfile + label:hover {
     background-color: red;
-}
+}*/
 
 .toolbar.bottom {
     padding: 0;
@@ -163,19 +139,8 @@
 
 .toolbar li {
     list-style: none;
-    width: 100%;
-}
-
-.toolbar a {
-    margin: 0;
-    background: #fff;
-    border-left: 1px solid rgba(255, 255, 255, .3);
-    border-right: 1px solid rgba(255, 255, 255, .3);
-    color: #222;
-    display: block;
-    font-size: 1.5em;
-    line-height: 2.2em;
-    text-decoration: none;
+    min-width: 4em;
+    width: fit-content;
 }
 
 .toolbar.bottom li a {
@@ -188,18 +153,6 @@
 
 .toolbar.bottom li:first-child a {
     border-radius: 4px 0 0 4px;
-}
-
-.toolbar a:hover {
-    background: #328dfc;
-    color: #fff;
-    text-shadow: 0 1px 0 #666;
-}
-
-.toolbar a:active {
-    background: #2367ba;
-    box-shadow: 0 2px 3px rgba(0, 0, 0, .3) inset;
-    text-shadow: 0 -1px 0 #666;
 }
 
 /*---------------------------
@@ -251,6 +204,24 @@
           image input
 -------------------------------------*/
 
-.toolbar input::after {
-  display: none;
+.toolbar label {
+    margin: 0;
+    background: #fff;
+    color: #222;
+    display: block;
+    font-size: 1.5em;
+    line-height: 2.2em;
+    text-decoration: none;
+}
+
+.toolbar label:hover {
+    background: #328dfc;
+    color: #fff;
+    text-shadow: 0 1px 0 #666;
+}
+
+.toolbar label:active {
+    background: #2367ba;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, .3) inset;
+    text-shadow: 0 -1px 0 #666;
 }
