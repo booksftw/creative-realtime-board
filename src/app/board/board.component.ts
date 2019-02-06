@@ -19,6 +19,7 @@ import { VideoStreamComponent } from './video-stream/video-stream.component'
 import { DrawCircleComponent } from './draw-circle/draw-circle.component'
 import { DrawRectComponent } from './draw-rect/draw-rect.component'
 import { DrawStarComponent } from './draw-star/draw-star.component'
+import { ImageUploadComponent } from './image-upload/image-upload.component';
 
 
 @Component({
@@ -73,9 +74,9 @@ export class BoardComponent implements OnInit, AfterViewInit {
     this.show = !this.show
   }
 
-  addComponent(componentType) {
+  addComponent(componentType, options?) {
     // Silence is golden
-    this.boardUtil.onAddComponent(componentType, this.boardId)
+    this.boardUtil.onAddComponent(componentType, this.boardId, options )
   }
 
   ngOnInit() {
@@ -200,6 +201,16 @@ export class BoardComponent implements OnInit, AfterViewInit {
           frameBackground.instance.topY = topPos
           frameBackground.instance.boardId = this.boardId
           break
+        case 'image-upload':
+          const imageUploadFactory = this.resolver.resolveComponentFactory(ImageUploadComponent)
+          const imageUpload = this.frameEntry.createComponent(imageUploadFactory)
+          this.state.componentRef[id] = imageUpload
+          imageUpload.instance.imageId = snapshot.val().id
+          imageUpload.instance.downloadLink = snapshot.val().src
+          imageUpload.instance.leftX = leftPos
+          imageUpload.instance.topY = topPos
+          imageUpload.instance.boardId = this.boardId
+        break
         default:
           break
       }
@@ -210,5 +221,61 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
   onChangeRoomName() {
     // Text input popup and change the room name by setting the database and listening to set this view state.
+  }
+
+  onFileSelected(event) {
+    // Create a root reference
+    console.log(event.target.files[0])
+    const selectedFile = event.target.files[0]
+
+    const storageRef = firebase.storage().ref()
+    console.log('@@@@', this.addComponent)
+
+    const uploadTask = storageRef.child(`images/${selectedFile.name}`).put(selectedFile) 
+
+    const boardId = this.boardId
+    // Register three observers:
+    // 1. 'state_changed' observer, called any time the state changes
+    // 2. Error observer, called on failure
+    // 3. Completion observer, called on successful completion
+    uploadTask.on('state_changed', (snapshot) => {
+      // Observe state change events such as progress, pause, and resume
+      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded\
+      // @ts-ignore
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+      console.log('Upload is ' + progress + '% done')
+      // @ts-ignore
+      switch (snapshot.state) {
+        case firebase.storage.TaskState.PAUSED: // or 'paused'
+          console.log('Upload is paused')
+          break
+        case firebase.storage.TaskState.RUNNING: // or 'running'
+          console.log('Upload is running')
+          break
+      }
+    }, (error) => {
+      // Handle unsuccessful uploads
+    }, () => {
+      // Handle successful uploads on complete
+      // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+      uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+        // ? HOW TO GET ACCCES TO OUTSIDE FUNCTION, SOMETHING TO DO WITH THIS. ASK. 
+        console.log('File available at', downloadURL)
+        // this.boardUtil.onAddComponent('image-upload', this.boardId, downloadURL )
+        // this.addComponent('image-upload', downloadURL)
+        const componentId = Math.floor(Math.random() * 1000)
+        const db = firebase.database().ref()
+    
+        db.child('room').child(`${boardId}`).child(`blocks/${componentId}`).set({
+          id: componentId,
+          src: downloadURL,
+          left: 250,
+          top: 200,
+          type: 'image-upload',
+          destroyThisComponent: false
+        })
+
+      })
+    })
   }
 }

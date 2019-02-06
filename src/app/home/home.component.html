@@ -3,12 +3,7 @@
 </p>
 <!-- <a routerLink='/board' queryParams="{test:'testing'}">Go to board</a> -->
 
-<mat-form-field class="example-full-width">
-  <input #userDisplayName matInput placeholder="Display name" value="Sushi">
-</mat-form-field>
 
-<!-- <a mat-button [routerLink]="['/choose']" [queryParams]="{ display_name: 'hello'}"> Get Started</a> -->
-<a mat-button (click)="onGetStarted(userDisplayName)"> Get Started</a>
 
 
 <div id="main">
@@ -27,8 +22,13 @@
     </div>
     <div class="row justify-content-center">
       <form>
-        <input class="col-xs-2" type="text" name="nickname" placeholder="Type your nickname...">
-        <button type="submit" class="col-xs-2 btn btn-primary btn-lg">Get Started</button>
+        <mat-form-field class="example-full-width">
+          <input #userDisplayName matInput placeholder="Display name" value="Sushi">
+        </mat-form-field>
+        <!-- <a mat-button [routerLink]="['/choose']" [queryParams]="{ display_name: 'hello'}"> Get Started</a> -->
+        <a mat-button (click)="onGetStarted(userDisplayName)"> Get Started</a>
+        <!-- <input class="col-xs-2" type="text" name="nickname" placeholder="Type your nickname..."> -->
+        <!-- <button type="submit" class="col-xs-2 btn btn-primary btn-lg">Get Started</button> -->
       </form>
     </div>
   </div>
