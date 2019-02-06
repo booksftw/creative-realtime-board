@@ -1,4 +1,4 @@
-import { FrameBackgroundComponent } from './frame-background/frame-background.component';
+import { FrameBackgroundComponent } from './frame-background/frame-background.component'
 import { Component, ViewChild, ViewContainerRef, ComponentFactoryResolver, OnInit, AfterViewInit } from '@angular/core'
 import { AngularFireDatabase } from '@angular/fire/database'
 import { BoardService } from './../shared/board.service'
