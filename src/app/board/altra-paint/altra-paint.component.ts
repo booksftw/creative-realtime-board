@@ -16,12 +16,23 @@ export class AltraPaintComponent implements OnInit, AfterViewInit {
   db = firebase.database().ref()
   compRef
   boardId
+  canvasMode
   // sketcher
 
   constructor(
     private state: BoardStateService,
     private el: ElementRef
   ) { }
+
+  changeMode(mode) {
+    const canvas = this.el.nativeElement.querySelector('#mySketcher')
+    canvas.mode = 'erase'
+    // if (mode) {
+    //   // Set the update mode
+    // } else {
+    //   // sketcher.mode = 'draw'; 
+    // }
+  }
 
   ngOnInit() {
     const boardId = this.boardId

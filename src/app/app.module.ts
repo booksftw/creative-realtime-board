@@ -94,7 +94,9 @@ import { DrawStarComponent } from './board/draw-star/draw-star.component'
     AltraPaintComponent,
     PaperPaintComponent,
     VideoStreamComponent,
-    DrawCircleComponent
+    DrawCircleComponent,
+    DrawRectComponent,
+    DrawStarComponent
   ],
 })
 export class AppModule { }
