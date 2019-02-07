@@ -76,7 +76,6 @@ import { ImageUploadComponent } from './board/image-upload/image-upload.componen
     DrawStarComponent,
     FrameBackgroundComponent,
     ImageUploadComponent,
-    YoutubeUploadComponent,
     // YoutubeFrameComponent,
 
   ],
@@ -99,9 +98,6 @@ import { ImageUploadComponent } from './board/image-upload/image-upload.componen
     TextEditorComponent,
     AltraPaintComponent,
     PaperPaintComponent,
-<<<<<<< HEAD
-    VideoStreamComponent
-=======
     VideoStreamComponent,
     DrawCircleComponent,
     DrawRectComponent,
@@ -109,7 +105,6 @@ import { ImageUploadComponent } from './board/image-upload/image-upload.componen
     FrameBackgroundComponent,
     ImageUploadComponent,
     // YoutubeFrameComponent
->>>>>>> jim/update-css
   ],
 })
 export class AppModule { }
