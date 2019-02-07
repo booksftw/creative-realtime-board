@@ -16,7 +16,7 @@ export class StarDirective implements OnInit {
     const two = new Two(params).appendTo(elem)
     
     const star = two.makeStar(72, 100, 25, 50, 5)
-    star.fill = 'rgba(0,0,0,0)'
+    star.fill = 'rgb(246,249,57)'
     
     // Don't forget to tell two to render everything
     // to the screen

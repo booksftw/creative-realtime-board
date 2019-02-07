@@ -661,6 +661,22 @@ MIT
 @angular/router
 MIT
 
+@angular/forms
+MIT
+
+@angular/fire/database
+MIT
+
+@angular/fire
+MIT
+
+firebase/database
+
+@angular/fire/auth
+MIT
+
+firebase/auth
+
 @angular/animations
 MIT
 
@@ -716,23 +732,7 @@ THE SOFTWARE.
 
 @angular/material/form-field
 
-@angular/forms
-MIT
-
 @angular/material/button
-
-@angular/fire/database
-MIT
-
-@angular/fire
-MIT
-
-firebase/database
-
-@angular/fire/auth
-MIT
-
-firebase/auth
 
 acorn
 MIT

@@ -16,7 +16,8 @@ export class RectangleDirective implements OnInit {
     const two = new Two(params).appendTo(elem)
     
     const rect = two.makeRectangle(72, 100, 100, 100)
-    rect.fill = 'rgba(0,0,0,0)'
+    // rect.fill = 'rgba(0,0,0,0)'
+    rect.fill = 'rgb(61,90,255)'
 
     // Don't forget to tell two to render everything
     // to the screen

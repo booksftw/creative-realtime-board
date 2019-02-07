@@ -15,5 +15,8 @@ button.save-editor {
   }
 
 .text-editor {
-    height: 300px;
+    height: 4em;
+    background: none;
+    border: none;
 }
+

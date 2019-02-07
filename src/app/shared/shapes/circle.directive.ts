@@ -16,7 +16,8 @@ export class CircleDirective implements OnInit {
     const params = { width: 285, height: 200 }
     const two = new Two(params).appendTo(elem)
     const circle = two.makeCircle(72, 100, 50)
-    circle.fill = 'rgba(0,0,0,0)'
+    // circle.fill = 'rgba(0,0,0,0)'
+    circle.fill = 'rgb(255,59,45)'
 
     // Don't forget to tell two to render everything
     // to the screen

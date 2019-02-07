@@ -26,7 +26,6 @@ export class AltraPaintComponent implements OnInit, AfterViewInit {
     const ctx = canvas.getContext('2d')
     const boardId = this.boardId
     const dataURL = this.sketcher.toImage()
-
     console.log(mode , 'change mode')
     // update firebase
     switch (mode) {
@@ -53,7 +52,7 @@ export class AltraPaintComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     const boardId = this.boardId
     const canvas = this.el.nativeElement.querySelector('#mySketcher')
-    this.sketcher = Atrament(canvas, 1900, 1900, 'orange')
+    this.sketcher = Atrament(canvas, 1900, 1900, 'green')
     this.sketcher.adaptiveStroke = true
     this.sketcher.smoothing = true
     this.sketcher.weight = 6 // in pixels
@@ -75,10 +74,7 @@ export class AltraPaintComponent implements OnInit, AfterViewInit {
         ctx.drawImage(image, 0, 0)
       }
       image.src = snapshot.val().canvasData
-
-
     })
-
   }
 
   onSave() {
