@@ -124,6 +124,10 @@ li {
   text-align:center;
 }
 
+button.deleteBlock {
+  margin-left: 4em;
+}
+
 
 
 

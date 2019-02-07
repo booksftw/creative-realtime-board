@@ -76,8 +76,9 @@ export class BoardComponent implements OnInit, AfterViewInit {
   // }
 
   addComponent(componentType, options?) {
+    console.log('add component')
     // Silence is golden
-    this.boardUtil.onAddComponent(componentType, options )
+    this.boardUtil.onAddComponent(componentType, this.boardId , options )
   }
 
   ngOnInit() {
