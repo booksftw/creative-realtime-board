@@ -5,6 +5,9 @@
 
 
 <div id="main">
+  <nav class="navbar navbar-expand-lg sticky-top">
+  <a class="navbar-brand" href="http://localhost:4200/">Hangout Board</a>
+</nav>
 <!--   <span class="sticky-top text-light" style="padding-left:1em;font-size:30px;cursor:pointer" onclick="openNav()">&#9776;  -->
   <!-- <img class="logo" src="../assets/images/logo4.png"></span> -->
 
@@ -12,9 +15,9 @@
   <div class="container-fluid heading">
     <div class="row text-center justify-content-center">
       <h1 class="display-2 col-12">Hangout Board</h1>
-      
+
       <!-- INLINE STYLE-->
-      <p style="color:white" class="col-12">Use Hangout Board to keep in touch and do whatever you want online. Message friends, livestream video, draw your ideas, and hop on your next adventure with one person or a group.</p>
+      <h3 class="col-12">Use Hangout Board to keep in touch and do whatever you want online.<br> Message friends, livestream video, draw your ideas,<br> and hop on your next adventure with one person or a group.</h3>
       <br>
 
       <img src="https://media.giphy.com/media/jUwpNzg9IcyrK/giphy.gif">
@@ -22,11 +25,11 @@
     </div>
     <div class="row justify-content-center">
       <form>
-        <mat-form-field class="example-full-width">
-          <input class="userDisplayNameInput" #userDisplayName matInput placeholder="Display name" value="Sushi">
-        </mat-form-field>
+        <!-- <mat-form-field class="example-full-width"> -->
+          <input class="userDisplayNameInput" #userDisplayName placeholder="type your nickname ..">
+        <!-- </mat-form-field> -->
         <!-- <a mat-button [routerLink]="['/choose']" [queryParams]="{ display_name: 'hello'}"> Get Started</a> -->
-        <a class="userGetStartedBtn" mat-button (click)="onGetStarted(userDisplayName)"> Get Started</a>
+        <button class="userGetStartedBtn btn btn-primary" (click)="onGetStarted(userDisplayName)">Get Started</button>
         <!-- <input class="col-xs-2" type="text" name="nickname" placeholder="Type your nickname..."> -->
         <!-- <button type="submit" class="col-xs-2 btn btn-primary btn-lg">Get Started</button> -->
       </form>
@@ -109,7 +112,7 @@
 <hr class="my-4">
 
 <!--- Connect -->
-<div class="container-fluid padding bg-light">
+<!-- <div class="container-fluid padding bg-light">
   <div class="row text-center padding">
     <div class="col-12">
       <h2>Connect</h2>
@@ -122,7 +125,7 @@
       <a href="#"><i class="fab fa-youtube"></i></a>
     </div>
   </div>
-</div>
+</div> -->
 
 <!--- Three Column Section -->
 <div class="container-fluid padding text-light use">
@@ -147,8 +150,8 @@
     <hr class="my-4">
   </div>
 <!--- Footer -->
-<footer>
-  <div class="container-fluid padding">
+<!-- <footer>
+  <div class="container-fluid padding"> -->
     <!-- <div class="row text-center">
       <div class="col-md-4">
         <img src="../assets/images/logo4.png">
@@ -179,5 +182,5 @@
         <h5>&copy; w3newbie.com</h5>
       </div>
     </div> -->
-  </div>
-</footer>
+<!--   </div>
+</footer> -->
