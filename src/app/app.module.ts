@@ -42,8 +42,6 @@ import { RectangleDirective } from './shared/shapes/rectangle.directive';
 import { DrawStarComponent } from './board/draw-star/draw-star.component';
 import { FrameBackgroundComponent } from './board/frame-background/frame-background.component';
 import { ImageUploadComponent } from './board/image-upload/image-upload.component';
-import { YoutubeUploadComponent } from './board/youtube-upload/youtube-upload.component';
-// import { YoutubeFrameComponent } from './board/youtube-upload/youtube-frame/youtube-frame.component'
 
 
 @NgModule({
