@@ -76,7 +76,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
   addComponent(componentType, options?) {
     // Silence is golden
-    this.boardUtil.onAddComponent(componentType, this.boardId, options )
+    this.boardUtil.onAddComponent(componentType, options )
   }
 
   ngOnInit() {
@@ -231,7 +231,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
     const storageRef = firebase.storage().ref()
     console.log('@@@@', this.addComponent)
 
-    const uploadTask = storageRef.child(`images/${selectedFile.name}`).put(selectedFile) 
+    const uploadTask = storageRef.child(`images/${selectedFile.name}`).put(selectedFile)
 
     const boardId = this.boardId
     // Register three observers:
@@ -259,13 +259,13 @@ export class BoardComponent implements OnInit, AfterViewInit {
       // Handle successful uploads on complete
       // For instance, get the download URL: https://firebasestorage.googleapis.com/...
       uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-        // ? HOW TO GET ACCCES TO OUTSIDE FUNCTION, SOMETHING TO DO WITH THIS. ASK. 
+        // ? HOW TO GET ACCCES TO OUTSIDE FUNCTION, SOMETHING TO DO WITH THIS. ASK.
         console.log('File available at', downloadURL)
         // this.boardUtil.onAddComponent('image-upload', this.boardId, downloadURL )
         // this.addComponent('image-upload', downloadURL)
         const componentId = Math.floor(Math.random() * 1000)
         const db = firebase.database().ref()
-    
+
         db.child('room').child(`${boardId}`).child(`blocks/${componentId}`).set({
           id: componentId,
           src: downloadURL,
