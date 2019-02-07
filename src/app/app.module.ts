@@ -40,7 +40,10 @@ import { CircleDirective } from './shared/shapes/circle.directive';
 import { StarDirective } from './shared/shapes/star.directive';
 import { RectangleDirective } from './shared/shapes/rectangle.directive';
 import { DrawStarComponent } from './board/draw-star/draw-star.component';
-import { FrameBackgroundComponent } from './board/frame-background/frame-background.component'
+import { FrameBackgroundComponent } from './board/frame-background/frame-background.component';
+import { ImageUploadComponent } from './board/image-upload/image-upload.component';
+import { YoutubeUploadComponent } from './board/youtube-upload/youtube-upload.component';
+import { YoutubeFrameComponent } from './board/youtube-upload/youtube-frame/youtube-frame.component'
 
 
 @NgModule({
@@ -74,6 +77,9 @@ import { FrameBackgroundComponent } from './board/frame-background/frame-backgro
     RectangleDirective,
     DrawStarComponent,
     FrameBackgroundComponent,
+    ImageUploadComponent,
+    YoutubeUploadComponent,
+    YoutubeFrameComponent,
 
   ],
   imports: [
@@ -99,7 +105,9 @@ import { FrameBackgroundComponent } from './board/frame-background/frame-backgro
     DrawCircleComponent,
     DrawRectComponent,
     DrawStarComponent,
-    FrameBackgroundComponent
+    FrameBackgroundComponent,
+    ImageUploadComponent,
+    YoutubeFrameComponent
   ],
 })
 export class AppModule { }

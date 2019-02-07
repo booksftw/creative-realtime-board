@@ -1,6 +1,6 @@
-body {
+/* body {
   height: 100vh;
-}
+} */
 
 .portfolio-item {
   margin-bottom: 2em;
@@ -26,7 +26,7 @@ body {
     padding: 1em;
     margin: 0;
     background: #fff;
-    height: 100vh;
+    height: 65vh;
     box-shadow: 0 6px 6px rgba(0,0,0,0.5);
 }
 

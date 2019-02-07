@@ -18,7 +18,7 @@ export class BoardService {
     return 'testing board service works'
   }
 
-  onAddComponent(componentType, boardId) {
+  onAddComponent(componentType, boardId, options?) {
     const componentId = this.getRandomId()
     const db = firebase.database().ref()
     // Intialize position and obj in DB
@@ -120,6 +120,16 @@ export class BoardService {
       case 'frame-background':
       db.child('room').child(`${boardId}`).child(`blocks/${componentId}`).set({
         id: componentId,
+        left: 250,
+        top: 200,
+        type: componentType,
+        destroyThisComponent: false
+      })
+      break
+      case 'image-upload':
+      db.child('room').child(`${boardId}`).child(`blocks/${componentId}`).set({
+        id: componentId,
+        src: options,
         left: 250,
         top: 200,
         type: componentType,

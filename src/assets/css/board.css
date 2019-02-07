@@ -317,7 +317,10 @@ Extra (xl) large devices (large desktops, 1200px and up)
 
 
 
-
+/* ! HOT FIX  CSS - THERE IS A CONFLICT THROWING THE CSS OFF WE'RE FIXING BY OVERWRITING */
+li {
+  text-align:center;
+}
 
 
 

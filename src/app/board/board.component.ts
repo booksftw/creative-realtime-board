@@ -31,7 +31,8 @@ export class BoardComponent implements OnInit, AfterViewInit {
   db
   itemsRef
   enableDeleteComponent = false
-  show = false
+  showChat = false
+  showYoutubeInput = false
   boardId
   userDisplayName
   roomName
@@ -70,9 +71,9 @@ export class BoardComponent implements OnInit, AfterViewInit {
     console.log('change paint state', this.paintMode)
   }
 
-  onChatClick() {
-    this.show = !this.show
-  }
+  // onChatClick() {
+  //   this.show = !this.show
+  // }
 
   addComponent(componentType, options?) {
     // Silence is golden
