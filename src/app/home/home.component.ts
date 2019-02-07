@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router} from '@angular/router';
-import { UserService } from '../shared/user.service';
+import { Component, OnInit } from '@angular/core'
+import { Router} from '@angular/router'
+import { UserService } from '../shared/user.service'
 
 @Component({
   selector: 'app-home',

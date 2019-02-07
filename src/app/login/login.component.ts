@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core'
-import * as firebaseui from 'firebaseui'
 // import * as firebase from '../../../node_modules/firebase'
 // import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/auth'

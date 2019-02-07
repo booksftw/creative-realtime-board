@@ -2,7 +2,7 @@
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 /* *{
-    cursor: grab; 
+    cursor: grab;
 } */
 
 /* Board background */
@@ -35,20 +35,20 @@ body {
 
 .sticky-note {
     float: left;
-    padding: 25px 25px 40px;
+    padding: 10px 10px 20px;
     /* margin: 0 20px 20px 20px; */
-    width: 120px;
-    height: 120px;
-    font: 20px 'Shadows Into Light', monospace;
+    width: 150px;
+    height: 150px;
+    font: 16px 'Shadows Into Light', monospace;
     line-height: 1.5;
     border: 0;
-    border-radius: 3px;
-    background: linear-gradient(#F9EFAF, #F7E98D);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    background: linear-gradient(#F9EFAF, #F7E97D);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     transition: box-shadow 0.5s ease;
     font-smoothing: subpixel-antialiased;
-    resize: none;
+    resize: auto;
     /*  max-width:250px;
     max-height:250px;*/
 }
@@ -91,7 +91,7 @@ body {
     bottom: 0;
 }
 
-/* VIDEO TEST */ 
+/* VIDEO TEST */
 video {
     background-color: #ddd;
     border-radius: 7px;
@@ -101,6 +101,11 @@ video {
 }
 
 button {
-    margin: 5px 0px 0px 10px !important;
-    width: 654px;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
 }

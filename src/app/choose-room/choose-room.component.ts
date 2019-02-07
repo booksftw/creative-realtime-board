@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core'
+import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core'
 import { AngularFireDatabase } from '@angular/fire/database'
 import { ActivatedRoute, Router } from '@angular/router'
 import { BoardStateService } from 'src/app/shared/board-state.service'
@@ -14,20 +14,28 @@ export class ChooseRoomComponent implements OnInit {
   roomSnapshotListener
   userDisplayListener
   roomName
+  randomCreatedRoomNames = [
+    'Fiasco Board', 'Unicorn Board', 'Fun Board', 'LOL Board', 'Taylor Swift Board', 'Doug the Pug Board',
+    'Disney Board', 'Howdy Board', 'A Random Board']
+  randomWordForThisBoard
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private db: AngularFireDatabase,
-    private boardState: BoardStateService
+    private boardState: BoardStateService,
+    private el: ElementRef
   ) { }
 
   ngOnInit() {
+    this.randomWordForThisBoard = this.getRandomName()
     this.route.queryParams.subscribe(data => {
       this.userDisplayName = data.displayName
       console.log('user display name', this.userDisplayName)
     })
 
     this.roomSnapshotListener = this.db.list('room').snapshotChanges().subscribe(rooms => {
+      const savedRooms = []
       rooms.forEach(room => {
         const roomId = room.key
         const roomData = room.payload.val()
@@ -35,13 +43,22 @@ export class ChooseRoomComponent implements OnInit {
         this.roomName = room.payload.val().name
         // @ts-ignore
         const roomName = room.payload.val().name
-        const roomDataForView = {id: roomId, name: roomName}
-        this.exisitingRooms.push(roomDataForView)
+        const roomDataForView = { id: roomId, name: roomName }
+        savedRooms.push(roomDataForView)
       })
-
-      console.log(this.exisitingRooms, ' existing rooms')
+      this.exisitingRooms = savedRooms
     })
 
+  }
+
+  getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+
+  getRandomName() {
+    const randomKey = this.getRandomInt(this.randomCreatedRoomNames.length)
+    const randomName = this.randomCreatedRoomNames[randomKey]
+    return randomName
   }
 
   onJoinRoom(id) {
@@ -51,14 +68,21 @@ export class ChooseRoomComponent implements OnInit {
     this.userDisplayListener.unsubscribe()
   }
   onCreateRoom() {
-    const id = Math.floor(Math.random() * 100000)
+    const id = Math.floor(Math.random() * 1000000000000)
+    const newRoomName = this.el.nativeElement.querySelector('.createRoomInput').value
+    console.log('new room name', newRoomName)
 
     this.db.object(`room/${id}`).set({
-      name: 'Unicorn Room',
+      name: newRoomName,
       blocks: {}
     })
 
-    this.router.navigate(['/board'], { queryParams: { roomId: id, userDisplayName: this.userDisplayName } })
+    this.router.navigate(['/board'], {
+      queryParams: {
+        roomId: id, roomName: newRoomName,
+        userDisplayName: this.userDisplayName
+      }
+    })
     // Unsubscribe to listeners
     this.roomSnapshotListener.unsubscribe()
     this.userDisplayListener.unsubscribe()

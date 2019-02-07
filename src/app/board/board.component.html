@@ -1,66 +1,65 @@
-<!--  -->
 
-<div class="board_container" #entry>
+<div class="board_container" >
 
-  <div>
-    <!-- Jim designs-->
-    <ul class="toolbar top cf">
-      <li routerLink="" class="home"><a><i class="fas fa-home"></i></a></li>
-      <li class="pName"><a (click)="onChangeRoomName()"><i class="far">{{roomName}}</i></a></li>
-      <li class="camera"><a href="#>"><i class="fas fa-camera"></i></a></li>
-    </ul>
-    <!-- <a href="#"><img class="logo3" src="../doc/logo3.png"></a> Need to link to logo -->
+  <div #frameEntry>   
   </div>
 
+  <app-youtube-upload *ngIf='showYoutubeInput'></app-youtube-upload>
 
-  <!-- Magic happens here -->
-  <!-- <div style="position:relative;top:200px"> -->
-  <!-- <button mat-raised-button color="primary" (click)='addComponent("sticky-note")'>Generate StickyNote</button> -->
-  <!-- <button mat-button color="primary" (click)='addComponent("draw-pen-canvas")'>Generate Draw Canvas</button> -->
-  <!-- <button mat-button color="warning" (click)='addComponent("draw-shape")'>Generate Draw Shape</button> -->
-  <!-- <button mat-button color="secondary" (click)='addComponent("text-editor")'>Generate Text Editor</button> -->
-  <!-- <button mat-button color="primary" (click)='addComponent("altra-paint-canvas")'>Generate Draw Altra Paint Canvas</button> -->
-  <!-- </div> -->
+  <div class ="board_inner_container" #entry>
+      <app-altra-paint [boardId]="boardId"></app-altra-paint>
 
+      <div>
+        <!-- Jim designs-->
+        <ul class="toolbar top cf">
+          <li routerLink="" class="home"><a><i class="fas fa-home"></i></a></li>
+          <li class="pName"><a (click)="onChangeRoomName()"><i class="far">{{roomName}}</i></a></li>
+          <!-- <li class="camera"><a href="#>"><i class="fas fa-camera"></i></a></li> -->
+        </ul>
+        <!-- <a href="#"><img class="logo3" src="../doc/logo3.png"></a> Need to link to logo -->
+      </div>
+    
+    
+      <div>
+        <ul class="toolbar left cf">
+          <!-- <li><a href="#>"><i class="fas fa-mouse-pointer"></i></a></li> -->
+          <li><a (click)='changePaintState("draw")'><i class="fas fa-paint-brush"></i></a></li>
+          <li><a (click)='changePaintState("erase")'><i class="fas fa-eraser"></i></a></li>
+          <li><a (click)='addComponent("sticky-note")'><i class="far fa-sticky-note"></i></a></li>
+          <li><a (click)='addComponent("text-editor")'><i class="fas fa-text-width"></i></a></li>
+          <!-- <li><a href="#>"><i class="fas fa-arrow-right"></i></a></li> -->
+          <li><a (click)='addComponent("draw-star")'><i class="far fa-star"></i></a></li>
+          <li><a (click)='addComponent("draw-circle")'><i class="far fa-circle"></i></a></li>
+          <li><a (click)='addComponent("draw-rectangle")'><i class="far fa-square"></i></a></li>
+          <!-- <li><a (click)='addComponent("draw-shape")'><i class="far fa-bookmark"></i></a></li> -->
+          <li><input (change)="onFileSelected($event)" type="file" name="file" id="file" class="inputfile" /><label for="file"><i class="far fa-image addPic"></i></label></li>
 
-  <div>
-    <ul class="toolbar cf">
-      <!-- <li><a href="#>"><i class="fas fa-mouse-pointer"></i></a></li> -->
-      <li><a (click)='addComponent("atra-paint-canvas")'><i class="fas fa-pen"></i></a></li>
-      <li><a (click)='addComponent("sticky-note")'><i class="far fa-sticky-note"></i></a></li>
-      <li><a (click)='addComponent("text-editor")'><i class="fas fa-text-width"></i></a></li>
-      <!-- <li><a href="#>"><i class="fas fa-arrow-right"></i></a></li> -->
-      <li><a (click)='addComponent("draw-shape")'><i class="far fa-square"></i></a></li>
-      <li><a href="#>"><i class="far fa-image"></i></a></li>
-      <li>
-        <p>canvas icon</p>
-      </li>
-      <!-- <li><input type="file" name="pic" accept="image/*"></li> -->
-      <!-- <li><a href="#>"><i class="fas fa-eraser"></i></a></li> -->
-    </ul>
+          <!-- <li><a (click)="showYoutubeInput = !showYoutubeInput"><i class="fab fa-youtube"></i></a></li> -->
+
+          <li><a (click)='addComponent("frame-background")'><i class="fas fa-chalkboard"></i></a></li>
+          <li><a (click)="changePaintState('clear')"><i class="fas fa-skull-crossbones"></i></a></li>
+          <!-- <li><input type="file" name="pic" accept="image/*"></li> -->
+          <!-- <li><a href="#>"><i class="fas fa-eraser"></i></a></li> -->
+        </ul>
+      </div>
+    
+  
+      <app-chatbox *ngIf="showChat" > </app-chatbox>
+    
+      <div>
+        <ul class="toolbar bottom cf">
+          <li>
+            <a (click)='addComponent("video-stream-frame")'>
+              <i class="fas fa-video"></i>
+            </a></li>
+          <li>
+            <a (click)="showChat = !showChat">
+              <i class="fas fa-comment"></i>
+            </a></li>
+        </ul>
+      </div>
   </div>
 
-  <app-chatbox 
-  *ngIf="show"
-  >
-</app-chatbox>
-  <div>
-    <ul class="toolbar bottom cf">
-      <li>
-        <a (click)="show = !show">
-          <i class="fas fa-comment"></i>
-        </a></li>
-    </ul>
-  </div>
-
-
-  <button (click)='addComponent("video-stream-frame")'>ADD VIDEO FRAME</button>
-
-  <!-- <iframe src="https://appr.tc/" width=800px height=400px allow="geolocation; microphone; camera">
-    <p>Your browser does not support iframes.</p>
-  </iframe> -->
-  <!-- <iframe width="90%" height="500px" src="//appr.tc" allow="geolocation; microphone; camera"></iframe> -->
-
-  <!-- <app-video-stream></app-video-stream> -->
+ 
 
 </div>

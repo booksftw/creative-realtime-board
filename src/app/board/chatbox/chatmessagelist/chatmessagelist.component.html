@@ -1,10 +1,10 @@
-<p>
-  chatmessagelist works!
+<p class="chatRoom">
+  Chat Room
 </p>
 
-<div>
-  <ul>
-    <li *ngFor="let message of messages | async">
+<div class="chatBox">
+  <ul class="chatListBox">
+    <li class="chatList" *ngFor="let message of messages | async">
       {{ message.userDisplayName}}:     {{message.message}}
     </li>
   </ul>

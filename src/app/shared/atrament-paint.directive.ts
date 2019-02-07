@@ -6,22 +6,18 @@ import * as firebase from '../../../node_modules/firebase'
   selector: '[appAtramentPaint]'
 })
 export class AtramentPaintDirective implements OnInit, AfterViewInit {
-  @Input() canvasTag: string
-  sketcher
+  // @Input() canvasTag: string
+  // sketcher
   constructor(
-    private el: ElementRef
-  ) {  }
+    // private el: ElementRef
+  ) { }
 
 
   ngOnInit() {
-    this.sketcher = Atrament(this.el.nativeElement, 1000, 1000, 'orange')
+    // this.sketcher = Atrament(this.el.nativeElement, 1000, 1000, 'orange')
 
-    const canvas = this.el.nativeElement
-    const canvasId = this.canvasTag
-
-    // ! Drawing Intial Sync
-    // ! The data url needs to be sup in afterviewInit
-    // ! Do this in the component
+    // const canvas = this.el.nativeElement
+    // const canvasId = this.canvasTag
     // const myImage = new Image()
     // const ctx = canvas.getContext('2d')
     // const db = firebase.database().ref()
@@ -44,29 +40,27 @@ export class AtramentPaintDirective implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const canvas = this.el.nativeElement
-    const canvasId = this.canvasTag
+  //   const canvas = this.el.nativeElement
+  //   const canvasId = this.canvasTag
+  //   const dataUrl = this.sketcher.toImage()
 
-    const dataUrl = this.sketcher.toImage()
-    // const dataUrl = this.sketcher.toDataURL('image/jpeg')
+  //   // ~ Disabled for now - You can activate it by splitting the array sending to firebase and joining it together to render it
+  //   function autoSaveToDB(canvasId) {
+  //     setInterval(() => {
+  //       // const dataUrl = this.sketcher.toImage()
+  //       console.log('DATA URL' , dataUrl, 'save')
+  //       const db = firebase.database().ref()
+  //       db
+  //         .child('room')
+  //         .child('0')
+  //         .child(`blocks/${canvasId}`)
+  //         .update({
+  //           content: dataUrl
+  //         })
+  //     }, 5000)
+  //   }
+  //   autoSaveToDB(dataUrl)
+  // }
 
-    // ~ Disabled for now - You can activate it by splitting the array sending to firebase and joining it together to render it
-    function autoSaveToDB(canvasId) {
-      setInterval(() => {
-        // const dataUrl = this.sketcher.toImage()
-        console.log('DATA URL' , dataUrl, 'save')
-        const db = firebase.database().ref()
-        db
-          .child('room')
-          .child('0')
-          .child(`blocks/${canvasId}`)
-          .update({
-            content: dataUrl
-          })
-      }, 5000)
-    }
-    autoSaveToDB(dataUrl)
   }
-
-  
 }

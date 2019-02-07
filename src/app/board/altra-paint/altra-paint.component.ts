@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, ElementRef, AfterViewInit, Input, HostListener } from '@angular/core'
+import * as Atrament from '../../../assets/js/attrament-paint'
 import * as firebase from '../../../../node_modules/firebase'
 import { BoardStateService } from 'src/app/shared/board-state.service'
 
@@ -7,86 +8,95 @@ import { BoardStateService } from 'src/app/shared/board-state.service'
   templateUrl: './altra-paint.component.html',
   styleUrls: ['./altra-paint.component.css']
 })
-export class AltraPaintComponent implements OnInit {
-  canvasId
+export class AltraPaintComponent implements OnInit, AfterViewInit {
   canvasData
-  leftX
-  topY
   db = firebase.database().ref()
-  compRef
-  boardId
+
+  sketcher
+  @Input() boardId
+  canvasMode
 
   constructor(
-    private state: BoardStateService
+    private state: BoardStateService,
+    private el: ElementRef
   ) { }
+
+  changeMode(mode) {
+    const canvas = this.el.nativeElement.querySelector('#mySketcher')
+    const ctx = canvas.getContext('2d')
+    const boardId = this.boardId
+    const dataURL = this.sketcher.toImage()
+
+    console.log(mode , 'change mode')
+    // update firebase
+    switch (mode) {
+      case 'clear':
+        this.db.child('room').child(`${boardId}`).child('canvas').update({
+          canvasData: 'clear'
+        })
+        break
+      case 'draw':
+        this.sketcher.weight = 6 // in pixels
+        this.sketcher.mode = 'draw'
+        break
+      case 'erase':
+      this.sketcher.weight = 40 // in pixels
+      console.log(mode, 'erase mode online')
+        this.sketcher.mode = 'erase'
+        break
+      default:
+        break
+    }
+
+  }
 
   ngOnInit() {
     const boardId = this.boardId
-    this.db
-      .child('room')
-      .child(`${boardId}`)
-      .child('blocks')
-      .child(`${this.canvasId}`)
-      .on('value', snap => {
-        // Sync drag position
-        this.leftX = snap.val().left
-        this.topY = snap.val().top
-        // Sync destory components
-        const destroyThisComponent = snap.val().destroyThisComponent
-        if (destroyThisComponent) {
-          const compRef = this.state.componentRef[this.canvasId]
-          compRef.destroy()
-          this.db
-          .child('room')
-          .child(`${boardId}`)
-          .child('blocks')
-          .child(`${this.canvasId}`)
-          .set({})
-        }
-      })
+    const canvas = this.el.nativeElement.querySelector('#mySketcher')
+    this.sketcher = Atrament(canvas, 1900, 1900, 'orange')
+    this.sketcher.adaptiveStroke = true
+    this.sketcher.smoothing = true
+    this.sketcher.weight = 6 // in pixels
+    // this.sketcher.opacity = 0.8
+
+    // Render the state that's in the database
+    this.db.child('room').child(`${boardId}`).child('canvas').on('value', function (snapshot) {
+      const ctx = canvas.getContext('2d')
+
+      if (snapshot.val().canvasData === 'clear') {
+        console.log('init clear')
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        return
+      }
+
+      // Draw the canvas on update
+      const image = new Image()
+      image.onload = function () {
+        ctx.drawImage(image, 0, 0)
+      }
+      image.src = snapshot.val().canvasData
+
+
+    })
+
   }
 
-  onDeleteClick() {
-
-    this.db
-    .child('room')
-    .child(`${this.boardId}`)
-    .child('blocks')
-    .child(`${this.canvasId}`)
-    .update({ destroyThisComponent: true })
-  }
-
-  // For performance, I duplicate this code in each component.
-  dragElement(element) {
-    const elmnt = element.target
-    const elmntId = this.canvasId
+  onSave() {
+    const canvas = this.el.nativeElement.querySelector('#mySketcher')
     const boardId = this.boardId
-    element = element || window.event
-    element.preventDefault()
-    document.onmousemove = elementDrag
-    document.onmouseup = closeDragElement
+    const dataURL = this.sketcher.toImage()
+    const imgData = canvas.toDataURL()
 
-    function elementDrag(e) {
-      // Update firebase position
-      const x = e.clientX
-      const y = e.clientY
+    this.sketcher.clear()
+    this.db.child('room').child(`${boardId}`).child('canvas').update({
+      canvasData: imgData
+    })
 
-      const db = firebase.database().ref()
-      db.child('room')
-        .child(`${boardId}`)
-        .child('blocks')
-        .child(elmntId)
-        .update({
-          left: x,
-          top: y
-        })
-    }
+  }
 
-    function closeDragElement(e) {
-      // stop moving when mouse button is released:
-      document.onmouseup = null
-      document.onmousemove = null
-    }
+  ngAfterViewInit() {
+
+
   }
 
 }

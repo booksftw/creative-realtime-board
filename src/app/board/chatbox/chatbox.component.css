@@ -1,7 +1,23 @@
 .chat-container {
+    border-radius: 20px;
+    padding: 1em;
     position: fixed;
-    background-color: yellowgreen;
+    background-color: #fff;
     width: 27em;
-    right: 0;
-    bottom: 0;
+    right: 8px;
+    bottom: 4.5em;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, .5);
+}
+
+.chat-container[_ngcontent-c2] {
+    max-height: 30em;
+    min-height: 30em;
+    border-radius: 20px;
+    padding: 1em;
+    position: fixed;
+    background-color: #fff;
+    width: 27em;
+    right: 8px;
+    bottom: 4.5em;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, .5);
 }

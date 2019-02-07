@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChooseRoomComponent } from './choose-room.component';
+import { FrameBackgroundComponent } from './frame-background.component';
 
-describe('ChooseRoomComponent', () => {
-  let component: ChooseRoomComponent;
-  let fixture: ComponentFixture<ChooseRoomComponent>;
+describe('FrameBackgroundComponent', () => {
+  let component: FrameBackgroundComponent;
+  let fixture: ComponentFixture<FrameBackgroundComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChooseRoomComponent ]
+      declarations: [ FrameBackgroundComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChooseRoomComponent);
+    fixture = TestBed.createComponent(FrameBackgroundComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
