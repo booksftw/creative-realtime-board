@@ -3,9 +3,7 @@ import { Component, ViewChild, ViewContainerRef, ComponentFactoryResolver, OnIni
 import { AngularFireDatabase } from '@angular/fire/database'
 import { BoardService } from './../shared/board.service'
 import { BoardStateService } from './../shared/board-state.service'
-// import { DragService } from './../shared/drag.service'
 import * as $ from 'jquery'
-// import * as _ from '../../assets/third_party/lodash'
 import * as _ from '../../../node_modules/lodash'
 import * as firebase from '../../../node_modules/firebase'
 import { StickyNoteComponent } from './sticky-note/sticky-note.component'
@@ -20,7 +18,6 @@ import { DrawCircleComponent } from './draw-circle/draw-circle.component'
 import { DrawRectComponent } from './draw-rect/draw-rect.component'
 import { DrawStarComponent } from './draw-star/draw-star.component'
 import { ImageUploadComponent } from './image-upload/image-upload.component';
-
 
 @Component({
   selector: 'app-board',
@@ -52,8 +49,6 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
 
   changePaintState(mode) {
-    // ! USE VIEW CHILD TO CALL THE PAINT COMPONENT TO CLEAR THE CANVAS AND OTHER MODES
-
     switch (mode) {
       case 'clear':
         this.paintComp.changeMode('clear')
@@ -67,25 +62,15 @@ export class BoardComponent implements OnInit, AfterViewInit {
       default:
         break
     }
-
-    console.log('change paint state', this.paintMode)
   }
 
-  // onChatClick() {
-  //   this.show = !this.show
-  // }
-
   addComponent(componentType, options?) {
-    console.log('add component')
-    // Silence is golden
     this.boardUtil.onAddComponent(componentType, this.boardId , options )
   }
 
   ngOnInit() {
-
     this.route.queryParams.subscribe(data => {
       this.boardId = data.roomId
-      console.log(data, data.roomName)
       this.roomName = data.roomName
       this.userDisplayName = data.userDisplayName
       this.roomName = data.roomName
@@ -93,10 +78,8 @@ export class BoardComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // Init paint component first
-    // this.boardUtil.onAddComponent('atra-paint-canvas', this.boardId)
 
-    // Render Exisiting Components
+    // Render Components
     this.db = firebase.database().ref()
     this.db.child('room').child(`${this.boardId}`).child('blocks').on('child_added', (snapshot) => {
       const id = snapshot.val().id
@@ -227,14 +210,9 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
   onFileSelected(event) {
     // Create a root reference
-    console.log(event.target.files[0])
     const selectedFile = event.target.files[0]
-
     const storageRef = firebase.storage().ref()
-    console.log('@@@@', this.addComponent)
-
     const uploadTask = storageRef.child(`images/${selectedFile.name}`).put(selectedFile)
-
     const boardId = this.boardId
     // Register three observers:
     // 1. 'state_changed' observer, called any time the state changes
@@ -242,7 +220,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
     // 3. Completion observer, called on successful completion
     uploadTask.on('state_changed', (snapshot) => {
       // Observe state change events such as progress, pause, and resume
-      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded\
+      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
       // @ts-ignore
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
       console.log('Upload is ' + progress + '% done')
@@ -259,12 +237,9 @@ export class BoardComponent implements OnInit, AfterViewInit {
       // Handle unsuccessful uploads
     }, () => {
       // Handle successful uploads on complete
-      // For instance, get the download URL: https://firebasestorage.googleapis.com/...
       uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
         // ? HOW TO GET ACCCES TO OUTSIDE FUNCTION, SOMETHING TO DO WITH THIS. ASK.
         console.log('File available at', downloadURL)
-        // this.boardUtil.onAddComponent('image-upload', this.boardId, downloadURL )
-        // this.addComponent('image-upload', downloadURL)
         const componentId = Math.floor(Math.random() * 1000)
         const db = firebase.database().ref()
 

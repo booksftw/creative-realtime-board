@@ -21,21 +21,6 @@ export class DrawPenComponent implements OnInit, AfterViewInit {
     const canvas = this.canvasEl.nativeElement
     const ctx = canvas.getContext('2d')
 
-
-    // this.db
-    //   .child('room')
-    //   .child('0')
-    //   .child('blocks')
-    //   .child(`${this.canvasId}`)
-    //   .once('value', snap => {
-    //     ctx.closePath()
-    //     ctx.beginPath()
-    //     // Draw here
-    //     console.log('moveToX', snap.val().drawMoveToX, 'moveToY', snap.val().drawMoveToY)
-    //     ctx.moveTo(snap.val().drawMoveToX, snap.val().drawMoveToY)
-    //   })
-
-
   }
 
   ngAfterViewInit() {

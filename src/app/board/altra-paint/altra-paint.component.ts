@@ -56,7 +56,6 @@ export class AltraPaintComponent implements OnInit, AfterViewInit {
     this.sketcher.adaptiveStroke = true
     this.sketcher.smoothing = true
     this.sketcher.weight = 6 // in pixels
-    // this.sketcher.opacity = 0.8
 
     // Render the state that's in the database
     this.db.child('room').child(`${boardId}`).child('canvas').on('value', function (snapshot) {

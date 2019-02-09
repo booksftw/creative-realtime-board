@@ -1,4 +1,3 @@
-<!-- <div [id]="stickyId" (mousedown)="dragElement($event)" #stickyNote class="newDrag"  [style.left.px]="leftX" [style.top.px]="topY"> -->
 <div [id]="stickyId" #stickyNote class="newDrag" [style.left.px]="leftX" [style.top.px]="topY">
   <div id="dragHeader" (mousedown)="dragElement($event)" cdkDragHandle>
     <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
@@ -12,6 +11,3 @@
 
   <textarea class="sticky-note" (keyup)="userInput($event)">{{content}}</textarea>
 </div>
-
-
-<!-- <div [id]="stickyId" class="draggable" [ngStyle]="intialPos"> -->

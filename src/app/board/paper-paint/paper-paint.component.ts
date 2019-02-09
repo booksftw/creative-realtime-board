@@ -24,25 +24,10 @@ export class PaperPaintComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    // paper.install(window)
     this.scope = new PaperScope()
     this.project = new Project(this.canvasElement.nativeElement)
 
-    // const canvas = this.canvasElement.nativeElement
-    // paper.setup(canvas)
-
-    // this.path = new paper.Path()
-    // // Give the stroke a color
-    // this.path.strokeColor = 'black'
     const start = new paper.Point(100, 100)
-    console.log('paper point', start)
-    // // Move to start and draw a line from there
-    // this.path.moveTo(start)
-    // // Note that the plus operator on Point objects does not work
-    // // in JavaScript. Instead, we need to call the add() function:
-    // this.path.lineTo(start.add([200, -50]))
-    // // Draw the view now:
-    // paper.view.draw()
 
     this.db
       .child('room')
@@ -56,7 +41,6 @@ export class PaperPaintComponent implements OnInit {
   }
 
   onMouseDown(event) {
-    // console.log('mouse down')
     this.myPath = new Path()
     this.myPath.strokeColor = 'black'
     document.onmousemove = this.onMouseDrag
@@ -65,7 +49,6 @@ export class PaperPaintComponent implements OnInit {
 
   onMouseDrag(event) {
     console.log('mouse drag', event)
-    // this.myPath.add(event.point)
   }
   
   onMouseUp(event) {

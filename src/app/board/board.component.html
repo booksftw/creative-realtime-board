@@ -1,63 +1,50 @@
+<div class="board_container">
 
-<div class="board_container" >
-
-  <div #frameEntry>   
+  <div #frameEntry>
   </div>
 
-  <div class ="board_inner_container" #entry>
-      <app-altra-paint [boardId]="boardId"></app-altra-paint>
+  <div class="board_inner_container" #entry>
+    <app-altra-paint [boardId]="boardId"></app-altra-paint>
 
-      <div>
-        <!-- Jim designs-->
-        <ul class="toolbar top cf">
-          <li routerLink="" class="home"><a><i class="fas fa-home"></i></a></li>
-          <li class="pName"><a (click)="onChangeRoomName()"><i class="far">{{roomName}}</i></a></li>
-          <!-- <li class="camera"><a href="#>"><i class="fas fa-camera"></i></a></li> -->
-        </ul>
-        <!-- <a href="#"><img class="logo3" src="../doc/logo3.png"></a> Need to link to logo -->
-      </div>
-    
-    
-      <div>
-        <ul class="toolbar left cf">
-          <!-- <li><a href="#>"><i class="fas fa-mouse-pointer"></i></a></li> -->
-          <li><a (click)='changePaintState("draw")'><i class="fas fa-paint-brush"></i></a></li>
-          <li><a (click)='changePaintState("erase")'><i class="fas fa-eraser"></i></a></li>
-          <li><a (click)='addComponent("sticky-note")'><i class="far fa-sticky-note"></i></a></li>
-          <li><a (click)='addComponent("text-editor")'><i class="fas fa-text-width"></i></a></li>
-          <!-- <li><a href="#>"><i class="fas fa-arrow-right"></i></a></li> -->
-          <li><a (click)='addComponent("draw-star")'><i class="far fa-star"></i></a></li>
-          <li><a (click)='addComponent("draw-circle")'><i class="far fa-circle"></i></a></li>
-          <li><a (click)='addComponent("draw-rectangle")'><i class="far fa-square"></i></a></li>
-          <!-- <li><a (click)='addComponent("draw-shape")'><i class="far fa-bookmark"></i></a></li> -->
-          <li><input (change)="onFileSelected($event)" type="file" name="file" id="file" class="inputfile" /><label for="file"><i class="far fa-image addPic"></i></label></li>
+    <div>
+      <!-- Jim designs-->
+      <ul class="toolbar top cf">
+        <li routerLink="" class="home"><a><i class="fas fa-home"></i></a></li>
+        <li class="pName"><a (click)="onChangeRoomName()"><i class="far">{{roomName}}</i></a></li>
+      </ul>
+    </div>
 
-          <!-- <li><a (click)="showYoutubeInput = !showYoutubeInput"><i class="fab fa-youtube"></i></a></li> -->
 
-          <li><a (click)='addComponent("frame-background")'><i class="fas fa-chalkboard"></i></a></li>
-          <li><a (click)="changePaintState('clear')"><i class="fas fa-skull-crossbones"></i></a></li>
-          <!-- <li><input type="file" name="pic" accept="image/*"></li> -->
-          <!-- <li><a href="#>"><i class="fas fa-eraser"></i></a></li> -->
-        </ul>
-      </div>
-    
-  
-      <app-chatbox *ngIf="showChat" > </app-chatbox>
-    
-      <div>
-        <ul class="toolbar bottom cf">
-          <li>
-            <a (click)='addComponent("video-stream-frame")'>
-              <i class="fas fa-video"></i>
-            </a></li>
-          <li>
-            <a (click)="showChat = !showChat">
-              <i class="fas fa-comment"></i>
-            </a></li>
-        </ul>
-      </div>
+    <div>
+      <ul class="toolbar left cf">
+        <li><a (click)='changePaintState("draw")'><i class="fas fa-paint-brush"></i></a></li>
+        <li><a (click)='changePaintState("erase")'><i class="fas fa-eraser"></i></a></li>
+        <li><a (click)='addComponent("sticky-note")'><i class="far fa-sticky-note"></i></a></li>
+        <li><a (click)='addComponent("text-editor")'><i class="fas fa-text-width"></i></a></li>
+        <li><a (click)='addComponent("draw-star")'><i class="far fa-star"></i></a></li>
+        <li><a (click)='addComponent("draw-circle")'><i class="far fa-circle"></i></a></li>
+        <li><a (click)='addComponent("draw-rectangle")'><i class="far fa-square"></i></a></li>
+        <li><input (change)="onFileSelected($event)" type="file" name="file" id="file" class="inputfile" /><label for="file"><i
+              class="far fa-image addPic"></i></label></li>
+        <li><a (click)='addComponent("frame-background")'><i class="fas fa-chalkboard"></i></a></li>
+        <li><a (click)="changePaintState('clear')"><i class="fas fa-skull-crossbones"></i></a></li>
+      </ul>
+    </div>
+
+    <app-chatbox *ngIf="showChat"> </app-chatbox>
+
+    <div>
+      <ul class="toolbar bottom cf">
+        <li>
+          <a (click)='addComponent("video-stream-frame")'>
+            <i class="fas fa-video"></i>
+          </a></li>
+        <li>
+          <a (click)="showChat = !showChat">
+            <i class="fas fa-comment"></i>
+          </a></li>
+      </ul>
+    </div>
   </div>
-
- 
 
 </div>

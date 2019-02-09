@@ -1,42 +1,24 @@
-
-<!-- <a routerLink='/board' queryParams="{test:'testing'}">Go to board</a> -->
-
-
-
-
 <div id="main">
-  <nav class="navbar navbar-expand-lg sticky-top">
-  <a class="navbar-brand" href="http://localhost:4200/">Hangout Board</a>
-</nav>
-<!--   <span class="sticky-top text-light" style="padding-left:1em;font-size:30px;cursor:pointer" onclick="openNav()">&#9776;  -->
-  <!-- <img class="logo" src="../assets/images/logo4.png"></span> -->
 
-<!--- Main Header -->
+  <!--- Main Header -->
   <div class="container-fluid heading">
     <div class="row text-center justify-content-center">
       <h1 class="display-2 col-12">Hangout Board</h1>
 
-      <!-- INLINE STYLE-->
-      <h3 class="col-12">Use Hangout Board to keep in touch and do whatever you want online.<br> Message friends, livestream video, draw your ideas,<br> and hop on your next adventure with one person or a group.</h3>
+      <h3 class="col-12">Use Hangout Board to keep in touch and do whatever you want online.<br> Message friends,
+        livestream video, draw your ideas,<br> and hop on your next adventure with one person or a group.</h3>
       <br>
-      <iframe width="1092" height="560" src="https://www.youtube.com/embed/ecPOHElleOo"
-      frameborder="5" allow="accelerometer;
-      autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-    </iframe>
-      <!-- <img src="https://media.giphy.com/media/jUwpNzg9IcyrK/giphy.gif"> -->
-      <img src="">
+      <iframe width="1092" height="560" src="https://www.youtube.com/embed/ecPOHElleOo" frameborder="5" allow="accelerometer;
+      autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
 
       <br>
     </div>
     <div class="row justify-content-center">
       <form>
-        <!-- <mat-form-field class="example-full-width"> -->
-          <input class="userDisplayNameInput" #userDisplayName placeholder="type your nickname ..">
-        <!-- </mat-form-field> -->
-        <!-- <a mat-button [routerLink]="['/choose']" [queryParams]="{ display_name: 'hello'}"> Get Started</a> -->
+        <input class="userDisplayNameInput" #userDisplayName placeholder="type your nickname ..">
         <button class="userGetStartedBtn btn btn-primary" (click)="onGetStarted(userDisplayName)">Get Started</button>
-        <!-- <input class="col-xs-2" type="text" name="nickname" placeholder="Type your nickname..."> -->
-        <!-- <button type="submit" class="col-xs-2 btn btn-primary btn-lg">Get Started</button> -->
       </form>
     </div>
   </div>
@@ -70,7 +52,6 @@
         <li>Have fun with stickers, gifs, images, avatars, and more</li>
         <li>All in realtime.</li>
       </ul>
-      <!-- <p class="lead">When will the curse rock after a sincere socket? The lay representative honors a smile with the unspecified sufferer. A reluctant epic plays with an arc beside the frequent leisure.</p> -->
     </div>
   </div>
 </div>
@@ -116,76 +97,31 @@
 
 <hr class="my-4">
 
-<!--- Connect -->
-<!-- <div class="container-fluid padding bg-light">
-  <div class="row text-center padding">
-    <div class="col-12">
-      <h2>Connect</h2>
-    </div>
-    <div class="container col-12 social padding">
-      <a href="#"><i class="fab fa-facebook"></i></a>
-      <a href="#"><i class="fab fa-twitter"></i></a>
-      <a href="#"><i class="fab fa-google-plus-g"></i></a>
-      <a href="#"><i class="fab fa-instagram"></i></a>
-      <a href="#"><i class="fab fa-youtube"></i></a>
-    </div>
-  </div>
-</div> -->
-
 <!--- Three Column Section -->
 <div class="container-fluid padding text-light use">
-    <div class="row text-center padding">
-      <div class="col-xs-12 col-sm-6 col-md-4 border border-light rounded">
-        <i class="fab fa-angular"></i>
-        <h3>ANGULAR</h3>
-        <p>Angular is a TypeScript-based open-source front-end web application framework led by the Angular Team at Google and by a community of individuals and corporations. Angular is a complete rewrite from the same team that built AngularJS.</p>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 border border-light rounded">
-        <i class="fas fa-bold"></i>
-        <h3>BOOTSTRAP</h3>
-        <p>Bootstrap is a free and open-source front-end framework for developing websites and web applications. It contains HTML and CSS-based design templates for typography, forms, buttons, navigation and other interface components, as well as optional JavaScript extensions.</p>
-      </div>
-      <div class="col-12 col-md-4 border border-light rounded">
-  <!--       <i class="fab fa-firebase"></i> -->
-        <img class="fire" src="../assets/images/firebase.png">
-        <h3>FIREBASE</h3>
-        <p>Firebase is a mobile and web application development platform developed by Firebase, Inc. in 2011, then acquired by Google in 2014. As of October 2018, the Firebase platform has 18 products, which are used by 1.5 million apps.</p>
-      </div>
+  <div class="row text-center padding">
+    <div class="col-xs-12 col-sm-6 col-md-4 border border-light rounded">
+      <i class="fab fa-angular"></i>
+      <h3>ANGULAR</h3>
+      <p>Angular is a TypeScript-based open-source front-end web application framework led by the Angular Team at
+        Google and by a community of individuals and corporations. Angular is a complete rewrite from the same team
+        that built AngularJS.</p>
     </div>
-    <hr class="my-4">
+    <div class="col-xs-12 col-sm-6 col-md-4 border border-light rounded">
+      <i class="fas fa-bold"></i>
+      <h3>BOOTSTRAP</h3>
+      <p>Bootstrap is a free and open-source front-end framework for developing websites and web applications. It
+        contains HTML and CSS-based design templates for typography, forms, buttons, navigation and other interface
+        components, as well as optional JavaScript extensions.</p>
+    </div>
+    <div class="col-12 col-md-4 border border-light rounded">
+      <!--       <i class="fab fa-firebase"></i> -->
+      <img class="fire" src="../assets/images/firebase.png">
+      <h3>FIREBASE</h3>
+      <p>Firebase is a mobile and web application development platform developed by Firebase, Inc. in 2011, then
+        acquired by Google in 2014. As of October 2018, the Firebase platform has 18 products, which are used by 1.5
+        million apps.</p>
+    </div>
   </div>
-<!--- Footer -->
-<!-- <footer>
-  <div class="container-fluid padding"> -->
-    <!-- <div class="row text-center">
-      <div class="col-md-4">
-        <img src="../assets/images/logo4.png">
-        <hr class="light">
-        <p>403-891-4711</p>
-        <p>email@hotmail.com</p>
-        <p>city, state, 000000</p>
-      </div>
-      <div class="col-md-4">
-        <hr class="light">
-        <h5>Our hours</h5>
-        <hr class="light">
-        <p>Monday: 9am - 5pm</p>
-        <p>Satuday: 10am - 4pm</p>
-        <p>Sunday: closed</p>
-      </div>
-      <div class="col-md-4">
-        <hr class="light">
-        <h5>Service Area</h5>
-        <hr class="light">
-        <p>city, state, 000000</p>
-        <p>city, state, 000000</p>
-        <p>city, state, 000000</p>
-        <p>city, state, 000000</p>
-      </div>
-      <div class="col-12">
-        <hr class="light-100">
-        <h5>&copy; w3newbie.com</h5>
-      </div>
-    </div> -->
-<!--   </div>
-</footer> -->
+  <hr class="my-4">
+</div>

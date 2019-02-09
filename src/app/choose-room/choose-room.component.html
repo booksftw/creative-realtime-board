@@ -1,18 +1,3 @@
-<!-- <button (click)="onCreateRoom()">Create Room</button> -->
-
-<!-- <div>
-  <h1>Exisiting room list here</h1>
-  <ul>
-    <li *ngFor="let room of exisitingRooms" (click)=onJoinRoom(room.id) style="cursor: pointer">
-      <a>
-        {{ room.name }} {{room.id}}
-      </a>
-    </li>
-  </ul>
- -->
-
-
-
 <div class="waveWrapper waveAnimation">
   <div class="waveWrapperInner bgTop">
     <div class="wave waveTop"></div>
@@ -24,14 +9,8 @@
     <div class="wave waveBottom"></div>
   </div>
 </div>
-<!--   <div class="sidenav">
-    <a href="#">About</a>
-    <a href="#">Services</a>
-    <a href="#">Clients</a>
-    <a href="#">Contact</a>
-  </div> -->
-  <!-- Page Content -->
-  <div class="row">
+<!-- Page Content -->
+<div class="row">
   <div class="container info col-2">
     <i class="fas fa-user-circle avatar"></i><br>
     <a class="nickname">{{userDisplayName}}</a>
@@ -41,12 +20,11 @@
 
     <!-- Page Heading -->
     <div class="container header col-10">
-    <h1 class="my-4">Room List</h1>
-  </div>
+      <h1 class="my-4">Hangout Spaces</h1>
+    </div>
 
-  <!-- SERT UP CREATE ROOM BUTTON-->
     <div class="row">
-      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item" >
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
         <div class="card h-100">
           <a></a>
           <div class="card-body">
@@ -59,13 +37,8 @@
         </div>
       </div>
 
-      <!-- <li *ngFor="let room of exisitingRooms" (click)=onJoinRoom(room.id) style="cursor: pointer">
-        <a>
-          {{ room.name }} {{room.id}}
-        </a>
-      </li> -->
-
-      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item" *ngFor="let room of exisitingRooms" (click)=onJoinRoom(room.id) style="cursor: pointer">
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item" *ngFor="let room of exisitingRooms" (click)=onJoinRoom(room.id)
+        style="cursor: pointer">
         <div class="card h-100">
           <a></a>
           <div class="card-body">
@@ -77,5 +50,4 @@
         </div>
       </div>
 
-  </div>
-
+    </div>
